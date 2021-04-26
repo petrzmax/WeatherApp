@@ -36,7 +36,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.4</version>
                 <configuration>
-                    <mainClass>pl.arturpetrzak.App</mainClass>
+                    <mainClass>pl.arturpetrzak.Launcher</mainClass>
                 </configuration>
             </plugin>
         </plugins>
