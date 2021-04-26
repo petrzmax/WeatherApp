@@ -18,8 +18,8 @@ public class ViewFactory {
     }
 
     public void showMainWindow() {
-        BaseController controller = new MainWindowController(this, "");
-        //init
+        BaseController controller = new MainWindowController(this, "MainWindow.fxml");
+        initializeStage(controller);
     }
 
     private void initializeStage(BaseController baseController) {
