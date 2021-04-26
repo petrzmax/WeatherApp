@@ -1,6 +1,9 @@
 module pl.arturpetrzak {
-    requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.controls;
+    requires javafx.graphics;
 
-    exports pl.arturpetrzak;
+    opens pl.arturpetrzak.view;
+    opens pl.arturpetrzak.controller;
+    opens pl.arturpetrzak to javafx.graphics;
 }
