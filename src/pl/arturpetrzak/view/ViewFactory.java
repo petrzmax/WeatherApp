@@ -9,9 +9,10 @@ import pl.arturpetrzak.controller.MainWindowController;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ViewFactory {
-    private ArrayList<Stage> activeStages;
+    private List<Stage> activeStages;
 
     public ViewFactory() {
         this.activeStages = new ArrayList<>();
