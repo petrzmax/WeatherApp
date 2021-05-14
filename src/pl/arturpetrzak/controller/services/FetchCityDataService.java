@@ -12,9 +12,12 @@ public class FetchCityDataService extends BaseApiService {
     }
 
     public String getCityId() {
-        JSONArray jsonArray = new JSONArray(jsonResponse);
-        JSONObject jsonObject = (JSONObject) jsonArray.get(0);
+        return jsonResponse.get("Key").toString();
+    }
 
-        return jsonObject.get("Key").toString();
+    @Override
+    protected JSONObject parseResponse(String response) {
+        JSONArray jsonArray = new JSONArray(response);
+        return (JSONObject) jsonArray.get(0);
     }
 }
