@@ -5,6 +5,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
+import org.json.JSONObject;
 import pl.arturpetrzak.controller.FetchDataResult;
 
 import java.io.IOException;
@@ -16,7 +17,7 @@ public abstract class BaseApiService extends Service<FetchDataResult> {
     protected final String CITY_PREFIX = "q=";
 
     protected String url;
-    protected String jsonResponse;
+    protected JSONObject jsonResponse;
     protected OkHttpClient client;
 
     public BaseApiService() {
@@ -47,7 +48,7 @@ public abstract class BaseApiService extends Service<FetchDataResult> {
                 throw new IOException("HttpRequestCode: " + response.code());
             }
 
-            jsonResponse = response.body().string();
+            jsonResponse = parseResponse(response.body().string());
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -74,4 +75,6 @@ public abstract class BaseApiService extends Service<FetchDataResult> {
                 return FetchDataResult.FAILED_BY_UNEXPECTED_ERROR;
         }
     }
+
+    protected abstract JSONObject parseResponse(String response);
 }
