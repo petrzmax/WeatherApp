@@ -10,9 +10,12 @@ public class FetchWeatherService extends BaseApiService {
         url = Config.getDailyWeatherForecastApiUrl() + cityId + "?" + API_KEY_PREFIX + Config.getApiKey();
     }
 
-
     public JSONObject getWeatherData() {
-        JSONObject jsonObject = new JSONObject(jsonResponse);
-        return jsonObject;
+        return jsonResponse;
+    }
+
+    @Override
+    protected JSONObject parseResponse(String response) {
+        return new JSONObject(response);
     }
 }
