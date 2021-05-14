@@ -20,6 +20,16 @@
             <artifactId>javafx-fxml</artifactId>
             <version>17-ea+7</version>
         </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20210307</version>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>2.7.5</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
