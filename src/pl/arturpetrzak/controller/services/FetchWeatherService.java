@@ -7,7 +7,7 @@ public class FetchWeatherService extends BaseApiService {
 
     public FetchWeatherService(String cityId) {
         super();
-        url = Config.getDailyWeatherForecastApiUrl() + cityId + "?" + API_KEY_PREFIX + Config.getApiKey();
+        url = Config.getDailyWeatherForecastApiUrl() + cityId + "?" + API_KEY_PREFIX + Config.getAccuWeatherApiKey();
     }
 
     public JSONObject getWeatherData() {
