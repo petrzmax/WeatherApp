@@ -8,7 +8,7 @@ public class FetchCityDataService extends BaseApiService {
 
     public FetchCityDataService(String city) {
         super();
-        url = Config.getCitySearchApiUrl() + "?" + CITY_PREFIX + city + "&" + API_KEY_PREFIX + Config.getApiKey();
+        url = Config.getCitySearchApiUrl() + "?" + CITY_PREFIX + city + "&" + API_KEY_PREFIX + Config.getAccuWeatherApiKey();
     }
 
     public String getCityId() {
