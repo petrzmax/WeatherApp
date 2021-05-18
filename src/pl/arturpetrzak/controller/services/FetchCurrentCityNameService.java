@@ -8,7 +8,7 @@ public class FetchCurrentCityNameService extends BaseApiService{
 
     public FetchCurrentCityNameService() {
         super();
-        url = Config.getCurrentCityByIpApiUrl() + "?fields=location&" + API_KEY_PREFIX + Config.getIpstackApiKey();
+        url = Config.getCurrentCityByIpApiUrl() + "?" + API_KEY_PREFIX + Config.getIpstackApiKey();
     }
 
     public String getCountryName() {
