@@ -43,8 +43,8 @@
                <children>
                   <Label layoutX="20.0" layoutY="16.0" text="Country" />
                   <Label layoutX="21.0" layoutY="50.0" text="City" />
-                  <Label fx:id="currentCountryLabel" layoutX="95.0" layoutY="16.0" />
-                  <Label fx:id="currentCityLabel" layoutX="77.0" layoutY="50.0" />
+                  <Label fx:id="currentCountryLabel" layoutX="95.0" layoutY="16.0" prefHeight="16.0" prefWidth="154.0" />
+                  <Label fx:id="currentCityLabel" layoutX="95.0" layoutY="50.0" prefHeight="16.0" prefWidth="154.0" />
                </children>
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
@@ -54,6 +54,11 @@
                   <TextField fx:id="countryTextField" layoutX="91.0" layoutY="14.0" />
                   <TextField fx:id="cityTextField" layoutX="91.0" layoutY="48.0" />
                   <Button layoutX="330.0" layoutY="48.0" mnemonicParsing="false" onAction="#checkGivenDataWeatherAction" text="Check" />
+               </children>
+            </Pane>
+            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+               <children>
+                  <Label fx:id="currentLocalizationWeatherMessageLabel" layoutX="14.0" layoutY="14.0" prefHeight="46.0" prefWidth="416.0" wrapText="true" />
                </children>
             </Pane>
          </children>
