@@ -3,10 +3,10 @@ package pl.arturpetrzak.controller.services;
 import org.json.JSONObject;
 import pl.arturpetrzak.Config;
 
-public class FetchCurrentCityDataService extends BaseApiService{
+public class FetchCurrentLocalizationService extends BaseApiService{
     protected final String API_KEY_PREFIX = "access_key=";
 
-    public FetchCurrentCityDataService() {
+    public FetchCurrentLocalizationService() {
         super();
         url = Config.getCurrentCityByIpApiUrl() + "?" + API_KEY_PREFIX + Config.getIpstackApiKey();
     }
