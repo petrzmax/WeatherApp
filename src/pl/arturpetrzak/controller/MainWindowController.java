@@ -3,9 +3,10 @@ package pl.arturpetrzak.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import pl.arturpetrzak.DailyForecastManager;
 import pl.arturpetrzak.view.ViewFactory;
 
-public class MainWindowController extends BaseController{
+public class MainWindowController extends BaseController {
 
     @FXML
     private Label currentCountryLabel;
@@ -20,13 +21,20 @@ public class MainWindowController extends BaseController{
     private TextField cityTextField;
 
     @FXML
+    void checkGivenDataWeatherAction() {
+
+    }
+
+    @FXML
     void refreshAction() {
-        
+
     }
 
 
-    public MainWindowController(ViewFactory viewFactory, String fxmlName) {
-        super(viewFactory, fxmlName);
+    public MainWindowController(DailyForecastManager dailyForecastManager, ViewFactory viewFactory, String fxmlName) {
+        super(dailyForecastManager, viewFactory, fxmlName);
+        dailyForecastManager.getCurrentCityData();
     }
+
 
 }

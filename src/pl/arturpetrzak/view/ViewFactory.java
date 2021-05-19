@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import pl.arturpetrzak.DailyForecastManager;
 import pl.arturpetrzak.controller.BaseController;
 import pl.arturpetrzak.controller.MainWindowController;
 
@@ -13,13 +14,15 @@ import java.util.List;
 
 public class ViewFactory {
     private List<Stage> activeStages;
+    private DailyForecastManager dailyForecastManager;
 
-    public ViewFactory() {
+    public ViewFactory(DailyForecastManager dailyForecastManager) {
         this.activeStages = new ArrayList<>();
+        this.dailyForecastManager = dailyForecastManager;
     }
 
     public void showMainWindow() {
-        BaseController controller = new MainWindowController(this, "MainWindow.fxml");
+        BaseController controller = new MainWindowController(dailyForecastManager, this, "MainWindow.fxml");
         initializeStage(controller);
     }
 

@@ -4,16 +4,12 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import pl.arturpetrzak.view.ViewFactory;
 
-
-/**
- * JavaFX App
- */
 public class Launcher extends Application {
 
     @Override
     public void start(Stage stage) {
 
-        ViewFactory viewFactory = new ViewFactory();
+        ViewFactory viewFactory = new ViewFactory(new DailyForecastManager());
         viewFactory.showMainWindow();
     }
 
