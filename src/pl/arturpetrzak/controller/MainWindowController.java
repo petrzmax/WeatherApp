@@ -4,9 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import pl.arturpetrzak.DailyForecastManager;
+import pl.arturpetrzak.Observer;
 import pl.arturpetrzak.view.ViewFactory;
 
-public class MainWindowController extends BaseController {
+public class MainWindowController extends BaseController implements Observer {
 
     @FXML
     private Label currentCountryLabel;
@@ -33,8 +34,14 @@ public class MainWindowController extends BaseController {
 
     public MainWindowController(DailyForecastManager dailyForecastManager, ViewFactory viewFactory, String fxmlName) {
         super(dailyForecastManager, viewFactory, fxmlName);
+        dailyForecastManager.addObserver(this);
         dailyForecastManager.getCurrentCityData();
     }
 
 
+    @Override
+    public void update() {
+        currentCountryLabel.setText(dailyForecastManager.getCurrentCountryName());
+        currentCityLabel.setText(dailyForecastManager.getCurrentCityName());
+    }
 }
