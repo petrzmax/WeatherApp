@@ -10,12 +10,18 @@ import pl.arturpetrzak.model.DailyForecast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DailyForecastManager {
+public class DailyForecastManager implements Observable{
+    private List<Observer> observers;
+
     private JSONObject headline;
     private List<DailyForecast> dailyForecasts = new ArrayList();
     private String currentCountryName = "";
     private String currentCityName = "";
     private String currentCityId = "";
+
+    public DailyForecastManager() {
+        observers = new ArrayList<>();
+    }
 
     public void loadWeatherData (JSONObject weatherData) {
         headline = weatherData.getJSONObject("Headline");
@@ -51,7 +57,7 @@ public class DailyForecastManager {
         fetchWeatherService.start();
         fetchWeatherService.setOnSucceeded(event -> {
             loadWeatherData(fetchWeatherService.getWeatherData());
-
+            notifyObservers();
         });
     }
 
@@ -61,5 +67,20 @@ public class DailyForecastManager {
 
     public String getCurrentCityName() {
         return currentCityName;
+    }
+
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        observers.forEach(Observer:: update);
     }
 }
