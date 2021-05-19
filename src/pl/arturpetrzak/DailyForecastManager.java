@@ -69,6 +69,10 @@ public class DailyForecastManager implements Observable{
         return currentCityName;
     }
 
+    public String getWeatherMessage() {
+        return headline.getString("Text");
+    }
+
     @Override
     public void addObserver(Observer observer) {
         observers.add(observer);

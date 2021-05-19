@@ -22,6 +22,9 @@ public class MainWindowController extends BaseController implements Observer {
     private TextField cityTextField;
 
     @FXML
+    private Label currentLocalizationWeatherMessageLabel;
+
+    @FXML
     void checkGivenDataWeatherAction() {
 
     }
@@ -43,5 +46,6 @@ public class MainWindowController extends BaseController implements Observer {
     public void update() {
         currentCountryLabel.setText(dailyForecastManager.getCurrentCountryName());
         currentCityLabel.setText(dailyForecastManager.getCurrentCityName());
+        currentLocalizationWeatherMessageLabel.setText(dailyForecastManager.getWeatherMessage());
     }
 }
