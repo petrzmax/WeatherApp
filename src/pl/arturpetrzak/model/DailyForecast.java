@@ -31,4 +31,20 @@ public class DailyForecast {
     public float getMaximumTemperature() {
         return maximumTemperature;
     }
+
+    public int getDayIconNumber() {
+        return day.getInt("Icon");
+    }
+
+    public String getDayWeatherDescription() {
+        return day.getString("IconPhrase");
+    }
+
+    public String getNightWeatherDescription() {
+        return night.getString("IconPhrase");
+    }
+
+    public int getNightIconNumber() {
+        return night.getInt("Icon");
+    }
 }
