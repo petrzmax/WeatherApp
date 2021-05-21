@@ -61,6 +61,10 @@ public class DailyForecastManager implements Observable{
         });
     }
 
+    public List<DailyForecast> getDailyForecasts() {
+        return dailyForecasts;
+    }
+
     public String getCurrentCountryName() {
         return currentCountryName;
     }
