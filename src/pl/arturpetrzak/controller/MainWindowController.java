@@ -56,5 +56,21 @@ public class MainWindowController extends BaseController implements Observer {
         currentCountryLabel.setText(dailyForecastManager.getCurrentCountryName());
         currentCityLabel.setText(dailyForecastManager.getCurrentCityName());
         currentLocalizationWeatherMessageLabel.setText(dailyForecastManager.getWeatherMessage());
+
+        DailyForecastRepresentation dailyForecastRepresentation = new DailyForecastRepresentation();
+        WeatherIconResolver weatherIconResolver = new WeatherIconResolver();
+
+        List<DailyForecast> dailyForecasts = dailyForecastManager.getDailyForecasts();
+
+        for(DailyForecast dailyForecast: dailyForecasts) {
+            currentCityWeatherHBox.getChildren().add(
+                dailyForecastRepresentation.getDailyForecastRepresentation(
+                        dailyForecast,
+                        weatherIconResolver.getIconForWeather(dailyForecast.getDayIconNumber(), 120),
+                        weatherIconResolver.getIconForWeather(dailyForecast.getNightIconNumber(), 120))
+            );
+        }
+
+
     }
 }
