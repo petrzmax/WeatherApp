@@ -2,6 +2,9 @@ package pl.arturpetrzak.model;
 
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class DailyForecast {
 
     private int unixTime;
@@ -18,6 +21,12 @@ public class DailyForecast {
         maximumTemperature = dailyForecast.getJSONObject("Temperature").getJSONObject("Maximum").getFloat("Value");
         day = dailyForecast.getJSONObject("Day");
         night = dailyForecast.getJSONObject("Night");
+    }
+
+    public String getDate() {
+        Date date = new Date(unixTime * 1000L);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM");
+        return simpleDateFormat.format(date);
     }
 
     public String getUnit() {
