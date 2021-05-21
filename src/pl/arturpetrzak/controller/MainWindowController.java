@@ -3,9 +3,15 @@ package pl.arturpetrzak.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import pl.arturpetrzak.DailyForecastManager;
 import pl.arturpetrzak.Observer;
+import pl.arturpetrzak.model.DailyForecast;
+import pl.arturpetrzak.view.DailyForecastRepresentation;
 import pl.arturpetrzak.view.ViewFactory;
+import pl.arturpetrzak.view.WeatherIconResolver;
+
+import java.util.List;
 
 public class MainWindowController extends BaseController implements Observer {
 
@@ -23,6 +29,9 @@ public class MainWindowController extends BaseController implements Observer {
 
     @FXML
     private Label currentLocalizationWeatherMessageLabel;
+
+    @FXML
+    private HBox currentCityWeatherHBox;
 
     @FXML
     void checkGivenDataWeatherAction() {
