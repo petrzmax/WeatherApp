@@ -11,11 +11,11 @@ public class FetchCurrentLocalizationService extends BaseApiService{
         url = Config.getCurrentCityByIpApiUrl() + "?" + API_KEY_PREFIX + Config.getIpstackApiKey();
     }
 
-    public String getCountryName() {
+    public String getCountry() {
         return jsonResponse.getString("country_name");
     }
 
-    public String getCityName() {
+    public String getCity() {
         return jsonResponse.getJSONObject("location").getString("capital");
     }
 

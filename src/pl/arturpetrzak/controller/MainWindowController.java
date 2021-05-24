@@ -34,7 +34,7 @@ public class MainWindowController extends BaseController implements Observer {
     private Label currentLocalizationWeatherMessageLabel;
 
     @FXML
-    private HBox currentCityWeatherHBox;
+    private HBox currentCityWeatherBox;
 
     @FXML
     void checkGivenDataWeatherAction() {
@@ -47,10 +47,10 @@ public class MainWindowController extends BaseController implements Observer {
     }
 
 
-        dailyForecastManager.addObserver(this);
-        dailyForecastManager.getCurrentCityData();
     public MainWindowController(ViewFactory viewFactory, String fxmlName) {
         super(viewFactory, fxmlName);
+        currentCityForecastManager.addObserver(this);
+        currentCityForecastManager.getCityData();
     }
 
 

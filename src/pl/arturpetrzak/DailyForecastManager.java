@@ -15,9 +15,9 @@ public class DailyForecastManager implements Observable{
 
     private JSONObject headline;
     private List<DailyForecast> dailyForecasts = new ArrayList();
-    private String currentCountryName = "";
-    private String currentCityName = "";
-    private String currentCityId = "";
+    private String country = "";
+    private String city = "";
+    private String cityId = "";
 
     public DailyForecastManager() {
         observers = new ArrayList<>();
@@ -33,27 +33,27 @@ public class DailyForecastManager implements Observable{
         }
     }
 
-    public void getCurrentCityData() {
+    public void getCityData() {
         FetchCurrentLocalizationService fetchCurrentLocalizationService = new FetchCurrentLocalizationService();
         fetchCurrentLocalizationService.start();
         fetchCurrentLocalizationService.setOnSucceeded(event -> {
-            currentCountryName = fetchCurrentLocalizationService.getCountryName();
-            currentCityName = fetchCurrentLocalizationService.getCityName();
-            getCurrentCityId();
+            country = fetchCurrentLocalizationService.getCountry();
+            city = fetchCurrentLocalizationService.getCity();
+            getCityId();
         });
     }
 
-    public void getCurrentCityId() {
-        FetchCityDataService fetchCityDataService = new FetchCityDataService(currentCountryName, currentCityName);
+    public void getCityId() {
+        FetchCityDataService fetchCityDataService = new FetchCityDataService(country, city);
         fetchCityDataService.start();
         fetchCityDataService.setOnSucceeded(event -> {
-            currentCityId = fetchCityDataService.getCityId();
-            getCurrentCityWeatherData();
+            cityId = fetchCityDataService.getCityId();
+            getCityWeatherData();
         });
     }
 
-    private void getCurrentCityWeatherData() {
-        FetchWeatherService fetchWeatherService = new FetchWeatherService(currentCityId);
+    private void getCityWeatherData() {
+        FetchWeatherService fetchWeatherService = new FetchWeatherService(cityId);
         fetchWeatherService.start();
         fetchWeatherService.setOnSucceeded(event -> {
             loadWeatherData(fetchWeatherService.getWeatherData());
@@ -65,12 +65,15 @@ public class DailyForecastManager implements Observable{
         return dailyForecasts;
     }
 
-    public String getCurrentCountryName() {
-        return currentCountryName;
     }
 
-    public String getCurrentCityName() {
-        return currentCityName;
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getCity() {
+        return city;
     }
 
     public String getWeatherMessage() {
