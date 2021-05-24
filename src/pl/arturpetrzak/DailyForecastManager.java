@@ -65,8 +65,13 @@ public class DailyForecastManager implements Observable{
         return dailyForecasts;
     }
 
+    public void setCountry(String country) {
+        this.country = country;
     }
 
+    public void setCity(String city) {
+        this.city = city;
+    }
 
     public String getCountry() {
         return country;
