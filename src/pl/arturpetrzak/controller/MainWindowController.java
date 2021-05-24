@@ -15,6 +15,9 @@ import java.util.List;
 
 public class MainWindowController extends BaseController implements Observer {
 
+    DailyForecastManager currentCityForecastManager = new DailyForecastManager();
+    DailyForecastManager chosenCityForecastManager = new DailyForecastManager();
+
     @FXML
     private Label currentCountryLabel;
 
@@ -44,10 +47,10 @@ public class MainWindowController extends BaseController implements Observer {
     }
 
 
-    public MainWindowController(DailyForecastManager dailyForecastManager, ViewFactory viewFactory, String fxmlName) {
-        super(dailyForecastManager, viewFactory, fxmlName);
         dailyForecastManager.addObserver(this);
         dailyForecastManager.getCurrentCityData();
+    public MainWindowController(ViewFactory viewFactory, String fxmlName) {
+        super(viewFactory, fxmlName);
     }
 
 

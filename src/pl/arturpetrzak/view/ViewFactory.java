@@ -16,13 +16,12 @@ public class ViewFactory {
     private List<Stage> activeStages;
     private DailyForecastManager dailyForecastManager;
 
-    public ViewFactory(DailyForecastManager dailyForecastManager) {
+    public ViewFactory() {
         this.activeStages = new ArrayList<>();
-        this.dailyForecastManager = dailyForecastManager;
     }
 
     public void showMainWindow() {
-        BaseController controller = new MainWindowController(dailyForecastManager, this, "MainWindow.fxml");
+        BaseController controller = new MainWindowController(this, "MainWindow.fxml");
         initializeStage(controller);
     }
 

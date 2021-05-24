@@ -55,7 +55,7 @@
                   <Label fx:id="currentLocalizationWeatherMessageLabel" layoutX="17.0" layoutY="14.0" prefHeight="46.0" prefWidth="416.0" wrapText="true" alignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                   <ScrollPane fitToHeight="true" layoutX="125.0" layoutY="144.0" prefHeight="337.0" prefWidth="450.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
                      <content>
-                        <HBox fx:id="currentCityWeatherHBox" prefHeight="334.0" prefWidth="671.0" />
+                        <HBox fx:id="currentCityWeatherBox" spacing="10" prefHeight="334.0" prefWidth="671.0" />
                      </content>
                   </ScrollPane>
                </children>
