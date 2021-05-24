@@ -56,24 +56,25 @@ public class MainWindowController extends BaseController implements Observer {
 
     @Override
     public void update() {
-        currentCountryLabel.setText(dailyForecastManager.getCurrentCountryName());
-        currentCityLabel.setText(dailyForecastManager.getCurrentCityName());
-        currentLocalizationWeatherMessageLabel.setText(dailyForecastManager.getWeatherMessage());
+        currentCountryLabel.setText(currentCityForecastManager.getCountry());
+        currentCityLabel.setText(currentCityForecastManager.getCity());
+        currentLocalizationWeatherMessageLabel.setText(currentCityForecastManager.getWeatherMessage());
 
+        populateWeatherBox(currentCityWeatherBox, currentCityForecastManager.getDailyForecasts());
+    }
+
+    private void populateWeatherBox(HBox weatherBox, List<DailyForecast> dailyForecasts) {
         DailyForecastRepresentation dailyForecastRepresentation = new DailyForecastRepresentation();
         WeatherIconResolver weatherIconResolver = new WeatherIconResolver();
 
-        List<DailyForecast> dailyForecasts = dailyForecastManager.getDailyForecasts();
-
         for(DailyForecast dailyForecast: dailyForecasts) {
-            currentCityWeatherHBox.getChildren().add(
-                dailyForecastRepresentation.getDailyForecastRepresentation(
-                        dailyForecast,
-                        weatherIconResolver.getIconForWeather(dailyForecast.getDayIconNumber(), 120),
-                        weatherIconResolver.getIconForWeather(dailyForecast.getNightIconNumber(), 120))
+            weatherBox.getChildren().add(
+                    dailyForecastRepresentation.getDailyForecastRepresentation(
+                            dailyForecast,
+                            weatherIconResolver.getIconForWeather(dailyForecast.getDayIconNumber(), 120),
+                            weatherIconResolver.getIconForWeather(dailyForecast.getNightIconNumber(), 120))
             );
         }
-
 
     }
 }
