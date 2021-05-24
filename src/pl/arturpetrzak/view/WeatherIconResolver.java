@@ -103,8 +103,10 @@ public class WeatherIconResolver {
             }
 
             ImageView imageView = new ImageView(new Image(inputStream));
+            imageView.setPreserveRatio(true);
             imageView.setFitHeight(iconSize);
-            imageView.setFitWidth(iconSize);
+            imageView.setSmooth(true);
+            imageView.setCache(true);
 
             return imageView;
 
