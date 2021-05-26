@@ -34,12 +34,15 @@ public class DailyForecastManager implements Observable {
         FetchCurrentLocalizationService fetchCurrentLocalizationService = new FetchCurrentLocalizationService();
         fetchCurrentLocalizationService.start();
         fetchCurrentLocalizationService.setOnSucceeded(event -> {
+            try {
+                fetchingResultHandler(fetchCurrentLocalizationService.getValue(), Messages.FETCHING_LOCALIZATION);
+                locationForecasts.get(location).setCountry(fetchCurrentLocalizationService.getCountry());
+                locationForecasts.get(location).setCity(fetchCurrentLocalizationService.getCity());
+                getCityId(location);
 
-            fetchingResultHandler(fetchCurrentLocalizationService.getValue(), Messages.FETCHING_LOCALIZATION);
-
-            locationForecasts.get(location).setCountry(fetchCurrentLocalizationService.getCountry());
-            locationForecasts.get(location).setCity(fetchCurrentLocalizationService.getCity());
-            getCityId(location);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
     }
 
@@ -53,11 +56,13 @@ public class DailyForecastManager implements Observable {
 
         fetchCityDataService.start();
         fetchCityDataService.setOnSucceeded(event -> {
-
-            fetchingResultHandler(fetchCityDataService.getValue(), Messages.FETCHING_CITY_ID);
-
-            locationForecasts.get(location).setCityId(fetchCityDataService.getCityId());
-            getCityWeatherData(location);
+            try {
+                fetchingResultHandler(fetchCityDataService.getValue(), Messages.FETCHING_CITY_ID);
+                locationForecasts.get(location).setCityId(fetchCityDataService.getCityId());
+                getCityWeatherData(location);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
     }
 
@@ -67,19 +72,22 @@ public class DailyForecastManager implements Observable {
         FetchWeatherService fetchWeatherService = new FetchWeatherService(locationForecasts.get(location).getCityId());
         fetchWeatherService.start();
         fetchWeatherService.setOnSucceeded(event -> {
-            fetchingResultHandler(fetchWeatherService.getValue(), Messages.FETCHING_WEATHER_DATA);
-
-            locationForecasts.get(location).loadData(fetchWeatherService.getWeatherData());
-            notifyObservers(
-                    location,
-                    locationForecasts.get(location).getCountry(),
-                    locationForecasts.get(location).getCity(),
-                    locationForecasts.get(location).getWeatherMessage()
-            );
+            try {
+                fetchingResultHandler(fetchWeatherService.getValue(), Messages.FETCHING_WEATHER_DATA);
+                locationForecasts.get(location).loadData(fetchWeatherService.getWeatherData());
+                notifyObservers(
+                        location,
+                        locationForecasts.get(location).getCountry(),
+                        locationForecasts.get(location).getCity(),
+                        locationForecasts.get(location).getWeatherMessage()
+                );
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
     }
 
-    private void fetchingResultHandler(FetchDataResult fetchDataResult, String messageHeader) {
+    private void fetchingResultHandler(FetchDataResult fetchDataResult, String messageHeader) throws Exception {
         String message = messageHeader + ": ";
 
         switch (fetchDataResult) {
@@ -103,6 +111,10 @@ public class DailyForecastManager implements Observable {
                 break;
         }
         pushMessage(message);
+
+        if(fetchDataResult != FetchDataResult.SUCCESS) {
+            throw new Exception(message);
+        }
     }
 
     public List<DailyForecast> getDailyForecasts(Location location) {
