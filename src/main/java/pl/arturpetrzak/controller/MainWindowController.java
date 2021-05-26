@@ -1,6 +1,7 @@
 package pl.arturpetrzak.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -11,9 +12,11 @@ import pl.arturpetrzak.view.DailyForecastRepresentation;
 import pl.arturpetrzak.view.ViewFactory;
 import pl.arturpetrzak.view.WeatherIconResolver;
 
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class MainWindowController extends BaseController implements Observer {
+public class MainWindowController extends BaseController implements Observer, Initializable {
 
     DailyForecastManager dailyForecastManager = new DailyForecastManager();
 
@@ -42,6 +45,9 @@ public class MainWindowController extends BaseController implements Observer {
     private HBox chosenCityWeatherBox;
 
     @FXML
+    private Label messageLabel;
+
+    @FXML
     void checkGivenDataWeatherAction() {
         dailyForecastManager.setCountry(Location.CHOSEN, countryTextField.getText());
         dailyForecastManager.setCity(Location.CHOSEN, cityTextField.getText());
@@ -56,11 +62,15 @@ public class MainWindowController extends BaseController implements Observer {
 
     public MainWindowController(ViewFactory viewFactory, String fxmlName) {
         super(viewFactory, fxmlName);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         dailyForecastManager.addObserver(this);
         dailyForecastManager.getCityData(Location.CURRENT);
     }
 
-
+    @Override
     public void update(Location location, String country, String city, String weatherMessage) {
 
         if(location == Location.CURRENT) {
@@ -73,7 +83,11 @@ public class MainWindowController extends BaseController implements Observer {
             chosenLocalizationWeatherMessageLabel.setText(weatherMessage);
             populateWeatherBox(chosenCityWeatherBox, dailyForecastManager.getDailyForecasts(location));
         }
+    }
 
+    @Override
+    public void catchMessage(String message) {
+        messageLabel.setText(message);
     }
 
     private void populateWeatherBox(HBox weatherBox, List<DailyForecast> dailyForecasts) {

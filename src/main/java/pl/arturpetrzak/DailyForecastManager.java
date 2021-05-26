@@ -1,6 +1,8 @@
 package pl.arturpetrzak;
 
+import pl.arturpetrzak.controller.FetchDataResult;
 import pl.arturpetrzak.controller.Location;
+import pl.arturpetrzak.controller.MainWindowController;
 import pl.arturpetrzak.controller.services.FetchCityDataService;
 import pl.arturpetrzak.controller.services.FetchCurrentLocalizationService;
 import pl.arturpetrzak.controller.services.FetchWeatherService;
@@ -27,16 +29,26 @@ public class DailyForecastManager implements Observable {
     }
 
     public void getCityData(Location location) {
+        pushMessage(Messages.FETCHING_LOCALIZATION);
+
         FetchCurrentLocalizationService fetchCurrentLocalizationService = new FetchCurrentLocalizationService();
         fetchCurrentLocalizationService.start();
         fetchCurrentLocalizationService.setOnSucceeded(event -> {
-            locationForecasts.get(location).setCountry(fetchCurrentLocalizationService.getCountry());
-            locationForecasts.get(location).setCity(fetchCurrentLocalizationService.getCity());
-            getCityId(location);
+            try {
+                fetchingResultHandler(fetchCurrentLocalizationService.getValue(), Messages.FETCHING_LOCALIZATION);
+                locationForecasts.get(location).setCountry(fetchCurrentLocalizationService.getCountry());
+                locationForecasts.get(location).setCity(fetchCurrentLocalizationService.getCity());
+                getCityId(location);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
     }
 
     public void getCityId(Location location) {
+        pushMessage(Messages.FETCHING_CITY_ID);
+
         FetchCityDataService fetchCityDataService = new FetchCityDataService(
                 locationForecasts.get(location).getCountry(),
                 locationForecasts.get(location).getCity()
@@ -44,23 +56,65 @@ public class DailyForecastManager implements Observable {
 
         fetchCityDataService.start();
         fetchCityDataService.setOnSucceeded(event -> {
-            locationForecasts.get(location).setCityId(fetchCityDataService.getCityId());
-            getCityWeatherData(location);
+            try {
+                fetchingResultHandler(fetchCityDataService.getValue(), Messages.FETCHING_CITY_ID);
+                locationForecasts.get(location).setCityId(fetchCityDataService.getCityId());
+                getCityWeatherData(location);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
     }
 
     private void getCityWeatherData(Location location) {
+        pushMessage(Messages.FETCHING_WEATHER_DATA);
+
         FetchWeatherService fetchWeatherService = new FetchWeatherService(locationForecasts.get(location).getCityId());
         fetchWeatherService.start();
         fetchWeatherService.setOnSucceeded(event -> {
-            locationForecasts.get(location).loadData(fetchWeatherService.getWeatherData());
-            notifyObservers(
-                    location,
-                    locationForecasts.get(location).getCountry(),
-                    locationForecasts.get(location).getCity(),
-                    locationForecasts.get(location).getWeatherMessage()
-            );
+            try {
+                fetchingResultHandler(fetchWeatherService.getValue(), Messages.FETCHING_WEATHER_DATA);
+                locationForecasts.get(location).loadData(fetchWeatherService.getWeatherData());
+                notifyObservers(
+                        location,
+                        locationForecasts.get(location).getCountry(),
+                        locationForecasts.get(location).getCity(),
+                        locationForecasts.get(location).getWeatherMessage()
+                );
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
+    }
+
+    private void fetchingResultHandler(FetchDataResult fetchDataResult, String messageHeader) throws Exception {
+        String message = messageHeader + ": ";
+
+        switch (fetchDataResult) {
+            case SUCCESS:
+                message += Messages.SUCCESS;
+                break;
+            case FAILED_BY_REQUEST_SYNTAX:
+                message += Messages.REQUEST_SYNTAX_ERROR;
+                break;
+            case FAILED_BY_API_AUTHORIZATION:
+                message += Messages.API_AUTHORIZATION_ERROR;
+                break;
+            case FAILED_BY_SERVER:
+                message += Messages.SERVER_ERROR;
+                break;
+            case FAILED_BY_UNEXPECTED_ERROR:
+                message += Messages.UNEXPECTED_ERROR;
+                break;
+            default:
+                message += Messages.UNSUPPORTED_ERROR;
+                break;
+        }
+        pushMessage(message);
+
+        if(fetchDataResult != FetchDataResult.SUCCESS) {
+            throw new Exception(message);
+        }
     }
 
     public List<DailyForecast> getDailyForecasts(Location location) {
@@ -89,6 +143,13 @@ public class DailyForecastManager implements Observable {
     public void notifyObservers(Location location, String country, String city, String weatherMessage) {
         for (Observer observer : observers) {
             observer.update(location, country, city, weatherMessage);
+        }
+    }
+
+    @Override
+    public void pushMessage(String message) {
+        for (Observer observer : observers) {
+            observer.catchMessage(message);
         }
     }
 
