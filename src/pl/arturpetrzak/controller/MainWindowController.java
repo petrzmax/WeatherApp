@@ -24,16 +24,22 @@ public class MainWindowController extends BaseController implements Observer {
     private Label currentCityLabel;
 
     @FXML
+    private Label currentLocalizationWeatherMessageLabel;
+
+    @FXML
+    private HBox currentCityWeatherBox;
+
+    @FXML
     private TextField countryTextField;
 
     @FXML
     private TextField cityTextField;
 
     @FXML
-    private Label currentLocalizationWeatherMessageLabel;
+    private Label chosenLocalizationWeatherMessageLabel;
 
     @FXML
-    private HBox currentCityWeatherBox;
+    private HBox chosenCityWeatherBox;
 
     @FXML
     void checkGivenDataWeatherAction() {
