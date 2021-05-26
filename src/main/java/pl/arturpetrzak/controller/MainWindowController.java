@@ -1,6 +1,7 @@
 package pl.arturpetrzak.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -11,9 +12,11 @@ import pl.arturpetrzak.view.DailyForecastRepresentation;
 import pl.arturpetrzak.view.ViewFactory;
 import pl.arturpetrzak.view.WeatherIconResolver;
 
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class MainWindowController extends BaseController implements Observer {
+public class MainWindowController extends BaseController implements Observer, Initializable {
 
     DailyForecastManager dailyForecastManager = new DailyForecastManager();
 
@@ -59,6 +62,10 @@ public class MainWindowController extends BaseController implements Observer {
 
     public MainWindowController(ViewFactory viewFactory, String fxmlName) {
         super(viewFactory, fxmlName);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         dailyForecastManager.addObserver(this);
         dailyForecastManager.getCityData(Location.CURRENT);
     }
