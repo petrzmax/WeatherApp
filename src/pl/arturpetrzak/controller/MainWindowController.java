@@ -15,8 +15,7 @@ import java.util.List;
 
 public class MainWindowController extends BaseController implements Observer {
 
-    DailyForecastManager currentCityForecastManager = new DailyForecastManager();
-    DailyForecastManager chosenCityForecastManager = new DailyForecastManager();
+    DailyForecastManager dailyForecastManager = new DailyForecastManager();
 
     @FXML
     private Label currentCountryLabel;
@@ -49,18 +48,16 @@ public class MainWindowController extends BaseController implements Observer {
 
     public MainWindowController(ViewFactory viewFactory, String fxmlName) {
         super(viewFactory, fxmlName);
-        currentCityForecastManager.addObserver(this);
-        currentCityForecastManager.getCityData();
+        dailyForecastManager.addObserver(this);
+        dailyForecastManager.getCityData(Location.CURRENT);
     }
 
 
-    @Override
-    public void update() {
-        currentCountryLabel.setText(currentCityForecastManager.getCountry());
-        currentCityLabel.setText(currentCityForecastManager.getCity());
-        currentLocalizationWeatherMessageLabel.setText(currentCityForecastManager.getWeatherMessage());
-
-        populateWeatherBox(currentCityWeatherBox, currentCityForecastManager.getDailyForecasts());
+    public void update(Location location, String country, String city, String weatherMessage) {
+        currentCountryLabel.setText(country);
+        currentCityLabel.setText(city);
+        currentLocalizationWeatherMessageLabel.setText(weatherMessage);
+        populateWeatherBox(currentCityWeatherBox, dailyForecastManager.getDailyForecasts(location));
     }
 
     private void populateWeatherBox(HBox weatherBox, List<DailyForecast> dailyForecasts) {
