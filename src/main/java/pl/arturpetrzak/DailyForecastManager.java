@@ -2,6 +2,7 @@ package pl.arturpetrzak;
 
 import pl.arturpetrzak.controller.FetchDataResult;
 import pl.arturpetrzak.controller.Location;
+import pl.arturpetrzak.controller.MainWindowController;
 import pl.arturpetrzak.controller.services.FetchCityDataService;
 import pl.arturpetrzak.controller.services.FetchCurrentLocalizationService;
 import pl.arturpetrzak.controller.services.FetchWeatherService;
@@ -28,9 +29,14 @@ public class DailyForecastManager implements Observable {
     }
 
     public void getCityData(Location location) {
+        pushMessage(Messages.FETCHING_LOCALIZATION);
+
         FetchCurrentLocalizationService fetchCurrentLocalizationService = new FetchCurrentLocalizationService();
         fetchCurrentLocalizationService.start();
         fetchCurrentLocalizationService.setOnSucceeded(event -> {
+
+            fetchingResultHandler(fetchCurrentLocalizationService.getValue(), Messages.FETCHING_LOCALIZATION);
+
             locationForecasts.get(location).setCountry(fetchCurrentLocalizationService.getCountry());
             locationForecasts.get(location).setCity(fetchCurrentLocalizationService.getCity());
             getCityId(location);
@@ -38,6 +44,8 @@ public class DailyForecastManager implements Observable {
     }
 
     public void getCityId(Location location) {
+        pushMessage(Messages.FETCHING_CITY_ID);
+
         FetchCityDataService fetchCityDataService = new FetchCityDataService(
                 locationForecasts.get(location).getCountry(),
                 locationForecasts.get(location).getCity()
@@ -45,15 +53,22 @@ public class DailyForecastManager implements Observable {
 
         fetchCityDataService.start();
         fetchCityDataService.setOnSucceeded(event -> {
+
+            fetchingResultHandler(fetchCityDataService.getValue(), Messages.FETCHING_CITY_ID);
+
             locationForecasts.get(location).setCityId(fetchCityDataService.getCityId());
             getCityWeatherData(location);
         });
     }
 
     private void getCityWeatherData(Location location) {
+        pushMessage(Messages.FETCHING_WEATHER_DATA);
+
         FetchWeatherService fetchWeatherService = new FetchWeatherService(locationForecasts.get(location).getCityId());
         fetchWeatherService.start();
         fetchWeatherService.setOnSucceeded(event -> {
+            fetchingResultHandler(fetchWeatherService.getValue(), Messages.FETCHING_WEATHER_DATA);
+
             locationForecasts.get(location).loadData(fetchWeatherService.getWeatherData());
             notifyObservers(
                     location,
