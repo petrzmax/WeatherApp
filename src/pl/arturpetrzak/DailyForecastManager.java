@@ -75,18 +75,6 @@ public class DailyForecastManager implements Observable {
         locationForecasts.get(location).setCity(city);
     }
 
-    public String getCountry(Location location) {
-        return locationForecasts.get(location).getCountry();
-    }
-
-    public String getCity(Location location) {
-        return locationForecasts.get(location).getCity();
-    }
-
-    public String getWeatherMessage(Location location) {
-        return locationForecasts.get(location).getWeatherMessage();
-    }
-
     @Override
     public void addObserver(Observer observer) {
         observers.add(observer);
