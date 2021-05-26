@@ -1,5 +1,6 @@
 package pl.arturpetrzak;
 
+import pl.arturpetrzak.controller.FetchDataResult;
 import pl.arturpetrzak.controller.Location;
 import pl.arturpetrzak.controller.services.FetchCityDataService;
 import pl.arturpetrzak.controller.services.FetchCurrentLocalizationService;
@@ -61,6 +62,32 @@ public class DailyForecastManager implements Observable {
                     locationForecasts.get(location).getWeatherMessage()
             );
         });
+    }
+
+    private void fetchingResultHandler(FetchDataResult fetchDataResult, String messageHeader) {
+        String message = messageHeader + ": ";
+
+        switch (fetchDataResult) {
+            case SUCCESS:
+                message += Messages.SUCCESS;
+                break;
+            case FAILED_BY_REQUEST_SYNTAX:
+                message += Messages.REQUEST_SYNTAX_ERROR;
+                break;
+            case FAILED_BY_API_AUTHORIZATION:
+                message += Messages.API_AUTHORIZATION_ERROR;
+                break;
+            case FAILED_BY_SERVER:
+                message += Messages.SERVER_ERROR;
+                break;
+            case FAILED_BY_UNEXPECTED_ERROR:
+                message += Messages.UNEXPECTED_ERROR;
+                break;
+            default:
+                message += Messages.UNSUPPORTED_ERROR;
+                break;
+        }
+        pushMessage(message);
     }
 
     public List<DailyForecast> getDailyForecasts(Location location) {
