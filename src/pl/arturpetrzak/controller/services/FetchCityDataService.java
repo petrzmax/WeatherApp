@@ -11,6 +11,11 @@ public class FetchCityDataService extends BaseApiService {
         url = Config.getCitySearchApiUrl() + "?" + CITY_PREFIX + city + "&" + API_KEY_PREFIX + Config.getAccuWeatherApiKey();
     }
 
+    public FetchCityDataService(String country, String city) {
+        super();
+        url = Config.getCitySearchApiUrl() + "?" + CITY_PREFIX + country + "," + city + "&" + API_KEY_PREFIX + Config.getAccuWeatherApiKey();
+    }
+
     public String getCityId() {
         return jsonResponse.get("Key").toString();
     }
