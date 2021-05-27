@@ -21,11 +21,30 @@
           <Menu mnemonicParsing="false" text="File">
             <items>
                   <MenuItem mnemonicParsing="false" onAction="#refreshAction" text="Refresh" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+                  <Menu mnemonicParsing="false" text="Options">
+                    <items>
+                        <Menu mnemonicParsing="false" text="Units">
+                           <items>
+                              <RadioMenuItem mnemonicParsing="false" text="°C">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="unitGroup" />
+                                 </toggleGroup>
+                              </RadioMenuItem>
+                              <RadioMenuItem mnemonicParsing="false" text="°F" toggleGroup="$unitGroup" />
+                           </items></Menu>
+                        <Menu mnemonicParsing="false" text="Weather language">
+                           <items>
+                              <RadioMenuItem mnemonicParsing="false" text="English">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="languageGroup" />
+                                 </toggleGroup>
+                              </RadioMenuItem>
+                              <RadioMenuItem mnemonicParsing="false" text="Polish" toggleGroup="$languageGroup" />
+                           </items></Menu>
+                    </items>
+                  </Menu>
+                  <MenuItem mnemonicParsing="false" text="About" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
               <MenuItem mnemonicParsing="false" onAction="#closeAction" text="Close" />
             </items>
           </Menu>
