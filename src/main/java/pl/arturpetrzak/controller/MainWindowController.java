@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import pl.arturpetrzak.DailyForecastManager;
+import pl.arturpetrzak.Languages;
 import pl.arturpetrzak.Observer;
 import pl.arturpetrzak.model.DailyForecast;
 import pl.arturpetrzak.view.DailyForecastRepresentation;
@@ -72,6 +73,21 @@ public class MainWindowController extends BaseController implements Observer, In
     @FXML
     void setImperialUnitsAction() {
         dailyForecastManager.setMetric(false);
+    }
+
+    @FXML
+    void setEnglishLanguageAction() {
+        dailyForecastManager.setLanguage(Languages.ENGLISH);
+    }
+
+    @FXML
+    void setPolishLanguageAction() {
+        dailyForecastManager.setLanguage(Languages.POLISH);
+    }
+
+    @FXML
+    void setGermanLanguageAction() {
+        dailyForecastManager.setLanguage(Languages.GERMAN);
     }
 
     public MainWindowController(ViewFactory viewFactory, String fxmlName) {
