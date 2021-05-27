@@ -65,7 +65,7 @@
          <children>
             <AnchorPane GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                <children>
-                  <Label fx:id="currentLocalizationWeatherMessageLabel" alignment="CENTER" layoutX="17.0" layoutY="14.0" prefHeight="32.0" wrapText="true" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                  <Label fx:id="currentLocalizationWeatherMessageLabel" alignment="CENTER" prefHeight="32.0" wrapText="true" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                   <ScrollPane fitToHeight="true" layoutX="125.0" layoutY="144.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                      <content>
                         <HBox fx:id="currentCityWeatherBox" spacing="12.0">
@@ -78,7 +78,7 @@
             </AnchorPane>
             <AnchorPane GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                <children>
-                  <Label fx:id="chosenLocalizationWeatherMessageLabel" alignment="CENTER" prefHeight="46.0" wrapText="true" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                  <Label fx:id="chosenLocalizationWeatherMessageLabel" alignment="CENTER" prefHeight="32.0" wrapText="true" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                   <ScrollPane fitToHeight="true" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                      <content>
                         <HBox fx:id="chosenCityWeatherBox" spacing="12.0">
