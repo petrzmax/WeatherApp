@@ -135,6 +135,10 @@ public class DailyForecastManager implements Observable {
         this.metric = metric;
     }
 
+    public void setLanguage(Languages language) {
+        this.language = language;
+    }
+
     @Override
     public void addObserver(Observer observer) {
         observers.add(observer);
