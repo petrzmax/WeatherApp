@@ -126,6 +126,7 @@ public class MainWindowController extends BaseController implements Observer, In
     private void populateWeatherBox(HBox weatherBox, List<DailyForecast> dailyForecasts) {
         DailyForecastRepresentation dailyForecastRepresentation = new DailyForecastRepresentation();
         WeatherIconResolver weatherIconResolver = new WeatherIconResolver();
+        weatherBox.getChildren().clear();
 
         for(DailyForecast dailyForecast: dailyForecasts) {
             weatherBox.getChildren().add(
