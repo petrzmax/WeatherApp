@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import pl.arturpetrzak.DailyForecastManager;
 import pl.arturpetrzak.Languages;
 import pl.arturpetrzak.Observer;
@@ -62,7 +63,8 @@ public class MainWindowController extends BaseController implements Observer, In
 
     @FXML
     void closeAction() {
-
+        Stage stage = (Stage) messageLabel.getScene().getWindow();
+        viewFactory.closeStage(stage);
     }
 
     @FXML
