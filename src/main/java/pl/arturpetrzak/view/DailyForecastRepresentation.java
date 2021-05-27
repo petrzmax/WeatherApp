@@ -14,7 +14,7 @@ public class DailyForecastRepresentation {
         Label label;
         VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
-        vBox.setMinWidth(130);
+        vBox.setMaxWidth(100);
 
         // Date
         label = new Label(dailyForecast.getDate());
@@ -36,6 +36,7 @@ public class DailyForecastRepresentation {
         vBox.getChildren().add(nightImageView);
         label = new Label(dailyForecast.getNightWeatherDescription().replace("w/", "with"));
         label.setWrapText(true);
+        label.setTextAlignment(TextAlignment.CENTER);
         label.setMinHeight(40);
         vBox.getChildren().add(label);
 

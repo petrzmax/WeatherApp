@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import pl.arturpetrzak.DailyForecastManager;
 import pl.arturpetrzak.controller.BaseController;
 import pl.arturpetrzak.controller.MainWindowController;
@@ -40,6 +41,10 @@ public class ViewFactory {
         Scene scene = new Scene(parent);
         Stage stage = new Stage();
         stage.setScene(scene);
+        stage.setResizable(false);
+        stage.initStyle(StageStyle.UNIFIED);
+        stage.setMinWidth(parent.minWidth(-1));
+        stage.setMinHeight(parent.minHeight(-1));
         stage.show();
 
         activeStages.add(stage);
