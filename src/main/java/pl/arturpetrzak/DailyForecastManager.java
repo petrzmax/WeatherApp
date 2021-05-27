@@ -18,6 +18,7 @@ public class DailyForecastManager implements Observable {
 
     private List<Observer> observers;
     private Map<Location, LocationForecast> locationForecasts;
+    private boolean metric;
 
     public DailyForecastManager() {
         observers = new ArrayList<>();
@@ -69,7 +70,7 @@ public class DailyForecastManager implements Observable {
     private void getCityWeatherData(Location location) {
         pushMessage(Messages.FETCHING_WEATHER_DATA);
 
-        FetchWeatherService fetchWeatherService = new FetchWeatherService(locationForecasts.get(location).getCityId());
+        FetchWeatherService fetchWeatherService = new FetchWeatherService(locationForecasts.get(location).getCityId(), metric);
         fetchWeatherService.start();
         fetchWeatherService.setOnSucceeded(event -> {
             try {
@@ -127,6 +128,10 @@ public class DailyForecastManager implements Observable {
 
     public void setCity(Location location, String city) {
         locationForecasts.get(location).setCity(city);
+    }
+
+    public void setMetric(boolean metric) {
+        this.metric = metric;
     }
 
     @Override
