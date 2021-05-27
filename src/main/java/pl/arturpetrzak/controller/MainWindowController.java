@@ -50,15 +50,15 @@ public class MainWindowController extends BaseController implements Observer, In
     private Label messageLabel;
 
     @FXML
-        dailyForecastManager.setCountry(Location.CHOSEN, countryTextField.getText());
-        dailyForecastManager.setCity(Location.CHOSEN, cityTextField.getText());
-        dailyForecastManager.getCityId(Location.CHOSEN);
     void refreshCurrentLocalizationDataAction() {
+        dailyForecastManager.getCityWeatherData(Location.CURRENT);
     }
 
     @FXML
-
     void refreshChosenLocalizationDataAction() {
+        dailyForecastManager.setCountry(Location.CHOSEN, countryTextField.getText());
+        dailyForecastManager.setCity(Location.CHOSEN, cityTextField.getText());
+        dailyForecastManager.getCityId(Location.CHOSEN);
     }
 
     @FXML
@@ -105,7 +105,6 @@ public class MainWindowController extends BaseController implements Observer, In
 
     @Override
     public void update(Location location, String country, String city, String weatherMessage) {
-
         if(location == Location.CURRENT) {
             currentCountryLabel.setText(country);
             currentCityLabel.setText(city);
