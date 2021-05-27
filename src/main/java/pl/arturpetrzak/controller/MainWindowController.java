@@ -59,6 +59,11 @@ public class MainWindowController extends BaseController implements Observer, In
 
     }
 
+    @FXML
+    void closeAction() {
+
+    }
+
 
     public MainWindowController(ViewFactory viewFactory, String fxmlName) {
         super(viewFactory, fxmlName);
