@@ -50,15 +50,15 @@ public class MainWindowController extends BaseController implements Observer, In
     private Label messageLabel;
 
     @FXML
-    void checkGivenDataWeatherAction() {
         dailyForecastManager.setCountry(Location.CHOSEN, countryTextField.getText());
         dailyForecastManager.setCity(Location.CHOSEN, cityTextField.getText());
         dailyForecastManager.getCityId(Location.CHOSEN);
+    void refreshCurrentLocalizationDataAction() {
     }
 
     @FXML
-    void refreshAction() {
 
+    void refreshChosenLocalizationDataAction() {
     }
 
     @FXML
