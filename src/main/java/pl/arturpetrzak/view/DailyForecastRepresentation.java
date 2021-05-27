@@ -14,7 +14,7 @@ public class DailyForecastRepresentation {
         Label label;
         VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
-        vBox.setMinWidth(130);
+        vBox.setMaxWidth(100);
 
         // Date
         label = new Label(dailyForecast.getDate());
