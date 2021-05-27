@@ -7,13 +7,14 @@ import java.util.List;
 
 public class LocationForecast {
     private String weatherMessage;
-    private List<DailyForecast> dailyForecasts = new ArrayList();
+    private List<DailyForecast> dailyForecasts;
     private String country = "";
     private String city = "";
     private String cityId = "";
 
     public void loadData(JSONObject weatherData) {
         weatherMessage = weatherData.getJSONObject("Headline").getString("Text");
+        dailyForecasts = new ArrayList();
         JSONArray jsonArray = weatherData.getJSONArray("DailyForecasts");
 
         for (Object object: jsonArray) {

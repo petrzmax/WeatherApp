@@ -23,7 +23,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#refreshAction" text="Refresh" />
+                  <MenuItem mnemonicParsing="false" onAction="#refreshCurrentLocalizationDataAction" text="Refresh" />
                   <Menu mnemonicParsing="false" text="Options">
                     <items>
                         <Menu mnemonicParsing="false" text="Units">
@@ -96,7 +96,7 @@
                   <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="16.0" prefWidth="70.0" text="City" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="45.0" />
                   <TextField fx:id="countryTextField" layoutX="75.0" layoutY="11.0" prefHeight="24.0" prefWidth="200.0" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="11.0" />
                   <TextField fx:id="cityTextField" layoutX="75.0" layoutY="41.0" prefHeight="24.0" prefWidth="200.0" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="41.0" />
-                  <Button layoutX="321.0" layoutY="41.0" mnemonicParsing="false" onAction="#checkGivenDataWeatherAction" text="Check" />
+                  <Button layoutX="321.0" layoutY="41.0" mnemonicParsing="false" onAction="#refreshChosenLocalizationDataAction" text="Check" />
                </children>
             </AnchorPane>
             <AnchorPane GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">

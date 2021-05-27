@@ -68,7 +68,7 @@ public class DailyForecastManager implements Observable {
         });
     }
 
-    private void getCityWeatherData(Location location) {
+    public void getCityWeatherData(Location location) {
         pushMessage(Messages.FETCHING_WEATHER_DATA);
 
         FetchWeatherService fetchWeatherService = new FetchWeatherService(locationForecasts.get(location).getCityId(), metric, language);
