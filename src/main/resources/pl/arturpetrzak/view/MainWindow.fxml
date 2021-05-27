@@ -28,12 +28,12 @@
                     <items>
                         <Menu mnemonicParsing="false" text="Units">
                            <items>
-                              <RadioMenuItem mnemonicParsing="false" text="°C">
+                              <RadioMenuItem mnemonicParsing="false" onAction="#setMetricUnitsAction" selected="true" text="°C">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="unitGroup" />
                                  </toggleGroup>
                               </RadioMenuItem>
-                              <RadioMenuItem mnemonicParsing="false" text="°F" toggleGroup="$unitGroup" />
+                              <RadioMenuItem mnemonicParsing="false" onAction="#setImperialUnitsAction" text="°F" toggleGroup="$unitGroup" />
                            </items></Menu>
                         <Menu mnemonicParsing="false" text="Weather language">
                            <items>
