@@ -44,8 +44,8 @@ public class DailyForecastRepresentation {
         // Weather description
 
         label = new Label("Temperatures:" +
-                "\nMax: " + dailyForecast.getMaximumTemperature() + dailyForecast.getUnit() +
-                "\nMin: " + dailyForecast.getMinimumTemperature() + dailyForecast.getUnit()
+                "\nMax: " + dailyForecast.getMaximumTemperature() + " °" + dailyForecast.getUnit() +
+                "\nMin: " + dailyForecast.getMinimumTemperature() + " °" +dailyForecast.getUnit()
         );
 
         label.setTextAlignment(TextAlignment.CENTER);
