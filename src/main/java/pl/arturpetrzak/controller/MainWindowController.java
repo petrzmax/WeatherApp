@@ -135,6 +135,7 @@ public class MainWindowController extends BaseController implements Observer, In
                             weatherIconResolver.getIconForWeather(dailyForecast.getNightIconNumber(), 120))
             );
         }
-
+        Stage stage = (Stage) messageLabel.getScene().getWindow();
+        stage.sizeToScene();
     }
 }

@@ -3,6 +3,7 @@ package pl.arturpetrzak.view;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
@@ -29,7 +30,7 @@ public class DailyForecastRepresentation {
 
         label.setWrapText(true);
         label.setTextAlignment(TextAlignment.CENTER);
-        label.setMinHeight(40);
+        label.setMaxHeight(-1);
         vBox.getChildren().add(label);
 
         // Night
