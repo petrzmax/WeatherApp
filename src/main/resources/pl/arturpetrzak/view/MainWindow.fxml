@@ -37,12 +37,13 @@
                            </items></Menu>
                         <Menu mnemonicParsing="false" text="Weather language">
                            <items>
-                              <RadioMenuItem mnemonicParsing="false" text="English">
+                              <RadioMenuItem mnemonicParsing="false" onAction="#setEnglishLanguageAction" selected="true" text="English">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="languageGroup" />
                                  </toggleGroup>
                               </RadioMenuItem>
-                              <RadioMenuItem mnemonicParsing="false" text="Polish" toggleGroup="$languageGroup" />
+                              <RadioMenuItem mnemonicParsing="false" onAction="#setPolishLanguageAction" text="Polish" toggleGroup="$languageGroup" />
+                              <RadioMenuItem mnemonicParsing="false" onAction="#setGermanLanguageAction" text="German" toggleGroup="$languageGroup" />
                            </items></Menu>
                     </items>
                   </Menu>

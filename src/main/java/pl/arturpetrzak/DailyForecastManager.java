@@ -19,6 +19,7 @@ public class DailyForecastManager implements Observable {
     private List<Observer> observers;
     private Map<Location, LocationForecast> locationForecasts;
     private boolean metric;
+    private Languages language = Languages.ENGLISH;
 
     public DailyForecastManager() {
         observers = new ArrayList<>();
@@ -70,7 +71,7 @@ public class DailyForecastManager implements Observable {
     private void getCityWeatherData(Location location) {
         pushMessage(Messages.FETCHING_WEATHER_DATA);
 
-        FetchWeatherService fetchWeatherService = new FetchWeatherService(locationForecasts.get(location).getCityId(), metric);
+        FetchWeatherService fetchWeatherService = new FetchWeatherService(locationForecasts.get(location).getCityId(), metric, language);
         fetchWeatherService.start();
         fetchWeatherService.setOnSucceeded(event -> {
             try {
@@ -132,6 +133,10 @@ public class DailyForecastManager implements Observable {
 
     public void setMetric(boolean metric) {
         this.metric = metric;
+    }
+
+    public void setLanguage(Languages language) {
+        this.language = language;
     }
 
     @Override
