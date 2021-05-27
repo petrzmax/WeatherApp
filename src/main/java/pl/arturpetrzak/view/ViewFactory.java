@@ -49,4 +49,9 @@ public class ViewFactory {
 
         activeStages.add(stage);
     }
+
+    public void closeStage(Stage stageToClose) {
+        stageToClose.close();
+        activeStages.remove(stageToClose);
+    }
 }
