@@ -64,6 +64,15 @@ public class MainWindowController extends BaseController implements Observer, In
 
     }
 
+    @FXML
+    void setMetricUnitsAction() {
+        dailyForecastManager.setMetric(true);
+    }
+
+    @FXML
+    void setImperialUnitsAction() {
+        dailyForecastManager.setMetric(false);
+    }
 
     public MainWindowController(ViewFactory viewFactory, String fxmlName) {
         super(viewFactory, fxmlName);
@@ -73,6 +82,7 @@ public class MainWindowController extends BaseController implements Observer, In
     public void initialize(URL location, ResourceBundle resources) {
         dailyForecastManager.addObserver(this);
         dailyForecastManager.getCityData(Location.CURRENT);
+        dailyForecastManager.setMetric(true);
     }
 
     @Override
