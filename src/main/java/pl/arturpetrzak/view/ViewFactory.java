@@ -63,4 +63,8 @@ public class ViewFactory {
         stageToClose.close();
         activeStages.remove(stageToClose);
     }
+
+    public HostServices getHostServices() {
+        return hostServices;
+    }
 }
