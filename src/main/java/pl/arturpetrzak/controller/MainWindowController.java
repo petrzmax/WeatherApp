@@ -183,12 +183,12 @@ public class MainWindowController extends BaseController implements Observer, In
             return false;
         }
 
-        if (countryName.length() > 50) {
+        if (countryName.length() > Config.getTextFieldCapacity()) {
             catchMessage(Messages.COUNTRY_NAME_TOO_LONG);
             return false;
         }
 
-        if (cityName.length() > 50) {
+        if (cityName.length() > Config.getTextFieldCapacity()) {
             catchMessage(Messages.CITY_NAME_TOO_LONG);
             return false;
         }
