@@ -147,11 +147,6 @@ public class DailyForecastManager implements Observable {
     }
 
     @Override
-    public void removeObserver(Observer observer) {
-        observers.remove(observer);
-    }
-
-    @Override
     public void notifyObservers(Location location, String country, String city, String weatherMessage) {
         for (Observer observer : observers) {
             observer.update(location, country, city, weatherMessage);
