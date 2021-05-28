@@ -5,7 +5,7 @@ public enum Languages {
     POLISH("pl"),
     GERMAN("de");
 
-    private String languageCode;
+    private final String languageCode;
 
     Languages(String languageCode) {
         this.languageCode = languageCode;

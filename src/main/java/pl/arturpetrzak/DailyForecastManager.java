@@ -2,7 +2,6 @@ package pl.arturpetrzak;
 
 import pl.arturpetrzak.controller.FetchDataResult;
 import pl.arturpetrzak.controller.Location;
-import pl.arturpetrzak.controller.MainWindowController;
 import pl.arturpetrzak.controller.services.FetchCityDataService;
 import pl.arturpetrzak.controller.services.FetchCurrentLocalizationService;
 import pl.arturpetrzak.controller.services.FetchWeatherService;
@@ -24,13 +23,13 @@ public class DailyForecastManager implements Observable {
     public DailyForecastManager() {
         observers = new ArrayList<>();
         locationForecasts = new EnumMap<>(Location.class);
-            for(Location location: Location.values()) {
-                LocationForecast locationForecast = new LocationForecast();
-                locationForecasts.put(location, locationForecast);
-            }
+        for (Location location : Location.values()) {
+            LocationForecast locationForecast = new LocationForecast();
+            locationForecasts.put(location, locationForecast);
+        }
     }
 
-    public void getCityData(Location location) {
+    public void getCurrentLocalization(Location location) {
         pushMessage(Messages.FETCHING_LOCALIZATION);
 
         FetchCurrentLocalizationService fetchCurrentLocalizationService = new FetchCurrentLocalizationService();
@@ -117,7 +116,7 @@ public class DailyForecastManager implements Observable {
         }
         pushMessage(message);
 
-        if(fetchDataResult != FetchDataResult.SUCCESS) {
+        if (fetchDataResult != FetchDataResult.SUCCESS) {
             throw new Exception(message);
         }
     }
@@ -145,11 +144,6 @@ public class DailyForecastManager implements Observable {
     @Override
     public void addObserver(Observer observer) {
         observers.add(observer);
-    }
-
-    @Override
-    public void removeObserver(Observer observer) {
-        observers.remove(observer);
     }
 
     @Override

@@ -7,12 +7,12 @@ import java.util.Date;
 
 public class DailyForecast {
 
-    private int unixTime;
-    private String unit;
-    private float minimumTemperature;
-    private float maximumTemperature;
-    private JSONObject day;
-    private JSONObject night;
+    private final int unixTime;
+    private final String unit;
+    private final float minimumTemperature;
+    private final float maximumTemperature;
+    private final JSONObject day;
+    private final JSONObject night;
 
     public DailyForecast(JSONObject dailyForecast) {
         unixTime = dailyForecast.getInt("EpochDate");

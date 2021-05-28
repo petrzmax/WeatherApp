@@ -1,14 +1,11 @@
 package pl.arturpetrzak.view;
 
 import javafx.application.HostServices;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
-import pl.arturpetrzak.DailyForecastManager;
 import pl.arturpetrzak.controller.AboutWindowController;
 import pl.arturpetrzak.controller.BaseController;
 import pl.arturpetrzak.controller.MainWindowController;
@@ -19,8 +16,7 @@ import java.util.List;
 
 public class ViewFactory {
     private List<Stage> activeStages;
-    private DailyForecastManager dailyForecastManager;
-    private HostServices hostServices;
+    private final HostServices hostServices;
     private boolean aboutWindowInitialized;
 
     public ViewFactory(HostServices hostServices) {
@@ -37,12 +33,7 @@ public class ViewFactory {
         BaseController controller = new AboutWindowController(this, "AboutWindow.fxml");
         Stage stage = initializeStage(controller);
 
-        stage.setOnHiding(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-                aboutWindowInitialized = false;
-            }
-        });
+        stage.setOnHiding(event -> aboutWindowInitialized = false);
         aboutWindowInitialized = true;
     }
 

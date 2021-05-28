@@ -2,13 +2,14 @@ package pl.arturpetrzak.view;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import pl.arturpetrzak.Config;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 public class WeatherIconResolver {
 
-    public ImageView getIconForWeather(int iconNumber, int iconSize) {
+    public ImageView getIconForWeather(int iconNumber) {
         String path = "icons/";
         try {
             switch (iconNumber) {
@@ -98,13 +99,13 @@ public class WeatherIconResolver {
             }
 
             InputStream inputStream = getClass().getResourceAsStream(path);
-            if(inputStream == null) {
+            if (inputStream == null) {
                 throw new IOException("Path: " + path + " do not exist");
             }
 
             ImageView imageView = new ImageView(new Image(inputStream));
             imageView.setPreserveRatio(true);
-            imageView.setFitHeight(iconSize);
+            imageView.setFitHeight(Config.getIconSize());
             imageView.setSmooth(true);
             imageView.setCache(true);
 
@@ -112,8 +113,7 @@ public class WeatherIconResolver {
 
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

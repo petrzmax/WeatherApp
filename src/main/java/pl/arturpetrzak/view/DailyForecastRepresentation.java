@@ -3,7 +3,6 @@ package pl.arturpetrzak.view;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
@@ -45,7 +44,7 @@ public class DailyForecastRepresentation {
 
         label = new Label("Temperatures:" +
                 "\nMax: " + dailyForecast.getMaximumTemperature() + " °" + dailyForecast.getUnit() +
-                "\nMin: " + dailyForecast.getMinimumTemperature() + " °" +dailyForecast.getUnit()
+                "\nMin: " + dailyForecast.getMinimumTemperature() + " °" + dailyForecast.getUnit()
         );
 
         label.setTextAlignment(TextAlignment.CENTER);

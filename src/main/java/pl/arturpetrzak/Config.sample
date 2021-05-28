@@ -3,12 +3,18 @@ package pl.arturpetrzak;
 //Rename this file to Config.java & set Your API key
 
 public class Config {
-    private final static String ACCUWEATHER_API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXX";
-    private final static String IPSTACK_API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+    private final static String ACCUWEATHER_API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+    private final static String IPSTACK_API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
 
     private final static String CITY_SEARCH_API_URL = "https://dataservice.accuweather.com/locations/v1/cities/search";
     private final static String CURRENT_CITY_BY_IP_API_URL = "http://api.ipstack.com/check";
     private final static String DAILY_WEATHER_FORECAST_API_URL = "https://dataservice.accuweather.com/forecasts/v1/daily/5day/";
+
+    private final static String APP_NAME = "Weather App";
+    private final static String VERSION = "v0.1";
+
+    private final static int TEXT_FIELD_CAPACITY = 50;
+    private final static int ICON_SIZE = 120;
 
     public static String getAccuWeatherApiKey() {
         return ACCUWEATHER_API_KEY;
@@ -29,4 +35,21 @@ public class Config {
     public static String getDailyWeatherForecastApiUrl() {
         return DAILY_WEATHER_FORECAST_API_URL;
     }
+
+    public static String getAppName() {
+        return APP_NAME;
+    }
+
+    public static String getVersion() {
+        return VERSION;
+    }
+
+    public static int getTextFieldCapacity() {
+        return TEXT_FIELD_CAPACITY;
+    }
+
+    public static int getIconSize() {
+        return ICON_SIZE;
+    }
 }
+

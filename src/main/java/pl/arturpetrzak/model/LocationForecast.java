@@ -2,6 +2,7 @@ package pl.arturpetrzak.model;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class LocationForecast {
         dailyForecasts = new ArrayList();
         JSONArray jsonArray = weatherData.getJSONArray("DailyForecasts");
 
-        for (Object object: jsonArray) {
+        for (Object object : jsonArray) {
             DailyForecast dailyForecast = new DailyForecast((JSONObject) object);
             dailyForecasts.add(dailyForecast);
         }

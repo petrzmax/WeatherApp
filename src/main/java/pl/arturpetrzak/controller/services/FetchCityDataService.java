@@ -6,11 +6,6 @@ import pl.arturpetrzak.Config;
 
 public class FetchCityDataService extends BaseApiService {
 
-    public FetchCityDataService(String city) {
-        super();
-        url = Config.getCitySearchApiUrl() + "?" + CITY_PREFIX + city + "&" + API_KEY_PREFIX + Config.getAccuWeatherApiKey();
-    }
-
     public FetchCityDataService(String country, String city) {
         super();
         url = Config.getCitySearchApiUrl() + "?" + CITY_PREFIX + country + "," + city + "&" + API_KEY_PREFIX + Config.getAccuWeatherApiKey();
@@ -23,7 +18,7 @@ public class FetchCityDataService extends BaseApiService {
     @Override
     protected JSONObject parseResponse(String response) {
         JSONArray jsonArray = new JSONArray(response);
-        if(jsonArray.isEmpty()) {
+        if (jsonArray.isEmpty()) {
             return null;
         }
         return (JSONObject) jsonArray.get(0);
