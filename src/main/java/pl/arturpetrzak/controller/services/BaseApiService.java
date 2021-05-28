@@ -50,6 +50,10 @@ public abstract class BaseApiService extends Service<FetchDataResult> {
 
             jsonResponse = parseResponse(response.body().string());
 
+            if(jsonResponse == null) {
+                return FetchDataResult.RESPONSE_EMPTY;
+            }
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
             return FetchDataResult.FAILED_BY_REQUEST_SYNTAX;
