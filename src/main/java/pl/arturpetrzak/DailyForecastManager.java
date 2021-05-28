@@ -29,7 +29,7 @@ public class DailyForecastManager implements Observable {
             }
     }
 
-    public void getCityData(Location location) {
+    public void getCurrentLocalization(Location location) {
         pushMessage(Messages.FETCHING_LOCALIZATION);
 
         FetchCurrentLocalizationService fetchCurrentLocalizationService = new FetchCurrentLocalizationService();
