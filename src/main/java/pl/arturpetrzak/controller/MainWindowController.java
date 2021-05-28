@@ -63,7 +63,9 @@ public class MainWindowController extends BaseController implements Observer, In
 
     @FXML
     void openAboutWindowAction() {
-        viewFactory.showAboutWindow();
+        if(!viewFactory.isAboutWindowInitialized()) {
+            viewFactory.showAboutWindow();
+        }
     }
 
     @FXML
