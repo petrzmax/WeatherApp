@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import pl.arturpetrzak.DailyForecastManager;
+import pl.arturpetrzak.controller.AboutWindowController;
 import pl.arturpetrzak.controller.BaseController;
 import pl.arturpetrzak.controller.MainWindowController;
 
@@ -23,6 +24,11 @@ public class ViewFactory {
 
     public void showMainWindow() {
         BaseController controller = new MainWindowController(this, "MainWindow.fxml");
+        initializeStage(controller);
+    }
+
+    public void showAboutWindow() {
+        BaseController controller = new AboutWindowController(this, "AboutWindow.fxml");
         initializeStage(controller);
     }
 
