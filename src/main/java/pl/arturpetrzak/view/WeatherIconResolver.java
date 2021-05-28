@@ -2,13 +2,14 @@ package pl.arturpetrzak.view;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import pl.arturpetrzak.Config;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 public class WeatherIconResolver {
 
-    public ImageView getIconForWeather(int iconNumber, int iconSize) {
+    public ImageView getIconForWeather(int iconNumber) {
         String path = "icons/";
         try {
             switch (iconNumber) {
@@ -104,7 +105,7 @@ public class WeatherIconResolver {
 
             ImageView imageView = new ImageView(new Image(inputStream));
             imageView.setPreserveRatio(true);
-            imageView.setFitHeight(iconSize);
+            imageView.setFitHeight(Config.getIconSize());
             imageView.setSmooth(true);
             imageView.setCache(true);
 

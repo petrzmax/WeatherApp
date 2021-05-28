@@ -143,8 +143,8 @@ public class MainWindowController extends BaseController implements Observer, In
             weatherBox.getChildren().add(
                     dailyForecastRepresentation.getDailyForecastRepresentation(
                             dailyForecast,
-                            weatherIconResolver.getIconForWeather(dailyForecast.getDayIconNumber(), 120),
-                            weatherIconResolver.getIconForWeather(dailyForecast.getNightIconNumber(), 120))
+                            weatherIconResolver.getIconForWeather(dailyForecast.getDayIconNumber()),
+                            weatherIconResolver.getIconForWeather(dailyForecast.getNightIconNumber()))
             );
         }
         Stage stage = (Stage) messageLabel.getScene().getWindow();
