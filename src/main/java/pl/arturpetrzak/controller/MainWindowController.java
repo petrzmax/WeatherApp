@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import pl.arturpetrzak.DailyForecastManager;
 import pl.arturpetrzak.Languages;
+import pl.arturpetrzak.Messages;
 import pl.arturpetrzak.Observer;
 import pl.arturpetrzak.model.DailyForecast;
 import pl.arturpetrzak.view.DailyForecastRepresentation;
@@ -17,6 +18,8 @@ import pl.arturpetrzak.view.WeatherIconResolver;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainWindowController extends BaseController implements Observer, Initializable {
 
@@ -56,9 +59,11 @@ public class MainWindowController extends BaseController implements Observer, In
 
     @FXML
     void refreshChosenLocalizationDataAction() {
-        dailyForecastManager.setCountry(Location.CHOSEN, countryTextField.getText());
-        dailyForecastManager.setCity(Location.CHOSEN, cityTextField.getText());
-        dailyForecastManager.getCityId(Location.CHOSEN);
+        if(validateUserInput()) {
+            dailyForecastManager.setCountry(Location.CHOSEN, countryTextField.getText());
+            dailyForecastManager.setCity(Location.CHOSEN, cityTextField.getText());
+            dailyForecastManager.getCityId(Location.CHOSEN);
+        }
     }
 
     @FXML
@@ -144,5 +149,55 @@ public class MainWindowController extends BaseController implements Observer, In
         }
         Stage stage = (Stage) messageLabel.getScene().getWindow();
         stage.sizeToScene();
+    }
+
+    private boolean validateUserInput() {
+        String countryName = countryTextField.getText();
+        String cityName = cityTextField.getText();
+
+        Pattern digit = Pattern.compile("[0-9]");
+        Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
+
+        Matcher hasDigit;
+        Matcher hasSpecial;
+
+        hasDigit = digit.matcher(countryName);
+        if(hasDigit.find()) {
+            catchMessage(Messages.COUNTRY_NAME_NO_NUMBERS);
+            return false;
+        }
+        hasSpecial = special.matcher(countryName);
+        if(hasSpecial.find()) {
+            catchMessage(Messages.COUNTRY_NAME_NO_SPECIAL_CHARACTERS);
+            return false;
+        }
+
+        hasDigit = digit.matcher(cityName);
+        if(hasDigit.find()) {
+            catchMessage(Messages.CITY_NAME_NO_NUMBERS);
+            return false;
+        }
+        hasSpecial = special.matcher(cityName);
+        if(hasSpecial.find()) {
+            catchMessage(Messages.CITY_NAME_NO_SPECIAL_CHARACTERS);
+            return false;
+        }
+
+        if(countryName.length() > 50) {
+            catchMessage(Messages.COUNTRY_NAME_TOO_LONG);
+            return false;
+        }
+
+        if(cityName.length() > 50) {
+            catchMessage(Messages.CITY_NAME_TOO_LONG);
+            return false;
+        }
+
+        if(cityName == "") {
+            catchMessage(Messages.NO_CITY_NAME);
+            return false;
+        }
+
+        return true;
     }
 }
