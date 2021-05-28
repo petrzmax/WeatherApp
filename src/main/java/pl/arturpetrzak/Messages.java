@@ -11,6 +11,7 @@ public class Messages {
 
     // Services errors
     public static final String REQUEST_SYNTAX_ERROR = "Request syntax error occurred";
+    public static final String RESPONSE_EMPTY = "Can't find any data about your request";
     public static final String API_AUTHORIZATION_ERROR = "API error occurred";
     public static final String SERVER_ERROR = "Server error occurred";
     public static final String UNEXPECTED_ERROR = "Unexpected error occurred";

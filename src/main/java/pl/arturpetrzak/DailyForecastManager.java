@@ -96,6 +96,9 @@ public class DailyForecastManager implements Observable {
             case SUCCESS:
                 message += Messages.SUCCESS;
                 break;
+            case RESPONSE_EMPTY:
+                message += Messages.RESPONSE_EMPTY;
+                break;
             case FAILED_BY_REQUEST_SYNTAX:
                 message += Messages.REQUEST_SYNTAX_ERROR;
                 break;
