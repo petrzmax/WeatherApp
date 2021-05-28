@@ -1,11 +1,13 @@
 package pl.arturpetrzak.view;
 
+import javafx.application.HostServices;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import pl.arturpetrzak.DailyForecastManager;
+import pl.arturpetrzak.controller.AboutWindowController;
 import pl.arturpetrzak.controller.BaseController;
 import pl.arturpetrzak.controller.MainWindowController;
 
@@ -16,13 +18,20 @@ import java.util.List;
 public class ViewFactory {
     private List<Stage> activeStages;
     private DailyForecastManager dailyForecastManager;
+    private HostServices hostServices;
 
-    public ViewFactory() {
+    public ViewFactory(HostServices hostServices) {
+        this.hostServices = hostServices;
         this.activeStages = new ArrayList<>();
     }
 
     public void showMainWindow() {
         BaseController controller = new MainWindowController(this, "MainWindow.fxml");
+        initializeStage(controller);
+    }
+
+    public void showAboutWindow() {
+        BaseController controller = new AboutWindowController(this, "AboutWindow.fxml");
         initializeStage(controller);
     }
 
@@ -53,5 +62,9 @@ public class ViewFactory {
     public void closeStage(Stage stageToClose) {
         stageToClose.close();
         activeStages.remove(stageToClose);
+    }
+
+    public HostServices getHostServices() {
+        return hostServices;
     }
 }

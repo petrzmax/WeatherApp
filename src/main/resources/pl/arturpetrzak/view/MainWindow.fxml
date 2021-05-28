@@ -46,7 +46,7 @@
                            </items></Menu>
                     </items>
                   </Menu>
-                  <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem mnemonicParsing="false" onAction="#openAboutWindowAction" text="About" />
                   <SeparatorMenuItem mnemonicParsing="false" />
               <MenuItem mnemonicParsing="false" onAction="#closeAction" text="Close" />
             </items>
