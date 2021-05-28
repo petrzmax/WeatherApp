@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import pl.arturpetrzak.DailyForecastManager;
 import pl.arturpetrzak.Languages;
+import pl.arturpetrzak.Messages;
 import pl.arturpetrzak.Observer;
 import pl.arturpetrzak.model.DailyForecast;
 import pl.arturpetrzak.view.DailyForecastRepresentation;
@@ -56,9 +57,11 @@ public class MainWindowController extends BaseController implements Observer, In
 
     @FXML
     void refreshChosenLocalizationDataAction() {
-        dailyForecastManager.setCountry(Location.CHOSEN, countryTextField.getText());
-        dailyForecastManager.setCity(Location.CHOSEN, cityTextField.getText());
-        dailyForecastManager.getCityId(Location.CHOSEN);
+        if(validateUserInput()) {
+            dailyForecastManager.setCountry(Location.CHOSEN, countryTextField.getText());
+            dailyForecastManager.setCity(Location.CHOSEN, cityTextField.getText());
+            dailyForecastManager.getCityId(Location.CHOSEN);
+        }
     }
 
     @FXML
