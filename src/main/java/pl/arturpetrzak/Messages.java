@@ -19,5 +19,9 @@ public class Messages {
     // Validation errors
     public static final String NO_CITY_NAME = "Provide city name to begin";
     public static final String CITY_NAME_TOO_LONG = "City name is too long. It should be shorter than 50 characters";
+    public static final String CITY_NAME_NO_NUMBERS = "City name can't contain any number";
+    public static final String CITY_NAME_NO_SPECIAL_CHARACTERS = "City name can't contain any special characters";
     public static final String COUNTRY_NAME_TOO_LONG = "Country name is too long. It should be shorter than 50 characters";
+    public static final String COUNTRY_NAME_NO_NUMBERS = "Country name can't contain any number";
+    public static final String COUNTRY_NAME_NO_SPECIAL_CHARACTERS = "Country name can't contain any special characters";
 }
