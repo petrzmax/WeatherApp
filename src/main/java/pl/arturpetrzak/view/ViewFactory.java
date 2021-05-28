@@ -36,12 +36,7 @@ public class ViewFactory {
         BaseController controller = new AboutWindowController(this, "AboutWindow.fxml");
         Stage stage = initializeStage(controller);
 
-        stage.setOnHiding(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-                aboutWindowInitialized = false;
-            }
-        });
+        stage.setOnHiding(event -> aboutWindowInitialized = false);
         aboutWindowInitialized = true;
     }
 
