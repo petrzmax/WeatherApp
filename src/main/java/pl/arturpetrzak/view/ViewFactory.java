@@ -35,7 +35,7 @@ public class ViewFactory {
         initializeStage(controller);
     }
 
-    private void initializeStage(BaseController baseController) {
+    private Stage initializeStage(BaseController baseController) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(baseController.getFxmlName()));
         fxmlLoader.setController(baseController);
         Parent parent;
@@ -44,7 +44,7 @@ public class ViewFactory {
             parent = fxmlLoader.load();
         } catch (IOException e) {
             e.printStackTrace();
-            return;
+            return null;
         }
 
         Scene scene = new Scene(parent);
@@ -57,6 +57,7 @@ public class ViewFactory {
         stage.show();
 
         activeStages.add(stage);
+        return stage;
     }
 
     public void closeStage(Stage stageToClose) {
