@@ -44,13 +44,13 @@ public abstract class BaseApiService extends Service<FetchDataResult> {
 
             response = client.newCall(request).execute();
 
-            if(response.code() != 200) {
+            if (response.code() != 200) {
                 throw new IOException("HttpRequestCode: " + response.code());
             }
 
             jsonResponse = parseResponse(response.body().string());
 
-            if(jsonResponse == null) {
+            if (jsonResponse == null) {
                 return FetchDataResult.RESPONSE_EMPTY;
             }
 
@@ -64,7 +64,7 @@ public abstract class BaseApiService extends Service<FetchDataResult> {
         return FetchDataResult.SUCCESS;
     }
 
-    protected FetchDataResult getFetchDataResultByResponseCode (int responseCode) {
+    protected FetchDataResult getFetchDataResultByResponseCode(int responseCode) {
         switch (responseCode) {
             case 400:
                 return FetchDataResult.FAILED_BY_REQUEST_SYNTAX;

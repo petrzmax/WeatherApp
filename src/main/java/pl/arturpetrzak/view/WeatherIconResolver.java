@@ -98,7 +98,7 @@ public class WeatherIconResolver {
             }
 
             InputStream inputStream = getClass().getResourceAsStream(path);
-            if(inputStream == null) {
+            if (inputStream == null) {
                 throw new IOException("Path: " + path + " do not exist");
             }
 
@@ -112,8 +112,7 @@ public class WeatherIconResolver {
 
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

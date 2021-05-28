@@ -3,7 +3,7 @@ package pl.arturpetrzak.controller.services;
 import org.json.JSONObject;
 import pl.arturpetrzak.Config;
 
-public class FetchCurrentLocalizationService extends BaseApiService{
+public class FetchCurrentLocalizationService extends BaseApiService {
     protected final String API_KEY_PREFIX = "access_key=";
 
     public FetchCurrentLocalizationService() {

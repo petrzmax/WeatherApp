@@ -12,6 +12,8 @@ public class Launcher extends Application {
         viewFactory.showMainWindow();
     }
 
-    public static void main(String[] args) { launch(); }
+    public static void main(String[] args) {
+        launch();
+    }
 
 }

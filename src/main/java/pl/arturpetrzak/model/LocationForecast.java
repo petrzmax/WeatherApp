@@ -18,7 +18,7 @@ public class LocationForecast {
         dailyForecasts = new ArrayList();
         JSONArray jsonArray = weatherData.getJSONArray("DailyForecasts");
 
-        for (Object object: jsonArray) {
+        for (Object object : jsonArray) {
             DailyForecast dailyForecast = new DailyForecast((JSONObject) object);
             dailyForecasts.add(dailyForecast);
         }

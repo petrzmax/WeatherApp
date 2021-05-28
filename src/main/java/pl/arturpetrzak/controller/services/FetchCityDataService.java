@@ -18,7 +18,7 @@ public class FetchCityDataService extends BaseApiService {
     @Override
     protected JSONObject parseResponse(String response) {
         JSONArray jsonArray = new JSONArray(response);
-        if(jsonArray.isEmpty()) {
+        if (jsonArray.isEmpty()) {
             return null;
         }
         return (JSONObject) jsonArray.get(0);

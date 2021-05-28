@@ -7,7 +7,7 @@ public class Messages {
     // Messages headers
     public static final String FETCHING_LOCALIZATION = "Fetching current localization";
     public static final String FETCHING_CITY_ID = "Fetching city id";
-    public static final String FETCHING_WEATHER_DATA= "Fetching weather data";
+    public static final String FETCHING_WEATHER_DATA = "Fetching weather data";
 
     // Services errors
     public static final String REQUEST_SYNTAX_ERROR = "Request syntax error occurred";

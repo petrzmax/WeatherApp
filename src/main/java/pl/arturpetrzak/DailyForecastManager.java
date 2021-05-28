@@ -23,10 +23,10 @@ public class DailyForecastManager implements Observable {
     public DailyForecastManager() {
         observers = new ArrayList<>();
         locationForecasts = new EnumMap<>(Location.class);
-            for(Location location: Location.values()) {
-                LocationForecast locationForecast = new LocationForecast();
-                locationForecasts.put(location, locationForecast);
-            }
+        for (Location location : Location.values()) {
+            LocationForecast locationForecast = new LocationForecast();
+            locationForecasts.put(location, locationForecast);
+        }
     }
 
     public void getCurrentLocalization(Location location) {
@@ -116,7 +116,7 @@ public class DailyForecastManager implements Observable {
         }
         pushMessage(message);
 
-        if(fetchDataResult != FetchDataResult.SUCCESS) {
+        if (fetchDataResult != FetchDataResult.SUCCESS) {
             throw new Exception(message);
         }
     }

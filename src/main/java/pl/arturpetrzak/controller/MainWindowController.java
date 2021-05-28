@@ -59,7 +59,7 @@ public class MainWindowController extends BaseController implements Observer, In
 
     @FXML
     void refreshChosenLocalizationDataAction() {
-        if(validateUserInput()) {
+        if (validateUserInput()) {
             dailyForecastManager.setCountry(Location.CHOSEN, countryTextField.getText());
             dailyForecastManager.setCity(Location.CHOSEN, cityTextField.getText());
             dailyForecastManager.getCityId(Location.CHOSEN);
@@ -68,7 +68,7 @@ public class MainWindowController extends BaseController implements Observer, In
 
     @FXML
     void openAboutWindowAction() {
-        if(!viewFactory.isAboutWindowInitialized()) {
+        if (!viewFactory.isAboutWindowInitialized()) {
             viewFactory.showAboutWindow();
         }
     }
@@ -117,7 +117,7 @@ public class MainWindowController extends BaseController implements Observer, In
 
     @Override
     public void update(Location location, String country, String city, String weatherMessage) {
-        if(location == Location.CURRENT) {
+        if (location == Location.CURRENT) {
             currentCountryLabel.setText(country);
             currentCityLabel.setText(city);
             currentLocalizationWeatherMessageLabel.setText(weatherMessage);
@@ -139,7 +139,7 @@ public class MainWindowController extends BaseController implements Observer, In
         WeatherIconResolver weatherIconResolver = new WeatherIconResolver();
         weatherBox.getChildren().clear();
 
-        for(DailyForecast dailyForecast: dailyForecasts) {
+        for (DailyForecast dailyForecast : dailyForecasts) {
             weatherBox.getChildren().add(
                     dailyForecastRepresentation.getDailyForecastRepresentation(
                             dailyForecast,
@@ -156,44 +156,44 @@ public class MainWindowController extends BaseController implements Observer, In
         String cityName = cityTextField.getText();
 
         Pattern digit = Pattern.compile("[0-9]");
-        Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
+        Pattern special = Pattern.compile("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
 
         Matcher hasDigit;
         Matcher hasSpecial;
 
         hasDigit = digit.matcher(countryName);
-        if(hasDigit.find()) {
+        if (hasDigit.find()) {
             catchMessage(Messages.COUNTRY_NAME_NO_NUMBERS);
             return false;
         }
         hasSpecial = special.matcher(countryName);
-        if(hasSpecial.find()) {
+        if (hasSpecial.find()) {
             catchMessage(Messages.COUNTRY_NAME_NO_SPECIAL_CHARACTERS);
             return false;
         }
 
         hasDigit = digit.matcher(cityName);
-        if(hasDigit.find()) {
+        if (hasDigit.find()) {
             catchMessage(Messages.CITY_NAME_NO_NUMBERS);
             return false;
         }
         hasSpecial = special.matcher(cityName);
-        if(hasSpecial.find()) {
+        if (hasSpecial.find()) {
             catchMessage(Messages.CITY_NAME_NO_SPECIAL_CHARACTERS);
             return false;
         }
 
-        if(countryName.length() > 50) {
+        if (countryName.length() > 50) {
             catchMessage(Messages.COUNTRY_NAME_TOO_LONG);
             return false;
         }
 
-        if(cityName.length() > 50) {
+        if (cityName.length() > 50) {
             catchMessage(Messages.CITY_NAME_TOO_LONG);
             return false;
         }
 
-        if(cityName == "") {
+        if (cityName == "") {
             catchMessage(Messages.NO_CITY_NAME);
             return false;
         }
