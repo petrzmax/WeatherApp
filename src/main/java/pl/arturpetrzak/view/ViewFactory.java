@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ViewFactory {
     private List<Stage> activeStages;
-    private HostServices hostServices;
+    private final HostServices hostServices;
     private boolean aboutWindowInitialized;
 
     public ViewFactory(HostServices hostServices) {
