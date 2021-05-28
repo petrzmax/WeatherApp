@@ -19,6 +19,7 @@ public class ViewFactory {
     private List<Stage> activeStages;
     private DailyForecastManager dailyForecastManager;
     private HostServices hostServices;
+    private boolean aboutWindowInitialized;
 
     public ViewFactory(HostServices hostServices) {
         this.hostServices = hostServices;
@@ -68,4 +69,9 @@ public class ViewFactory {
     public HostServices getHostServices() {
         return hostServices;
     }
+
+    public boolean isAboutWindowInitialized() {
+        return aboutWindowInitialized;
+    }
+
 }
