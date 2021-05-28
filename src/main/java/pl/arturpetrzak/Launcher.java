@@ -9,9 +9,8 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage stage) {
-
-        viewFactory.showMainWindow();
         ViewFactory viewFactory = new ViewFactory(getHostServices());
+        viewFactory.showMainWindow();
     }
 
     public static void main(String[] args) { launch(); }
