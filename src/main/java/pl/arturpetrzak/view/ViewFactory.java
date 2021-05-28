@@ -1,14 +1,11 @@
 package pl.arturpetrzak.view;
 
 import javafx.application.HostServices;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
-import pl.arturpetrzak.DailyForecastManager;
 import pl.arturpetrzak.controller.AboutWindowController;
 import pl.arturpetrzak.controller.BaseController;
 import pl.arturpetrzak.controller.MainWindowController;
