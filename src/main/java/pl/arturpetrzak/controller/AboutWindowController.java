@@ -2,6 +2,7 @@ package pl.arturpetrzak.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import pl.arturpetrzak.view.ViewFactory;
@@ -21,8 +22,11 @@ public class AboutWindowController extends BaseController implements Initializab
     private Label nameVersionLabel;
 
     @FXML
-    void openHyperlinkAction() {
+    private Hyperlink myPageHyperlink;
 
+    @FXML
+    void openHyperlinkAction() {
+        viewFactory.getHostServices().showDocument("https://" + myPageHyperlink.getText());
     }
 
     @FXML

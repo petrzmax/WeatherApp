@@ -16,6 +16,6 @@
       <Label fx:id="nameVersionLabel" alignment="CENTER" layoutX="130.0" layoutY="168.0" prefHeight="2.0" prefWidth="235.0" text="Artur Petrzak - &lt;appName&gt; &lt;version&gt;  ©2021" textAlignment="CENTER" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="160.0" />
       <Label alignment="CENTER" layoutX="182.0" layoutY="192.0" prefHeight="16.0" prefWidth="125.0" text="All rights reserved" textAlignment="CENTER" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="185.0" />
       <Label alignment="CENTER" layoutX="15.0" layoutY="62.0" prefHeight="54.0" prefWidth="377.0" text="This app was created as a Java learning project. I hope You will find it useful :) Check my website for more interesting projects:" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0" />
-      <Hyperlink alignment="CENTER" layoutX="169.0" layoutY="140.0" onAction="#openHyperlinkAction" text="artur-petrzak.pl" textAlignment="CENTER" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="122.0" />
+      <Hyperlink fx:id="myPageHyperlink" alignment="CENTER" layoutX="169.0" layoutY="140.0" onAction="#openHyperlinkAction" text="artur-petrzak.pl" textAlignment="CENTER" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="122.0" />
    </children>
 </AnchorPane>
