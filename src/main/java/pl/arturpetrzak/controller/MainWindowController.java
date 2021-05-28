@@ -18,6 +18,8 @@ import pl.arturpetrzak.view.WeatherIconResolver;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainWindowController extends BaseController implements Observer, Initializable {
 
@@ -153,8 +155,31 @@ public class MainWindowController extends BaseController implements Observer, In
         String countryName = countryTextField.getText();
         String cityName = cityTextField.getText();
 
-        if(cityName == "") {
-            catchMessage(Messages.NO_CITY_NAME);
+        Pattern digit = Pattern.compile("[0-9]");
+        Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
+
+        Matcher hasDigit;
+        Matcher hasSpecial;
+
+        hasDigit = digit.matcher(countryName);
+        if(hasDigit.find()) {
+            catchMessage(Messages.COUNTRY_NAME_NO_NUMBERS);
+            return false;
+        }
+        hasSpecial = special.matcher(countryName);
+        if(hasSpecial.find()) {
+            catchMessage(Messages.COUNTRY_NAME_NO_SPECIAL_CHARACTERS);
+            return false;
+        }
+
+        hasDigit = digit.matcher(cityName);
+        if(hasDigit.find()) {
+            catchMessage(Messages.CITY_NAME_NO_NUMBERS);
+            return false;
+        }
+        hasSpecial = special.matcher(cityName);
+        if(hasSpecial.find()) {
+            catchMessage(Messages.CITY_NAME_NO_SPECIAL_CHARACTERS);
             return false;
         }
 
@@ -165,6 +190,11 @@ public class MainWindowController extends BaseController implements Observer, In
 
         if(cityName.length() > 50) {
             catchMessage(Messages.CITY_NAME_TOO_LONG);
+            return false;
+        }
+
+        if(cityName == "") {
+            catchMessage(Messages.NO_CITY_NAME);
             return false;
         }
 
