@@ -145,4 +145,26 @@ public class MainWindowController extends BaseController implements Observer, In
         Stage stage = (Stage) messageLabel.getScene().getWindow();
         stage.sizeToScene();
     }
+
+    private boolean validateUserInput() {
+        String countryName = countryTextField.getText();
+        String cityName = cityTextField.getText();
+
+        if(cityName == "") {
+            catchMessage(Messages.NO_CITY_NAME);
+            return false;
+        }
+
+        if(countryName.length() > 50) {
+            catchMessage(Messages.COUNTRY_NAME_TOO_LONG);
+            return false;
+        }
+
+        if(cityName.length() > 50) {
+            catchMessage(Messages.CITY_NAME_TOO_LONG);
+            return false;
+        }
+
+        return true;
+    }
 }
