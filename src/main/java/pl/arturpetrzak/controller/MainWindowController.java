@@ -62,6 +62,11 @@ public class MainWindowController extends BaseController implements Observer, In
     }
 
     @FXML
+    void openAboutWindowAction() {
+        viewFactory.showAboutWindow();
+    }
+
+    @FXML
     void closeAction() {
         Stage stage = (Stage) messageLabel.getScene().getWindow();
         viewFactory.closeStage(stage);
