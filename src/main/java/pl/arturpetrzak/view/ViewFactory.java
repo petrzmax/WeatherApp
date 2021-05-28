@@ -1,5 +1,6 @@
 package pl.arturpetrzak.view;
 
+import javafx.application.HostServices;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,8 +18,10 @@ import java.util.List;
 public class ViewFactory {
     private List<Stage> activeStages;
     private DailyForecastManager dailyForecastManager;
+    private HostServices hostServices;
 
-    public ViewFactory() {
+    public ViewFactory(HostServices hostServices) {
+        this.hostServices = hostServices;
         this.activeStages = new ArrayList<>();
     }
 
