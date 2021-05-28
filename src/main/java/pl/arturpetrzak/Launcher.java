@@ -1,7 +1,6 @@
 package pl.arturpetrzak;
 
 import javafx.application.Application;
-import javafx.application.HostServices;
 import javafx.stage.Stage;
 import pl.arturpetrzak.view.ViewFactory;
 

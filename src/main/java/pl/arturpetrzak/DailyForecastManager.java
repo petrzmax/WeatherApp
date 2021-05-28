@@ -2,7 +2,6 @@ package pl.arturpetrzak;
 
 import pl.arturpetrzak.controller.FetchDataResult;
 import pl.arturpetrzak.controller.Location;
-import pl.arturpetrzak.controller.MainWindowController;
 import pl.arturpetrzak.controller.services.FetchCityDataService;
 import pl.arturpetrzak.controller.services.FetchCurrentLocalizationService;
 import pl.arturpetrzak.controller.services.FetchWeatherService;
