@@ -16,7 +16,7 @@ public class FetchCurrentLocalizationService extends BaseApiService {
     }
 
     public String getCity() {
-        return jsonResponse.getJSONObject("location").getString("capital");
+        return jsonResponse.getString("city");
     }
 
     @Override
