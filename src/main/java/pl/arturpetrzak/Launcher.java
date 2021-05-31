@@ -22,8 +22,13 @@ public class Launcher extends Application {
     @Override
     public void stop() throws Exception {
         Settings settings = new Settings();
+
+        settings.setIpstackApiKey(Config.getIpstackApiKey());
+        settings.setAccuweatherApiKey(Config.getAccuWeatherApiKey());
+
         settings.setLanguage(dailyForecastManager.getLanguage());
         settings.setMetric(dailyForecastManager.isMetric());
+
 
         persistenceAccess.saveToPersistence(settings);
     }
