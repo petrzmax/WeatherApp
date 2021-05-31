@@ -76,31 +76,6 @@ public class MainWindowController extends BaseController implements Observer, In
         viewFactory.closeStage(stage);
     }
 
-    @FXML
-    void setMetricUnitsAction() {
-        dailyForecastManager.setMetric(true);
-    }
-
-    @FXML
-    void setImperialUnitsAction() {
-        dailyForecastManager.setMetric(false);
-    }
-
-    @FXML
-    void setEnglishLanguageAction() {
-        dailyForecastManager.setLanguage(Languages.ENGLISH);
-    }
-
-    @FXML
-    void setPolishLanguageAction() {
-        dailyForecastManager.setLanguage(Languages.POLISH);
-    }
-
-    @FXML
-    void setGermanLanguageAction() {
-        dailyForecastManager.setLanguage(Languages.GERMAN);
-    }
-
     public MainWindowController(DailyForecastManager dailyForecastManager, ViewFactory viewFactory, String fxmlName) {
         super(viewFactory, fxmlName);
         this.dailyForecastManager = dailyForecastManager;
