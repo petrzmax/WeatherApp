@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import pl.arturpetrzak.DailyForecastManager;
 import pl.arturpetrzak.controller.AboutWindowController;
 import pl.arturpetrzak.controller.BaseController;
 import pl.arturpetrzak.controller.MainWindowController;
@@ -16,16 +17,18 @@ import java.util.List;
 
 public class ViewFactory {
     private List<Stage> activeStages;
+    private DailyForecastManager dailyForecastManager;
     private final HostServices hostServices;
     private boolean aboutWindowInitialized;
 
-    public ViewFactory(HostServices hostServices) {
+    public ViewFactory(DailyForecastManager dailyForecastManager, HostServices hostServices) {
+        this.dailyForecastManager = dailyForecastManager;
         this.hostServices = hostServices;
         this.activeStages = new ArrayList<>();
     }
 
     public void showMainWindow() {
-        BaseController controller = new MainWindowController(this, "MainWindow.fxml");
+        BaseController controller = new MainWindowController(dailyForecastManager, this, "MainWindow.fxml");
         initializeStage(controller);
     }
 
