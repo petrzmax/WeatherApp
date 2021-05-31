@@ -80,6 +80,10 @@ public class ViewFactory {
         return hostServices;
     }
 
+    public Languages getCurrentLanguage() {
+        return dailyForecastManager.getLanguage();
+    }
+
     public boolean isAboutWindowInitialized() {
         return aboutWindowInitialized;
     }
