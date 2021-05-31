@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import pl.arturpetrzak.DailyForecastManager;
+import pl.arturpetrzak.Languages;
 import pl.arturpetrzak.controller.AboutWindowController;
 import pl.arturpetrzak.controller.BaseController;
 import pl.arturpetrzak.controller.MainWindowController;
@@ -84,8 +85,23 @@ public class ViewFactory {
         return dailyForecastManager.getLanguage();
     }
 
+    public void setLanguage(Languages language) {
+        dailyForecastManager.setLanguage(language);
+    }
+
+    public void setMetric (Boolean metric) {
+        dailyForecastManager.setMetric(metric);
+    }
+
+    public boolean isMetric () {
+        return dailyForecastManager.isMetric();
+    }
+
     public boolean isAboutWindowInitialized() {
         return aboutWindowInitialized;
     }
 
+    public boolean isSettingsWindowInitialized() {
+        return settingsWindowInitialized;
+    }
 }
