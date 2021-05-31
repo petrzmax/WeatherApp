@@ -10,6 +10,7 @@ import pl.arturpetrzak.DailyForecastManager;
 import pl.arturpetrzak.controller.AboutWindowController;
 import pl.arturpetrzak.controller.BaseController;
 import pl.arturpetrzak.controller.MainWindowController;
+import pl.arturpetrzak.controller.SettingsWindowController;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,6 +30,11 @@ public class ViewFactory {
 
     public void showMainWindow() {
         BaseController controller = new MainWindowController(dailyForecastManager, this, "MainWindow.fxml");
+        initializeStage(controller);
+    }
+
+    public void showSettingsWindow() {
+        BaseController controller = new SettingsWindowController(this, "SettingsWindow.fxml");
         initializeStage(controller);
     }
 
