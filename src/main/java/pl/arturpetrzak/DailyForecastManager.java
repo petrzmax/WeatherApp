@@ -28,6 +28,11 @@ public class DailyForecastManager implements Observable {
             LocationForecast locationForecast = new LocationForecast();
             locationForecasts.put(location, locationForecast);
         }
+
+        if(settings != null) {
+            metric = settings.isMetric();
+            language = settings.getLanguage();
+        }
     }
 
     public void getCurrentLocalization(Location location) {
