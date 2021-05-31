@@ -32,6 +32,9 @@ public class DailyForecastManager implements Observable {
         if(settings != null) {
             metric = settings.isMetric();
             language = settings.getLanguage();
+
+            Config.setIpstackApiKey(settings.getIpstackApiKey());
+            Config.setAccuweatherApiKey(settings.getAccuweatherApiKey());
         }
     }
 
