@@ -6,10 +6,8 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.RadioMenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -23,29 +21,7 @@
           <Menu mnemonicParsing="false" text="File">
             <items>
                   <MenuItem mnemonicParsing="false" onAction="#refreshCurrentLocalizationDataAction" text="Refresh" />
-                  <Menu mnemonicParsing="false" text="Options">
-                    <items>
-                        <Menu mnemonicParsing="false" text="Units">
-                           <items>
-                              <RadioMenuItem mnemonicParsing="false" onAction="#setMetricUnitsAction" selected="true" text="°C">
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="unitGroup" />
-                                 </toggleGroup>
-                              </RadioMenuItem>
-                              <RadioMenuItem mnemonicParsing="false" onAction="#setImperialUnitsAction" text="°F" toggleGroup="$unitGroup" />
-                           </items></Menu>
-                        <Menu mnemonicParsing="false" text="Weather language">
-                           <items>
-                              <RadioMenuItem mnemonicParsing="false" onAction="#setEnglishLanguageAction" selected="true" text="English">
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="languageGroup" />
-                                 </toggleGroup>
-                              </RadioMenuItem>
-                              <RadioMenuItem mnemonicParsing="false" onAction="#setPolishLanguageAction" text="Polish" toggleGroup="$languageGroup" />
-                              <RadioMenuItem mnemonicParsing="false" onAction="#setGermanLanguageAction" text="German" toggleGroup="$languageGroup" />
-                           </items></Menu>
-                    </items>
-                  </Menu>
+                  <MenuItem mnemonicParsing="false" onAction="#showSettingsWindowAction" text="Settings" />
                   <MenuItem mnemonicParsing="false" onAction="#openAboutWindowAction" text="About" />
                   <SeparatorMenuItem mnemonicParsing="false" />
               <MenuItem mnemonicParsing="false" onAction="#closeAction" text="Close" />

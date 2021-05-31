@@ -64,6 +64,13 @@ public class MainWindowController extends BaseController implements Observer, In
     }
 
     @FXML
+    void showSettingsWindowAction() {
+        if(!viewFactory.isSettingsWindowInitialized()) {
+            viewFactory.showSettingsWindow();
+        }
+    }
+
+    @FXML
     void openAboutWindowAction() {
         if (!viewFactory.isAboutWindowInitialized()) {
             viewFactory.showAboutWindow();
@@ -74,31 +81,6 @@ public class MainWindowController extends BaseController implements Observer, In
     void closeAction() {
         Stage stage = (Stage) messageLabel.getScene().getWindow();
         viewFactory.closeStage(stage);
-    }
-
-    @FXML
-    void setMetricUnitsAction() {
-        dailyForecastManager.setMetric(true);
-    }
-
-    @FXML
-    void setImperialUnitsAction() {
-        dailyForecastManager.setMetric(false);
-    }
-
-    @FXML
-    void setEnglishLanguageAction() {
-        dailyForecastManager.setLanguage(Languages.ENGLISH);
-    }
-
-    @FXML
-    void setPolishLanguageAction() {
-        dailyForecastManager.setLanguage(Languages.POLISH);
-    }
-
-    @FXML
-    void setGermanLanguageAction() {
-        dailyForecastManager.setLanguage(Languages.GERMAN);
     }
 
     public MainWindowController(DailyForecastManager dailyForecastManager, ViewFactory viewFactory, String fxmlName) {
