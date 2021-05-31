@@ -2,9 +2,12 @@ package pl.arturpetrzak.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import pl.arturpetrzak.Languages;
+import pl.arturpetrzak.controller.persistence.Settings;
 import pl.arturpetrzak.view.ViewFactory;
 
 import java.net.URL;
@@ -20,6 +23,15 @@ public class SettingsWindowController extends BaseController implements Initiali
     private ChoiceBox<String> languageChoiceBox;
 
     @FXML
+    private CheckBox metricCheckBox;
+
+    @FXML
+    private TextField ipStackApiTextField;
+
+    @FXML
+    private TextField accuWeatherApiTextField;
+
+    @FXML
     void cancelSettingsAction() {
         Stage stage = (Stage) languageChoiceBox.getScene().getWindow();
         viewFactory.closeStage(stage);
@@ -27,7 +39,12 @@ public class SettingsWindowController extends BaseController implements Initiali
 
     @FXML
     void saveSettingsAction() {
-        //save
+        String choiceBoxValue = languageChoiceBox.getValue();
+        Languages language = Languages.valueOf(choiceBoxValue.toUpperCase());
+
+        viewFactory.setLanguage(language);
+        viewFactory.setMetric(metricCheckBox.isSelected());
+        
         Stage stage = (Stage) languageChoiceBox.getScene().getWindow();
         viewFactory.closeStage(stage);
     }
@@ -39,6 +56,7 @@ public class SettingsWindowController extends BaseController implements Initiali
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setUpLanguageChoiceBox();
+        metricCheckBox.setSelected(viewFactory.isMetric());
     }
 
     private void setUpLanguageChoiceBox() {
