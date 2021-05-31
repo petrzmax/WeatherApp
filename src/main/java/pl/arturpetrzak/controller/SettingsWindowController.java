@@ -6,8 +6,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import pl.arturpetrzak.Config;
 import pl.arturpetrzak.Languages;
-import pl.arturpetrzak.controller.persistence.Settings;
 import pl.arturpetrzak.view.ViewFactory;
 
 import java.net.URL;
@@ -44,7 +44,10 @@ public class SettingsWindowController extends BaseController implements Initiali
 
         viewFactory.setLanguage(language);
         viewFactory.setMetric(metricCheckBox.isSelected());
-        
+
+        Config.setIpstackApiKey(ipStackApiTextField.getText());
+        Config.setAccuweatherApiKey(accuWeatherApiTextField.getText());
+
         Stage stage = (Stage) languageChoiceBox.getScene().getWindow();
         viewFactory.closeStage(stage);
     }
@@ -57,6 +60,8 @@ public class SettingsWindowController extends BaseController implements Initiali
     public void initialize(URL location, ResourceBundle resources) {
         setUpLanguageChoiceBox();
         metricCheckBox.setSelected(viewFactory.isMetric());
+        ipStackApiTextField.setText(Config.getIpstackApiKey());
+        accuWeatherApiTextField.setText(Config.getAccuWeatherApiKey());
     }
 
     private void setUpLanguageChoiceBox() {
