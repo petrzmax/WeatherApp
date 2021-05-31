@@ -22,6 +22,7 @@ public class ViewFactory {
     private DailyForecastManager dailyForecastManager;
     private final HostServices hostServices;
     private boolean aboutWindowInitialized;
+    private boolean settingsWindowInitialized;
 
     public ViewFactory(DailyForecastManager dailyForecastManager, HostServices hostServices) {
         this.dailyForecastManager = dailyForecastManager;
@@ -36,7 +37,10 @@ public class ViewFactory {
 
     public void showSettingsWindow() {
         BaseController controller = new SettingsWindowController(this, "SettingsWindow.fxml");
-        initializeStage(controller);
+        Stage stage = initializeStage(controller);
+
+        stage.setOnHiding(event -> settingsWindowInitialized = false);
+        settingsWindowInitialized = true;
     }
 
     public void showAboutWindow() {
