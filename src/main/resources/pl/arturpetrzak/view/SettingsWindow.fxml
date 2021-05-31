@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="278.0" prefWidth="502.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="228.0" prefWidth="452.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="406.0" layoutY="230.0" mnemonicParsing="false" onAction="#saveSettingsAction" prefHeight="24.0" prefWidth="63.0" text="Save" />
-      <Button layoutX="335.0" layoutY="230.0" mnemonicParsing="false" onAction="#cancelSettingsAction" text="Cancel" />
-      <Label layoutX="42.0" layoutY="34.0" text="Language:" />
-      <Label layoutX="42.0" layoutY="68.0" prefHeight="16.0" prefWidth="69.0" text="Units:" />
-      <ChoiceBox fx:id="languageChoiceBox" layoutX="176.0" layoutY="30.0" prefWidth="150.0" />
-      <ChoiceBox layoutX="176.0" layoutY="72.0" prefWidth="150.0" />
+      <Button layoutX="375.0" layoutY="190.0" mnemonicParsing="false" onAction="#saveSettingsAction" prefHeight="24.0" prefWidth="63.0" text="Save" AnchorPane.bottomAnchor="14.0" />
+      <Button layoutX="304.0" layoutY="190.0" mnemonicParsing="false" onAction="#cancelSettingsAction" text="Cancel" AnchorPane.bottomAnchor="14.0" />
+      <Label layoutX="42.0" layoutY="34.0" text="Language:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
+      <ChoiceBox fx:id="languageChoiceBox" layoutX="116.0" layoutY="11.0" prefHeight="24.0" prefWidth="101.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="11.0" />
+      <CheckBox fx:id="metricCheckBox" layoutX="42.0" layoutY="80.0" mnemonicParsing="false" text="Metric units" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="45.0" />
+      <Label layoutX="14.0" layoutY="113.0" text="IpStack" AnchorPane.leftAnchor="15.0" />
+      <Label layoutX="14.0" layoutY="149.0" text="AccuWeather" AnchorPane.leftAnchor="15.0" />
+      <TextField fx:id="ipStackApiTextField" layoutX="116.0" layoutY="109.0" prefHeight="24.0" prefWidth="322.0" />
+      <TextField fx:id="accuWeatherApiTextField" layoutX="116.0" layoutY="145.0" prefHeight="24.0" prefWidth="322.0" />
+      <Label layoutX="15.0" layoutY="83.0" text="Api Keys:" AnchorPane.leftAnchor="15.0" />
    </children>
 </AnchorPane>
