@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 
 public class MainWindowController extends BaseController implements Observer, Initializable {
 
-    DailyForecastManager dailyForecastManager = new DailyForecastManager();
+    DailyForecastManager dailyForecastManager;
 
     @FXML
     private Label currentCountryLabel;
@@ -101,8 +101,9 @@ public class MainWindowController extends BaseController implements Observer, In
         dailyForecastManager.setLanguage(Languages.GERMAN);
     }
 
-    public MainWindowController(ViewFactory viewFactory, String fxmlName) {
+    public MainWindowController(DailyForecastManager dailyForecastManager, ViewFactory viewFactory, String fxmlName) {
         super(viewFactory, fxmlName);
+        this.dailyForecastManager = dailyForecastManager;
     }
 
     @Override

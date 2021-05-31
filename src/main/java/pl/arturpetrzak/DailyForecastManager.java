@@ -2,6 +2,7 @@ package pl.arturpetrzak;
 
 import pl.arturpetrzak.controller.FetchDataResult;
 import pl.arturpetrzak.controller.Location;
+import pl.arturpetrzak.controller.persistence.Settings;
 import pl.arturpetrzak.controller.services.FetchCityDataService;
 import pl.arturpetrzak.controller.services.FetchCurrentLocalizationService;
 import pl.arturpetrzak.controller.services.FetchWeatherService;
@@ -20,12 +21,17 @@ public class DailyForecastManager implements Observable {
     private boolean metric;
     private Languages language = Languages.ENGLISH;
 
-    public DailyForecastManager() {
+    public DailyForecastManager(Settings settings) {
         observers = new ArrayList<>();
         locationForecasts = new EnumMap<>(Location.class);
         for (Location location : Location.values()) {
             LocationForecast locationForecast = new LocationForecast();
             locationForecasts.put(location, locationForecast);
+        }
+
+        if(settings != null) {
+            metric = settings.isMetric();
+            language = settings.getLanguage();
         }
     }
 
@@ -137,8 +143,16 @@ public class DailyForecastManager implements Observable {
         this.metric = metric;
     }
 
+    public boolean isMetric() {
+        return metric;
+    }
+
     public void setLanguage(Languages language) {
         this.language = language;
+    }
+
+    public Languages getLanguage() {
+        return language;
     }
 
     @Override
