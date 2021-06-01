@@ -3,8 +3,9 @@ package pl.arturpetrzak;
 //Rename this file to Config.java & set Your API key
 
 public class Config {
-    private final static String ACCUWEATHER_API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
-    private final static String IPSTACK_API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+    //These API keys will be used as default. If You will set Your own in settings, these will be overriden.
+    private static String ACCUWEATHER_API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+    private static String IPSTACK_API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
 
     private final static String CITY_SEARCH_API_URL = "https://dataservice.accuweather.com/locations/v1/cities/search";
     private final static String CURRENT_CITY_BY_IP_API_URL = "http://api.ipstack.com/check";
@@ -13,8 +14,19 @@ public class Config {
     private final static String APP_NAME = "Weather App";
     private final static String VERSION = "v0.1";
 
+    // View settings
     private final static int TEXT_FIELD_CAPACITY = 50;
     private final static int ICON_SIZE = 120;
+    private final static int MAX_WEATHER_BOX_WIDTH = 100;
+    private final static int MIN_LABEL_HEIGHT = 40;
+
+    public static void setAccuweatherApiKey(String accuweatherApiKey) {
+        ACCUWEATHER_API_KEY = accuweatherApiKey;
+    }
+
+    public static void setIpstackApiKey(String ipstackApiKey) {
+        IPSTACK_API_KEY = ipstackApiKey;
+    }
 
     public static String getAccuWeatherApiKey() {
         return ACCUWEATHER_API_KEY;
@@ -50,6 +62,14 @@ public class Config {
 
     public static int getIconSize() {
         return ICON_SIZE;
+    }
+
+    public static int getMaxWeatherBoxWidth() {
+        return MAX_WEATHER_BOX_WIDTH;
+    }
+
+    public static int getMinLabelHeight() {
+        return MIN_LABEL_HEIGHT;
     }
 }
 
