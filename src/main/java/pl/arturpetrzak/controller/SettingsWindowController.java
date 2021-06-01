@@ -9,11 +9,14 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import pl.arturpetrzak.Config;
 import pl.arturpetrzak.Languages;
+import pl.arturpetrzak.Messages;
 import pl.arturpetrzak.view.ViewFactory;
 
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -51,6 +54,39 @@ public class SettingsWindowController extends BaseController implements Initiali
 
         Stage stage = (Stage) languageChoiceBox.getScene().getWindow();
         viewFactory.closeStage(stage);
+
+    private boolean validateUserInput() {
+        String ipStackApi = ipStackApiTextField.getText();
+        String accuWeatherApi = accuWeatherApiTextField.getText();
+
+        Pattern special = Pattern.compile("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
+        Matcher hasSpecial;
+
+        // IpStack
+        hasSpecial = special.matcher(ipStackApi);
+        if (hasSpecial.find()) {
+            pushAlert("IpStack: " + Messages.API_KEY_NO_SPECIAL_CHARACTERS);
+            return false;
+        }
+
+        if(ipStackApi.length() > 50) {
+            pushAlert("IpStack: " + Messages.API_KEY_TOO_LONG);
+            return false;
+        }
+
+        // AccuWeather
+        hasSpecial = special.matcher(accuWeatherApi);
+        if (hasSpecial.find()) {
+            pushAlert("AccuWeather: " + Messages.API_KEY_NO_SPECIAL_CHARACTERS);
+            return false;
+        }
+
+        if(accuWeatherApi.length() > 50) {
+            pushAlert("AccuWeather: " + Messages.API_KEY_TOO_LONG);
+            return false;
+        }
+
+        return true;
     }
 
     public SettingsWindowController(ViewFactory viewFactory, String fxmlName) {
