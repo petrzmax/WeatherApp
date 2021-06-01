@@ -9,7 +9,7 @@ import pl.arturpetrzak.view.ViewFactory;
 public class Launcher extends Application {
 
     private DailyForecastManager dailyForecastManager;
-    private PersistenceAccess persistenceAccess = new PersistenceAccess();
+    private final PersistenceAccess persistenceAccess = new PersistenceAccess();
 
     @Override
     public void start(Stage stage) {
