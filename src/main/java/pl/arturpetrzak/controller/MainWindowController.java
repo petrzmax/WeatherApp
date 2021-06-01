@@ -50,6 +50,11 @@ public class MainWindowController extends BaseController implements Observer, In
     private Label messageLabel;
 
     @FXML
+    void refreshLocalizationAction() {
+        dailyForecastManager.getCurrentLocalization(Location.CURRENT);
+    }
+
+    @FXML
     void refreshCurrentLocalizationDataAction() {
         dailyForecastManager.getCityWeatherData(Location.CURRENT);
     }
