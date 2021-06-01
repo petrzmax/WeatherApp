@@ -20,7 +20,8 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#refreshCurrentLocalizationDataAction" text="Refresh" />
+                  <MenuItem mnemonicParsing="false" onAction="#refreshLocalizationAction" text="Refresh localization" />
+                  <MenuItem mnemonicParsing="false" onAction="#refreshCurrentLocalizationDataAction" text="Refresh weather" />
                   <MenuItem mnemonicParsing="false" onAction="#showSettingsWindowAction" text="Settings" />
                   <MenuItem mnemonicParsing="false" onAction="#openAboutWindowAction" text="About" />
                   <SeparatorMenuItem mnemonicParsing="false" />
