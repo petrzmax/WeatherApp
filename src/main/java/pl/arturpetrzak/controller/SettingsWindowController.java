@@ -54,6 +54,7 @@ public class SettingsWindowController extends BaseController implements Initiali
             Config.setAccuweatherApiKey(accuWeatherApiTextField.getText());
 
             Stage stage = (Stage) languageChoiceBox.getScene().getWindow();
+            viewFactory.refreshCurrentLocationData();
             viewFactory.closeStage(stage);
         }
     }
