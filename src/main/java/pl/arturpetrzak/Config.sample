@@ -3,7 +3,7 @@ package pl.arturpetrzak;
 //Rename this file to Config.java & set Your API key
 
 public class Config {
-    //These API keys will be used as default. If You will set Your own in settings, these will be overriden.
+    //These API keys will be used as default. If You will set Your own in settings, these will be overridden.
     private static String ACCUWEATHER_API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
     private static String IPSTACK_API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
 
