@@ -2,6 +2,7 @@ package pl.arturpetrzak.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
@@ -81,6 +82,15 @@ public class SettingsWindowController extends BaseController implements Initiali
 
     private String stringFormat(String string) {
         return string.charAt(0) + string.substring(1).toLowerCase();
+    }
+
+    private void pushAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+
+        alert.showAndWait();
     }
 }
 
