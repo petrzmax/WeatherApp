@@ -69,7 +69,7 @@ public class SettingsWindowController extends BaseController implements Initiali
                 .map(Enum::name)
                 .collect(Collectors.toList());
 
-        for(int i = 0; i < enumNames.size(); i++) {
+        for (int i = 0; i < enumNames.size(); i++) {
             enumNames.set(i, stringFormat(enumNames.get(i)));
         }
 

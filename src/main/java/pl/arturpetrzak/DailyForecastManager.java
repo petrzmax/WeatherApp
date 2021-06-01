@@ -29,7 +29,7 @@ public class DailyForecastManager implements Observable {
             locationForecasts.put(location, locationForecast);
         }
 
-        if(settings != null) {
+        if (settings != null) {
             metric = settings.isMetric();
             language = settings.getLanguage();
 

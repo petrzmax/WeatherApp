@@ -51,7 +51,7 @@ public class DailyForecastRepresentation {
         );
 
         label.setTextAlignment(TextAlignment.CENTER);
-        label.setPadding(new Insets(10,0,0,0));
+        label.setPadding(new Insets(10, 0, 0, 0));
 
         vBox.getChildren().add(label);
 

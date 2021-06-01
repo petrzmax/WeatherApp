@@ -73,7 +73,7 @@ public class MainWindowController extends BaseController implements Observer, In
 
     @FXML
     void showSettingsWindowAction() {
-        if(!viewFactory.isSettingsWindowInitialized()) {
+        if (!viewFactory.isSettingsWindowInitialized()) {
             viewFactory.showSettingsWindow();
         }
     }
