@@ -8,10 +8,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import pl.arturpetrzak.DailyForecastManager;
 import pl.arturpetrzak.Languages;
-import pl.arturpetrzak.controller.AboutWindowController;
-import pl.arturpetrzak.controller.BaseController;
-import pl.arturpetrzak.controller.MainWindowController;
-import pl.arturpetrzak.controller.SettingsWindowController;
+import pl.arturpetrzak.controller.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -107,5 +104,9 @@ public class ViewFactory {
 
     public boolean isSettingsWindowInitialized() {
         return settingsWindowInitialized;
+    }
+
+    public void refreshCurrentLocationData() {
+        dailyForecastManager.getCurrentLocalization(Location.CURRENT);
     }
 }
