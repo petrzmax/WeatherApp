@@ -93,11 +93,11 @@ public class ViewFactory {
         dailyForecastManager.setLanguage(language);
     }
 
-    public void setMetric (Boolean metric) {
+    public void setMetric(Boolean metric) {
         dailyForecastManager.setMetric(metric);
     }
 
-    public boolean isMetric () {
+    public boolean isMetric() {
         return dailyForecastManager.isMetric();
     }
 

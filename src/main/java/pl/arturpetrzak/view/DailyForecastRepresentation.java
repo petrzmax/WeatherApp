@@ -44,14 +44,13 @@ public class DailyForecastRepresentation {
         vBox.getChildren().add(label);
 
         // Weather description
-
         label = new Label("Temperatures:" +
                 "\nMax: " + dailyForecast.getMaximumTemperature() + " °" + dailyForecast.getUnit() +
                 "\nMin: " + dailyForecast.getMinimumTemperature() + " °" + dailyForecast.getUnit()
         );
 
         label.setTextAlignment(TextAlignment.CENTER);
-        label.setPadding(new Insets(10,0,0,0));
+        label.setPadding(new Insets(10, 0, 0, 0));
 
         vBox.getChildren().add(label);
 

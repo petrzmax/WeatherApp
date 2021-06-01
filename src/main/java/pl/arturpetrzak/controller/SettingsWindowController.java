@@ -69,7 +69,7 @@ public class SettingsWindowController extends BaseController implements Initiali
                 .map(Enum::name)
                 .collect(Collectors.toList());
 
-        for(int i = 0; i < enumNames.size(); i++) {
+        for (int i = 0; i < enumNames.size(); i++) {
             enumNames.set(i, stringFormat(enumNames.get(i)));
         }
 
@@ -80,7 +80,7 @@ public class SettingsWindowController extends BaseController implements Initiali
     }
 
     private String stringFormat(String string) {
-        return string.substring(0,1) +string.substring(1).toLowerCase();
+        return string.charAt(0) + string.substring(1).toLowerCase();
     }
 }
 

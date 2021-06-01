@@ -6,7 +6,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import pl.arturpetrzak.*;
+import pl.arturpetrzak.Config;
+import pl.arturpetrzak.DailyForecastManager;
+import pl.arturpetrzak.Messages;
+import pl.arturpetrzak.Observer;
 import pl.arturpetrzak.model.DailyForecast;
 import pl.arturpetrzak.view.DailyForecastRepresentation;
 import pl.arturpetrzak.view.ViewFactory;
@@ -70,7 +73,7 @@ public class MainWindowController extends BaseController implements Observer, In
 
     @FXML
     void showSettingsWindowAction() {
-        if(!viewFactory.isSettingsWindowInitialized()) {
+        if (!viewFactory.isSettingsWindowInitialized()) {
             viewFactory.showSettingsWindow();
         }
     }
