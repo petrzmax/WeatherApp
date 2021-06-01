@@ -60,6 +60,9 @@ public abstract class BaseApiService extends Service<FetchDataResult> {
         } catch (IOException e) {
             e.printStackTrace();
             return getFetchDataResultByResponseCode(response.code());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return FetchDataResult.FAILED_BY_API_AUTHORIZATION;
         }
         return FetchDataResult.SUCCESS;
     }
@@ -80,5 +83,5 @@ public abstract class BaseApiService extends Service<FetchDataResult> {
         }
     }
 
-    protected abstract JSONObject parseResponse(String response);
+    protected abstract JSONObject parseResponse(String response) throws Exception;
 }
