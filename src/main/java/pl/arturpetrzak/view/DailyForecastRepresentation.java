@@ -13,7 +13,7 @@ public class DailyForecastRepresentation {
 
         Label label;
         VBox vBox = new VBox();
-        vBox.setAlignment(Pos.CENTER);
+        vBox.setAlignment(Pos.TOP_CENTER);
         vBox.setMaxWidth(100);
 
         // Date
