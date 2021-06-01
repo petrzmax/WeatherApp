@@ -1,11 +1,13 @@
 package pl.arturpetrzak.view;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import pl.arturpetrzak.Config;
 import pl.arturpetrzak.model.DailyForecast;
 
 public class DailyForecastRepresentation {
@@ -14,7 +16,7 @@ public class DailyForecastRepresentation {
         Label label;
         VBox vBox = new VBox();
         vBox.setAlignment(Pos.TOP_CENTER);
-        vBox.setMaxWidth(100);
+        vBox.setMaxWidth(Config.getMaxWeatherBoxWidth());
 
         // Date
         label = new Label(dailyForecast.getDate());
@@ -25,6 +27,7 @@ public class DailyForecastRepresentation {
         // Day
         vBox.getChildren().add(dayImageView);
         label = new Label(dailyForecast.getDayWeatherDescription().replace("w/", "with"));
+        label.setMinHeight(Config.getMinLabelHeight());
 
 
         label.setWrapText(true);
@@ -37,7 +40,7 @@ public class DailyForecastRepresentation {
         label = new Label(dailyForecast.getNightWeatherDescription().replace("w/", "with"));
         label.setWrapText(true);
         label.setTextAlignment(TextAlignment.CENTER);
-        label.setMinHeight(40);
+        label.setMinHeight(Config.getMinLabelHeight());
         vBox.getChildren().add(label);
 
         // Weather description
