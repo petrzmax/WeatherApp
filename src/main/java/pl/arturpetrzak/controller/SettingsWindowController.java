@@ -46,14 +46,17 @@ public class SettingsWindowController extends BaseController implements Initiali
         String choiceBoxValue = languageChoiceBox.getValue();
         Languages language = Languages.valueOf(choiceBoxValue.toUpperCase());
 
-        viewFactory.setLanguage(language);
-        viewFactory.setMetric(metricCheckBox.isSelected());
+        if(validateUserInput()) {
+            viewFactory.setLanguage(language);
+            viewFactory.setMetric(metricCheckBox.isSelected());
 
-        Config.setIpstackApiKey(ipStackApiTextField.getText());
-        Config.setAccuweatherApiKey(accuWeatherApiTextField.getText());
+            Config.setIpstackApiKey(ipStackApiTextField.getText());
+            Config.setAccuweatherApiKey(accuWeatherApiTextField.getText());
 
-        Stage stage = (Stage) languageChoiceBox.getScene().getWindow();
-        viewFactory.closeStage(stage);
+            Stage stage = (Stage) languageChoiceBox.getScene().getWindow();
+            viewFactory.closeStage(stage);
+        }
+    }
 
     private boolean validateUserInput() {
         String ipStackApi = ipStackApiTextField.getText();
