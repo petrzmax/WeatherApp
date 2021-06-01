@@ -29,7 +29,6 @@ public class Launcher extends Application {
         settings.setLanguage(dailyForecastManager.getLanguage());
         settings.setMetric(dailyForecastManager.isMetric());
 
-
         persistenceAccess.saveToPersistence(settings);
     }
 

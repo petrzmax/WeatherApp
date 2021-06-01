@@ -44,7 +44,6 @@ public class DailyForecastRepresentation {
         vBox.getChildren().add(label);
 
         // Weather description
-
         label = new Label("Temperatures:" +
                 "\nMax: " + dailyForecast.getMaximumTemperature() + " °" + dailyForecast.getUnit() +
                 "\nMin: " + dailyForecast.getMinimumTemperature() + " °" + dailyForecast.getUnit()
