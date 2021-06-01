@@ -20,7 +20,14 @@ public class FetchCurrentLocalizationService extends BaseApiService {
     }
 
     @Override
-    protected JSONObject parseResponse(String response) {
-        return new JSONObject(response);
+    protected JSONObject parseResponse(String response) throws Exception {
+        JSONObject jsonObject = new JSONObject(response);
+
+        if(jsonObject.has("success") && !jsonObject.getBoolean("success")) {
+            jsonObject = jsonObject.getJSONObject("error");
+            throw new Exception("HttpRequestCode: " + jsonObject.getInt("code") + " - " + jsonObject.getString("info"));
+        }
+
+        return jsonObject;
     }
 }
