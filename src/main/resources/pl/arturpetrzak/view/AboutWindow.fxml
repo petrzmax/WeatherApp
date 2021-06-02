@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="254.0" prefWidth="407.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="254.0" prefWidth="407.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button layoutX="177.0" layoutY="230.0" mnemonicParsing="false" onAction="#closeWindowAction" text="Close" AnchorPane.bottomAnchor="15.0" />
       <Label fx:id="nameLabel" alignment="CENTER" layoutX="185.0" layoutY="14.0" text="&lt;appName&gt;" textAlignment="CENTER" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
