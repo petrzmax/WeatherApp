@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxWidth="-Infinity" minHeight="620.0" minWidth="-Infinity" prefWidth="1360.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxWidth="-Infinity" minHeight="620.0" minWidth="-Infinity" prefWidth="1360.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <MenuBar layoutX="14.0" layoutY="24.0" prefHeight="30.0" prefWidth="1400.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>

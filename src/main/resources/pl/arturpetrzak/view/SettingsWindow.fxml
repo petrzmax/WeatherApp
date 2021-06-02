@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="228.0" prefWidth="452.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="228.0" prefWidth="452.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button layoutX="375.0" layoutY="190.0" mnemonicParsing="false" onAction="#saveSettingsAction" prefHeight="24.0" prefWidth="63.0" text="Save" AnchorPane.bottomAnchor="14.0" />
       <Button layoutX="304.0" layoutY="190.0" mnemonicParsing="false" onAction="#cancelSettingsAction" text="Cancel" AnchorPane.bottomAnchor="14.0" />
