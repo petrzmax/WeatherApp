@@ -27,7 +27,7 @@ public class Launcher extends Application {
         settings.setAccuweatherApiKey(Config.getAccuWeatherApiKey());
 
         settings.setLanguage(dailyForecastManager.getLanguage());
-        settings.setMetric(dailyForecastManager.isMetric());
+        settings.setUsingMetricUnits(dailyForecastManager.isUsingMetricUnits());
 
         persistenceAccess.saveToPersistence(settings);
     }
