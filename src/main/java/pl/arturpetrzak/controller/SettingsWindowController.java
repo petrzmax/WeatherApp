@@ -126,7 +126,7 @@ public class SettingsWindowController extends BaseController implements Initiali
 
     private void pushAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
+        alert.setTitle(Messages.DIALOG_TITLE);
         alert.setHeaderText(null);
         alert.setContentText(message);
 
