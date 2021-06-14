@@ -173,7 +173,7 @@ public class DailyForecastManager implements Observable {
     @Override
     public void pushMessage(String message) {
         for (Observer observer : observers) {
-            observer.catchMessage(message);
+            observer.displayMessage(message);
         }
     }
 

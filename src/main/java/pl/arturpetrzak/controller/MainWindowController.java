@@ -118,7 +118,7 @@ public class MainWindowController extends BaseController implements Observer, In
     }
 
     @Override
-    public void catchMessage(String message) {
+    public void displayMessage(String message) {
         messageLabel.setText(message);
     }
 
@@ -151,38 +151,38 @@ public class MainWindowController extends BaseController implements Observer, In
 
         hasDigit = digit.matcher(countryName);
         if (hasDigit.find()) {
-            catchMessage(Messages.COUNTRY_NAME_NO_NUMBERS);
+            displayMessage(Messages.COUNTRY_NAME_NO_NUMBERS);
             return false;
         }
         hasSpecial = special.matcher(countryName);
         if (hasSpecial.find()) {
-            catchMessage(Messages.COUNTRY_NAME_NO_SPECIAL_CHARACTERS);
+            displayMessage(Messages.COUNTRY_NAME_NO_SPECIAL_CHARACTERS);
             return false;
         }
 
         hasDigit = digit.matcher(cityName);
         if (hasDigit.find()) {
-            catchMessage(Messages.CITY_NAME_NO_NUMBERS);
+            displayMessage(Messages.CITY_NAME_NO_NUMBERS);
             return false;
         }
         hasSpecial = special.matcher(cityName);
         if (hasSpecial.find()) {
-            catchMessage(Messages.CITY_NAME_NO_SPECIAL_CHARACTERS);
+            displayMessage(Messages.CITY_NAME_NO_SPECIAL_CHARACTERS);
             return false;
         }
 
         if (countryName.length() > Config.getTextFieldCapacity()) {
-            catchMessage(Messages.COUNTRY_NAME_TOO_LONG);
+            displayMessage(Messages.COUNTRY_NAME_TOO_LONG);
             return false;
         }
 
         if (cityName.length() > Config.getTextFieldCapacity()) {
-            catchMessage(Messages.CITY_NAME_TOO_LONG);
+            displayMessage(Messages.CITY_NAME_TOO_LONG);
             return false;
         }
 
         if (cityName.equals("")) {
-            catchMessage(Messages.NO_CITY_NAME);
+            displayMessage(Messages.NO_CITY_NAME);
             return false;
         }
 
