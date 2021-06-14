@@ -1,19 +1,26 @@
 package pl.arturpetrzak.controller.persistence;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import pl.arturpetrzak.Config;
 
 import java.io.*;
 import java.util.Optional;
 
 public class PersistenceAccess {
-    private final String SETTINGS_LOCATION = System.getProperty("user.home") + File.separator + Config.getAppName() + "Settings.ser";
+    private final String SETTINGS_LOCATION;
+    private final ObjectMapper objectMapper;
+
+    public PersistenceAccess() {
+        SETTINGS_LOCATION = System.getProperty("user.home") + File.separator + Config.getAppName() + "Settings.ser";
+        objectMapper = new ObjectMapper();
+    }
 
     public Optional<Settings> loadFromPersistence() {
         try {
-            Settings settings;
-            FileInputStream fileInputStream = new FileInputStream(SETTINGS_LOCATION);
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            settings = (Settings) objectInputStream.readObject();
+            File file = new File(SETTINGS_LOCATION);
+
+            Settings settings = objectMapper.readValue(file, Settings.class);
+
             return Optional.of(settings);
 
         } catch (Exception e) {
@@ -26,9 +33,9 @@ public class PersistenceAccess {
         try {
             File file = new File(SETTINGS_LOCATION);
             FileOutputStream fileOutputStream = new FileOutputStream(file);
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
-            objectOutputStream.writeObject(settings);
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, settings);
+
             fileOutputStream.close();
 
         } catch (Exception e) {

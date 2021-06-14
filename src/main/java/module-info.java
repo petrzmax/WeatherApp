@@ -4,8 +4,11 @@ module pl.arturpetrzak {
     requires javafx.fxml;
     requires org.json;
     requires okhttp3;
+    requires com.fasterxml.jackson.databind;
     requires kotlin.stdlib;
 
     opens pl.arturpetrzak.controller;
-    exports pl.arturpetrzak to javafx.graphics;
+    exports pl.arturpetrzak to javafx.graphics, com.fasterxml.jackson.databind;
+    exports pl.arturpetrzak.controller.persistence to com.fasterxml.jackson.databind;
+
 }

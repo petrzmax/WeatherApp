@@ -2,9 +2,9 @@ package pl.arturpetrzak.controller.persistence;
 
 import pl.arturpetrzak.Languages;
 
-import java.io.Serializable;
+public class Settings {
+    // maybe it is not best to save api keys to hard disk
 
-public class Settings implements Serializable {
     private String accuweatherApiKey;
     private String ipstackApiKey;
 
