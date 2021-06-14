@@ -1,5 +1,6 @@
 package pl.arturpetrzak.controller.services;
 
+import com.squareup.okhttp.OkHttpClient;
 import org.json.JSONObject;
 import pl.arturpetrzak.Config;
 import pl.arturpetrzak.Languages;
@@ -11,9 +12,8 @@ public class FetchWeatherService extends BaseApiService {
     private boolean isUsingMetricUnits;
     private Languages language;
 
-    public FetchWeatherService(String cityId, boolean isUsingMetricUnits, Languages language) {
-        super();
-        url = Config.getDailyWeatherForecastApiUrl() + cityId + "?" + METRIC_PREFIX + isUsingMetricUnits + "&" + LANGUAGE_PREFIX + language + "&" + API_KEY_PREFIX + Config.getAccuWeatherApiKey();
+    public FetchWeatherService(OkHttpClient okHttpClient) {
+        super(okHttpClient);
     }
 
     public JSONObject getWeatherData() {

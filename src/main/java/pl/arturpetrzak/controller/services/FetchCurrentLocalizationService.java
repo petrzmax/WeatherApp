@@ -1,13 +1,14 @@
 package pl.arturpetrzak.controller.services;
 
+import com.squareup.okhttp.OkHttpClient;
 import org.json.JSONObject;
 import pl.arturpetrzak.Config;
 
 public class FetchCurrentLocalizationService extends BaseApiService {
     protected final String API_KEY_PREFIX = "access_key=";
 
-    public FetchCurrentLocalizationService() {
-        super();
+    public FetchCurrentLocalizationService(OkHttpClient okHttpClient) {
+        super(okHttpClient);
         url = Config.getCurrentCityByIpApiUrl() + "?" + API_KEY_PREFIX + Config.getIpstackApiKey();
     }
 

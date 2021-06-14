@@ -18,10 +18,10 @@ public abstract class BaseApiService extends Service<FetchDataResult> {
 
     protected String url;
     protected JSONObject jsonResponse;
-    protected OkHttpClient client;
+    protected OkHttpClient okHttpClient;
 
-    public BaseApiService() {
-        client = new OkHttpClient();
+    public BaseApiService(OkHttpClient okHttpClient) {
+        this.okHttpClient = okHttpClient;
     }
 
     @Override
@@ -42,7 +42,7 @@ public abstract class BaseApiService extends Service<FetchDataResult> {
                     .url(url)
                     .build();
 
-            response = client.newCall(request).execute();
+            response = okHttpClient.newCall(request).execute();
 
             if (response.code() != 200) {
                 throw new IOException("HttpRequestCode: " + response.code());

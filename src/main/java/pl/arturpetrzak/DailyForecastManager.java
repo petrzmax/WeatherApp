@@ -1,5 +1,6 @@
 package pl.arturpetrzak;
 
+import com.squareup.okhttp.OkHttpClient;
 import pl.arturpetrzak.controller.FetchDataResult;
 import pl.arturpetrzak.controller.Location;
 import pl.arturpetrzak.controller.persistence.Settings;
@@ -21,8 +22,19 @@ public class DailyForecastManager implements Observable {
     private boolean usingMetricUnits;
     private Languages language = Languages.ENGLISH;
 
+    private final OkHttpClient okHttpClient;
+    private final FetchCurrentLocalizationService fetchCurrentLocalizationService;
+    private final FetchCityDataService fetchCityDataService;
+    private final FetchWeatherService fetchWeatherService;
+
+
     public DailyForecastManager(Settings settings) {
         observers = new ArrayList<>();
+        okHttpClient = new OkHttpClient();
+        fetchCurrentLocalizationService = new FetchCurrentLocalizationService(okHttpClient);
+        fetchCityDataService = new FetchCityDataService(okHttpClient);
+        fetchWeatherService = new FetchWeatherService(okHttpClient);
+
         locationForecasts = new EnumMap<>(Location.class);
         for (Location location : Location.values()) {
             LocationForecast locationForecast = new LocationForecast();
@@ -41,7 +53,6 @@ public class DailyForecastManager implements Observable {
     public void getCurrentLocalization(Location location) {
         pushMessage(Messages.FETCHING_LOCALIZATION);
 
-        FetchCurrentLocalizationService fetchCurrentLocalizationService = new FetchCurrentLocalizationService();
         fetchCurrentLocalizationService.start();
         fetchCurrentLocalizationService.setOnSucceeded(event -> {
             try {
@@ -59,10 +70,6 @@ public class DailyForecastManager implements Observable {
     public void getCityId(Location location) {
         pushMessage(Messages.FETCHING_CITY_ID);
 
-        FetchCityDataService fetchCityDataService = new FetchCityDataService(
-                locationForecasts.get(location).getCountry(),
-                locationForecasts.get(location).getCity()
-        );
 
         fetchCityDataService.start();
         fetchCityDataService.setOnSucceeded(event -> {
@@ -79,8 +86,6 @@ public class DailyForecastManager implements Observable {
     public void getCityWeatherData(Location location) {
         pushMessage(Messages.FETCHING_WEATHER_DATA);
 
-        FetchWeatherService fetchWeatherService = new FetchWeatherService(locationForecasts.get(location).getCityId(), usingMetricUnits, language);
-        fetchWeatherService.start();
         fetchWeatherService.setOnSucceeded(event -> {
             try {
                 fetchingResultHandler(fetchWeatherService.getValue(), Messages.FETCHING_WEATHER_DATA);

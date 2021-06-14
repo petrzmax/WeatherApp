@@ -1,17 +1,17 @@
 package pl.arturpetrzak.controller.services;
 
+import com.squareup.okhttp.OkHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import pl.arturpetrzak.Config;
 
 public class FetchCityDataService extends BaseApiService {
 
-    public FetchCityDataService(String country, String city) {
-        super();
-        url = Config.getCitySearchApiUrl() + "?" + CITY_PREFIX + country + "," + city + "&" + API_KEY_PREFIX + Config.getAccuWeatherApiKey();
     private String country;
     private String city;
 
+    public FetchCityDataService(OkHttpClient okHttpClient) {
+        super(okHttpClient);
     }
 
     public String getCityId() {
