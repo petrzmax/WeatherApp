@@ -36,6 +36,8 @@ public abstract class BaseApiService extends Service<FetchDataResult> {
 
     protected FetchDataResult fetchData() {
         Response response = null;
+        buildUrl();
+
         try {
             URL url = new URL(this.url);
             Request request = new Request.Builder()
@@ -82,6 +84,8 @@ public abstract class BaseApiService extends Service<FetchDataResult> {
                 return FetchDataResult.FAILED_BY_UNEXPECTED_ERROR;
         }
     }
+
+    protected abstract void buildUrl();
 
     protected abstract JSONObject parseResponse(String response) throws Exception;
 }

@@ -21,6 +21,11 @@ public class FetchWeatherService extends BaseApiService {
     }
 
     @Override
+    protected void buildUrl() {
+        url = Config.getDailyWeatherForecastApiUrl() + cityId + "?" + METRIC_PREFIX + isUsingMetricUnits + "&" + LANGUAGE_PREFIX + language + "&" + API_KEY_PREFIX + Config.getAccuWeatherApiKey();
+    }
+
+    @Override
     protected JSONObject parseResponse(String response) {
         return new JSONObject(response);
     }

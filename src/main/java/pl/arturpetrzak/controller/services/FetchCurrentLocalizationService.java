@@ -21,6 +21,9 @@ public class FetchCurrentLocalizationService extends BaseApiService {
     }
 
     @Override
+    protected void buildUrl() {}
+
+    @Override
     protected JSONObject parseResponse(String response) throws Exception {
         JSONObject jsonObject = new JSONObject(response);
 
