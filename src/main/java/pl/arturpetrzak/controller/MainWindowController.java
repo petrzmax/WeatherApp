@@ -52,6 +52,8 @@ public class MainWindowController extends BaseController implements Observer, In
     @FXML
     private Label messageLabel;
 
+    private static final Pattern digits = Pattern.compile("[0-9]");
+
     public MainWindowController(DailyForecastManager dailyForecastManager, ViewFactory viewFactory, String fxmlName) {
         super(viewFactory, fxmlName);
         this.dailyForecastManager = dailyForecastManager;
@@ -143,29 +145,26 @@ public class MainWindowController extends BaseController implements Observer, In
         String countryName = countryTextField.getText();
         String cityName = cityTextField.getText();
 
-        Pattern digit = Pattern.compile("[0-9]");
-        Pattern special = Pattern.compile("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
-
         Matcher hasDigit;
         Matcher hasSpecial;
 
-        hasDigit = digit.matcher(countryName);
+        hasDigit = digits.matcher(countryName);
         if (hasDigit.find()) {
             displayMessage(Messages.COUNTRY_NAME_NO_NUMBERS);
             return false;
         }
-        hasSpecial = special.matcher(countryName);
+        hasSpecial = specialCharactersPattern.matcher(countryName);
         if (hasSpecial.find()) {
             displayMessage(Messages.COUNTRY_NAME_NO_SPECIAL_CHARACTERS);
             return false;
         }
 
-        hasDigit = digit.matcher(cityName);
+        hasDigit = digits.matcher(cityName);
         if (hasDigit.find()) {
             displayMessage(Messages.CITY_NAME_NO_NUMBERS);
             return false;
         }
-        hasSpecial = special.matcher(cityName);
+        hasSpecial = specialCharactersPattern.matcher(cityName);
         if (hasSpecial.find()) {
             displayMessage(Messages.CITY_NAME_NO_SPECIAL_CHARACTERS);
             return false;

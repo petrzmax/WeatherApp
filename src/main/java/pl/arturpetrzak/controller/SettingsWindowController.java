@@ -67,11 +67,10 @@ public class SettingsWindowController extends BaseController implements Initiali
         String ipStackApi = ipStackApiTextField.getText();
         String accuWeatherApi = accuWeatherApiTextField.getText();
 
-        Pattern special = Pattern.compile("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
         Matcher hasSpecial;
 
         // IpStack
-        hasSpecial = special.matcher(ipStackApi);
+        hasSpecial = specialCharactersPattern.matcher(ipStackApi);
         if (hasSpecial.find()) {
             pushAlert("IpStack: " + Messages.API_KEY_NO_SPECIAL_CHARACTERS);
             return false;
@@ -83,7 +82,7 @@ public class SettingsWindowController extends BaseController implements Initiali
         }
 
         // AccuWeather
-        hasSpecial = special.matcher(accuWeatherApi);
+        hasSpecial = specialCharactersPattern.matcher(accuWeatherApi);
         if (hasSpecial.find()) {
             pushAlert("AccuWeather: " + Messages.API_KEY_NO_SPECIAL_CHARACTERS);
             return false;
