@@ -11,16 +11,16 @@ public class DailyForecast {
 
     private final long unixTime;
     private final String unit;
-    private final float minimumTemperature;
-    private final float maximumTemperature;
+    private final String minimumTemperature;
+    private final String maximumTemperature;
     private final JSONObject day;
     private final JSONObject night;
 
     public DailyForecast(JSONObject dailyForecast) { //consider using Gson or Jackson
         unixTime = dailyForecast.getLong("EpochDate");
         unit = dailyForecast.getJSONObject("Temperature").getJSONObject("Minimum").getString("Unit");
-        minimumTemperature = dailyForecast.getJSONObject("Temperature").getJSONObject("Minimum").getFloat("Value");
-        maximumTemperature = dailyForecast.getJSONObject("Temperature").getJSONObject("Maximum").getFloat("Value");
+        minimumTemperature = String.valueOf(dailyForecast.getJSONObject("Temperature").getJSONObject("Minimum").getFloat("Value"));
+        maximumTemperature = String.valueOf(dailyForecast.getJSONObject("Temperature").getJSONObject("Maximum").getFloat("Value"));
         day = dailyForecast.getJSONObject("Day");
         night = dailyForecast.getJSONObject("Night");
     }
@@ -34,11 +34,11 @@ public class DailyForecast {
         return unit;
     }
 
-    public float getMinimumTemperature() {
+    public String getMinimumTemperature() {
         return minimumTemperature;
     }
 
-    public float getMaximumTemperature() {
+    public String getMaximumTemperature() {
         return maximumTemperature;
     }
 
