@@ -111,9 +111,7 @@ public class WeatherIconResolver {
 
             return imageView;
 
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IllegalArgumentException | IOException e) {
             e.printStackTrace();
         }
 
