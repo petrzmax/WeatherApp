@@ -181,7 +181,7 @@ public class MainWindowController extends BaseController implements Observer, In
             return false;
         }
 
-        if (cityName == "") {
+        if (cityName.equals("")) {
             catchMessage(Messages.NO_CITY_NAME);
             return false;
         }
