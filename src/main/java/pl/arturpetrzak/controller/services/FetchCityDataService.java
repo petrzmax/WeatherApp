@@ -1,6 +1,6 @@
 package pl.arturpetrzak.controller.services;
 
-import com.squareup.okhttp.OkHttpClient;
+import okhttp3.OkHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import pl.arturpetrzak.Config;

@@ -1,6 +1,6 @@
 package pl.arturpetrzak;
 
-import com.squareup.okhttp.OkHttpClient;
+import okhttp3.OkHttpClient;
 import pl.arturpetrzak.controller.FetchDataResult;
 import pl.arturpetrzak.controller.Location;
 import pl.arturpetrzak.controller.persistence.Settings;
