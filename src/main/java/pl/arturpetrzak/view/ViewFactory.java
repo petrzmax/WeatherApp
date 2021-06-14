@@ -11,8 +11,6 @@ import pl.arturpetrzak.Languages;
 import pl.arturpetrzak.controller.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ViewFactory {
     private final DailyForecastManager dailyForecastManager;

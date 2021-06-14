@@ -62,7 +62,7 @@ public abstract class BaseApiService extends Service<FetchDataResult> {
         } catch (IOException e) {
             e.printStackTrace();
 
-            if(response == null) {
+            if (response == null) {
                 return FetchDataResult.FAILED_BY_UNEXPECTED_ERROR;
             } else {
                 return getFetchDataResultByResponseCode(response.code());

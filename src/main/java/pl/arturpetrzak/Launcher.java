@@ -21,7 +21,7 @@ public class Launcher extends Application {
     public void start(Stage stage) {
         Optional<Settings> settings = persistenceAccess.loadFromPersistence();
 
-        if(settings.isPresent()) {
+        if (settings.isPresent()) {
             dailyForecastManager = new DailyForecastManager(settings.get());
         } else {
             dailyForecastManager = new DailyForecastManager();

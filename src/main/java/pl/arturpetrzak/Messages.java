@@ -32,7 +32,7 @@ public class Messages {
     public static final String DIALOG_TITLE = "Information Dialog";
     private static String TEMPERATURE_REPRESENTATION_TEMPLATE = "Temperatures:\nMax: %2$s °%3$s\nMin: %1$s °%3$s";
 
-    public static String getTemperatureRepresentation (String minimumTemperature, String maximumTemperature, String unit) {
+    public static String getTemperatureRepresentation(String minimumTemperature, String maximumTemperature, String unit) {
         return String.format(
                 TEMPERATURE_REPRESENTATION_TEMPLATE,
                 minimumTemperature,

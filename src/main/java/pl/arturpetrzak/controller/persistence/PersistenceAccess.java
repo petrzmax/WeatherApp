@@ -14,7 +14,7 @@ public class PersistenceAccess {
             FileInputStream fileInputStream = new FileInputStream(SETTINGS_LOCATION);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             settings = (Settings) objectInputStream.readObject();
-            return  Optional.of(settings);
+            return Optional.of(settings);
 
         } catch (Exception e) {
             e.printStackTrace();

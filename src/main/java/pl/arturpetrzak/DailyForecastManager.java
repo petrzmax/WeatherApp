@@ -10,7 +10,10 @@ import pl.arturpetrzak.controller.services.FetchWeatherService;
 import pl.arturpetrzak.model.DailyForecast;
 import pl.arturpetrzak.model.LocationForecast;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
 
 public class DailyForecastManager implements Observable {
 
