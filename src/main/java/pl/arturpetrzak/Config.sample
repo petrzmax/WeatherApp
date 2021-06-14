@@ -11,8 +11,8 @@ public class Config {
     private final static String CURRENT_CITY_BY_IP_API_URL = "http://api.ipstack.com/check";
     private final static String DAILY_WEATHER_FORECAST_API_URL = "https://dataservice.accuweather.com/forecasts/v1/daily/5day/";
 
-    private final static String APP_NAME = "Weather App";
-    private final static String VERSION = "v1.0";
+    private final static String APP_NAME = "WeatherApp";
+    private final static String VERSION = "v1.1";
 
     // View settings
     private final static int TEXT_FIELD_CAPACITY = 50;
