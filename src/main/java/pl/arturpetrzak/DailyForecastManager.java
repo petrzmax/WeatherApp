@@ -53,7 +53,7 @@ public class DailyForecastManager implements Observable {
     public void getCurrentLocalization(Location location) {
         pushMessage(Messages.FETCHING_LOCALIZATION);
 
-        fetchCurrentLocalizationService.start();
+        fetchCurrentLocalizationService.restart();
         fetchCurrentLocalizationService.setOnSucceeded(event -> {
             try {
                 fetchingResultHandler(fetchCurrentLocalizationService.getValue(), Messages.FETCHING_LOCALIZATION);
@@ -70,8 +70,10 @@ public class DailyForecastManager implements Observable {
     public void getCityId(Location location) {
         pushMessage(Messages.FETCHING_CITY_ID);
 
+        fetchCityDataService.setCountry(locationForecasts.get(location).getCountry());
+        fetchCityDataService.setCity(locationForecasts.get(location).getCity());
 
-        fetchCityDataService.start();
+        fetchCityDataService.restart();
         fetchCityDataService.setOnSucceeded(event -> {
             try {
                 fetchingResultHandler(fetchCityDataService.getValue(), Messages.FETCHING_CITY_ID);
@@ -86,6 +88,11 @@ public class DailyForecastManager implements Observable {
     public void getCityWeatherData(Location location) {
         pushMessage(Messages.FETCHING_WEATHER_DATA);
 
+        fetchWeatherService.setCityId(locationForecasts.get(location).getCityId());
+        fetchWeatherService.setUsingMetricUnits(usingMetricUnits);
+        fetchWeatherService.setLanguage(language);
+
+        fetchWeatherService.restart();
         fetchWeatherService.setOnSucceeded(event -> {
             try {
                 fetchingResultHandler(fetchWeatherService.getValue(), Messages.FETCHING_WEATHER_DATA);
