@@ -3,8 +3,6 @@ package pl.arturpetrzak.controller.persistence;
 import pl.arturpetrzak.Languages;
 
 public class Settings {
-    // maybe it is not best to save api keys to hard disk
-
     private String accuweatherApiKey;
     private String ipstackApiKey;
 
