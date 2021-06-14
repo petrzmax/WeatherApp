@@ -6,6 +6,8 @@ import pl.arturpetrzak.controller.persistence.PersistenceAccess;
 import pl.arturpetrzak.controller.persistence.Settings;
 import pl.arturpetrzak.view.ViewFactory;
 
+import java.util.Optional;
+
 public class Launcher extends Application {
 
     private DailyForecastManager dailyForecastManager;
@@ -17,7 +19,13 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage stage) {
-        dailyForecastManager = new DailyForecastManager(persistenceAccess.loadFromPersistence());
+        Optional<Settings> settings = persistenceAccess.loadFromPersistence();
+
+        if(settings.isPresent()) {
+            dailyForecastManager = new DailyForecastManager(settings.get());
+        } else {
+            dailyForecastManager = new DailyForecastManager();
+        }
 
         ViewFactory viewFactory = new ViewFactory(dailyForecastManager, getHostServices());
         viewFactory.showMainWindow();

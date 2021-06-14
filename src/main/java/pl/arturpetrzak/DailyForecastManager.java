@@ -10,10 +10,7 @@ import pl.arturpetrzak.controller.services.FetchWeatherService;
 import pl.arturpetrzak.model.DailyForecast;
 import pl.arturpetrzak.model.LocationForecast;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DailyForecastManager implements Observable {
 
@@ -28,7 +25,7 @@ public class DailyForecastManager implements Observable {
     private final FetchWeatherService fetchWeatherService;
 
 
-    public DailyForecastManager(Settings settings) {
+    public DailyForecastManager() {
         observers = new ArrayList<>();
         okHttpClient = new OkHttpClient();
         fetchCurrentLocalizationService = new FetchCurrentLocalizationService(okHttpClient);
@@ -40,14 +37,16 @@ public class DailyForecastManager implements Observable {
             LocationForecast locationForecast = new LocationForecast();
             locationForecasts.put(location, locationForecast);
         }
+    }
 
-        if (settings != null) {
-            usingMetricUnits = settings.isUsingMetricUnits();
-            language = settings.getLanguage();
+    public DailyForecastManager(Settings settings) {
+        this();
 
-            Config.setIpstackApiKey(settings.getIpstackApiKey());
-            Config.setAccuweatherApiKey(settings.getAccuweatherApiKey());
-        }
+        usingMetricUnits = settings.isUsingMetricUnits();
+        language = settings.getLanguage();
+
+        Config.setIpstackApiKey(settings.getIpstackApiKey());
+        Config.setAccuweatherApiKey(settings.getAccuweatherApiKey());
     }
 
     public void getCurrentLocalization(Location location) {
