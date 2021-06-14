@@ -32,7 +32,7 @@ public class Launcher extends Application {
     }
 
     @Override
-    public void stop() throws Exception {
+    public void stop() {
         Settings settings = new Settings();
 
         settings.setIpstackApiKey(Config.getIpstackApiKey());
