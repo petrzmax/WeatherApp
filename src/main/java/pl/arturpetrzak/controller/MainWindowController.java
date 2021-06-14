@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 
 public class MainWindowController extends BaseController implements Observer, Initializable {
 
-    DailyForecastManager dailyForecastManager;
+    private final DailyForecastManager dailyForecastManager;
 
     @FXML
     private Label currentCountryLabel;

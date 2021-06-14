@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ViewFactory {
     private List<Stage> activeStages;
-    private DailyForecastManager dailyForecastManager;
+    private final DailyForecastManager dailyForecastManager;
     private final HostServices hostServices;
     private boolean aboutWindowInitialized;
     private boolean settingsWindowInitialized;
