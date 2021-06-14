@@ -52,6 +52,11 @@ public class MainWindowController extends BaseController implements Observer, In
     @FXML
     private Label messageLabel;
 
+    public MainWindowController(DailyForecastManager dailyForecastManager, ViewFactory viewFactory, String fxmlName) {
+        super(viewFactory, fxmlName);
+        this.dailyForecastManager = dailyForecastManager;
+    }
+
     @FXML
     void refreshLocalizationAction() {
         dailyForecastManager.getCurrentLocalization(Location.CURRENT);
@@ -89,11 +94,6 @@ public class MainWindowController extends BaseController implements Observer, In
     void closeAction() {
         Stage stage = (Stage) messageLabel.getScene().getWindow();
         viewFactory.closeStage(stage);
-    }
-
-    public MainWindowController(DailyForecastManager dailyForecastManager, ViewFactory viewFactory, String fxmlName) {
-        super(viewFactory, fxmlName);
-        this.dailyForecastManager = dailyForecastManager;
     }
 
     @Override

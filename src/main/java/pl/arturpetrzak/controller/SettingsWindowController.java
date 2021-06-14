@@ -35,6 +35,10 @@ public class SettingsWindowController extends BaseController implements Initiali
     @FXML
     private TextField accuWeatherApiTextField;
 
+    public SettingsWindowController(ViewFactory viewFactory, String fxmlName) {
+        super(viewFactory, fxmlName);
+    }
+
     @FXML
     void cancelSettingsAction() {
         Stage stage = (Stage) languageChoiceBox.getScene().getWindow();
@@ -91,10 +95,6 @@ public class SettingsWindowController extends BaseController implements Initiali
         }
 
         return true;
-    }
-
-    public SettingsWindowController(ViewFactory viewFactory, String fxmlName) {
-        super(viewFactory, fxmlName);
     }
 
     @Override
