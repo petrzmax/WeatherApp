@@ -26,9 +26,9 @@ public abstract class BaseApiService extends Service<FetchDataResult> {
 
     @Override
     protected Task<FetchDataResult> createTask() {
-        return new Task() {
+        return new Task<>() { //raw use of Task
             @Override
-            protected Object call() throws Exception {
+            protected FetchDataResult call() {
                 return fetchData();
             }
         };
