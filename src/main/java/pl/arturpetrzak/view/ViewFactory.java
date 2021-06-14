@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewFactory {
-    private List<Stage> activeStages;
     private final DailyForecastManager dailyForecastManager;
     private final HostServices hostServices;
     private boolean aboutWindowInitialized;
@@ -24,7 +23,6 @@ public class ViewFactory {
     public ViewFactory(DailyForecastManager dailyForecastManager, HostServices hostServices) {
         this.dailyForecastManager = dailyForecastManager;
         this.hostServices = hostServices;
-        this.activeStages = new ArrayList<>();
     }
 
     public void showMainWindow() {
@@ -69,13 +67,11 @@ public class ViewFactory {
         stage.setMinHeight(parent.minHeight(-1));
         stage.show();
 
-        activeStages.add(stage);
         return stage;
     }
 
     public void closeStage(Stage stageToClose) {
         stageToClose.close();
-        activeStages.remove(stageToClose);
     }
 
     public HostServices getHostServices() {
