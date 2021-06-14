@@ -9,24 +9,28 @@ import java.time.format.DateTimeFormatter;
 
 public class DailyForecast {
 
-    private final long unixTime;
+    private final long epochDate;
     private final String unit;
     private final String minimumTemperature;
     private final String maximumTemperature;
-    private final JSONObject day;
-    private final JSONObject night;
+    private final String dayIconPhrase;
+    private final String nightIconPhrase;
+    private final int dayIconNumber;
+    private final int nightIconNumber;
 
     public DailyForecast(JSONObject dailyForecast) { //consider using Gson or Jackson
-        unixTime = dailyForecast.getLong("EpochDate");
+        epochDate = dailyForecast.getLong("EpochDate");
         unit = dailyForecast.getJSONObject("Temperature").getJSONObject("Minimum").getString("Unit");
         minimumTemperature = String.valueOf(dailyForecast.getJSONObject("Temperature").getJSONObject("Minimum").getFloat("Value"));
         maximumTemperature = String.valueOf(dailyForecast.getJSONObject("Temperature").getJSONObject("Maximum").getFloat("Value"));
-        day = dailyForecast.getJSONObject("Day");
-        night = dailyForecast.getJSONObject("Night");
+        dayIconPhrase = dailyForecast.getJSONObject("Day").getString("IconPhrase");
+        nightIconPhrase = dailyForecast.getJSONObject("Night").getString("IconPhrase");
+        dayIconNumber = dailyForecast.getJSONObject("Day").getInt("Icon");
+        nightIconNumber = dailyForecast.getJSONObject("Night").getInt("Icon");
     }
 
     public String getDate() {
-        LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(unixTime), ZoneId.systemDefault());
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(epochDate), ZoneId.systemDefault());
         return localDateTime.format(DateTimeFormatter.ofPattern("dd-MM"));
     }
 
@@ -42,19 +46,19 @@ public class DailyForecast {
         return maximumTemperature;
     }
 
-    public int getDayIconNumber() {
-        return day.getInt("Icon");
-    }
-
     public String getDayWeatherDescription() {
-        return day.getString("IconPhrase");
+        return dayIconPhrase;
     }
 
     public String getNightWeatherDescription() {
-        return night.getString("IconPhrase");
+        return nightIconPhrase;
+    }
+
+    public int getDayIconNumber() {
+        return dayIconNumber;
     }
 
     public int getNightIconNumber() {
-        return night.getInt("Icon");
+        return nightIconNumber;
     }
 }
