@@ -8,7 +8,7 @@ public class Settings implements Serializable {
     private String accuweatherApiKey;
     private String ipstackApiKey;
 
-    private boolean metric;
+    private boolean usingMetricUnits;
     private Languages language;
 
     public String getAccuweatherApiKey() {
@@ -27,12 +27,12 @@ public class Settings implements Serializable {
         this.ipstackApiKey = ipstackApiKey;
     }
 
-    public boolean isMetric() {
-        return metric;
+    public boolean isUsingMetricUnits() {
+        return usingMetricUnits;
     }
 
-    public void setMetric(boolean metric) {
-        this.metric = metric;
+    public void setUsingMetricUnits(boolean isUsingMetricUnits) {
+        this.usingMetricUnits = isUsingMetricUnits;
     }
 
     public Languages getLanguage() {

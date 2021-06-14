@@ -100,7 +100,7 @@ public class MainWindowController extends BaseController implements Observer, In
     public void initialize(URL location, ResourceBundle resources) {
         dailyForecastManager.addObserver(this);
         dailyForecastManager.getCurrentLocalization(Location.CURRENT);
-        dailyForecastManager.setMetric(true);
+        dailyForecastManager.setUsingMetricUnits(true);
     }
 
     @Override

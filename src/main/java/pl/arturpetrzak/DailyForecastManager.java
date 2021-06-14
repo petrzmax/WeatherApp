@@ -18,7 +18,7 @@ public class DailyForecastManager implements Observable {
 
     final private List<Observer> observers;
     final private Map<Location, LocationForecast> locationForecasts;
-    private boolean metric;
+    private boolean usingMetricUnits;
     private Languages language = Languages.ENGLISH;
 
     public DailyForecastManager(Settings settings) {
@@ -30,7 +30,7 @@ public class DailyForecastManager implements Observable {
         }
 
         if (settings != null) {
-            metric = settings.isMetric();
+            usingMetricUnits = settings.isUsingMetricUnits();
             language = settings.getLanguage();
 
             Config.setIpstackApiKey(settings.getIpstackApiKey());
@@ -79,7 +79,7 @@ public class DailyForecastManager implements Observable {
     public void getCityWeatherData(Location location) {
         pushMessage(Messages.FETCHING_WEATHER_DATA);
 
-        FetchWeatherService fetchWeatherService = new FetchWeatherService(locationForecasts.get(location).getCityId(), metric, language);
+        FetchWeatherService fetchWeatherService = new FetchWeatherService(locationForecasts.get(location).getCityId(), usingMetricUnits, language);
         fetchWeatherService.start();
         fetchWeatherService.setOnSucceeded(event -> {
             try {
@@ -142,12 +142,12 @@ public class DailyForecastManager implements Observable {
         locationForecasts.get(location).setCity(city);
     }
 
-    public void setMetric(boolean metric) {
-        this.metric = metric;
+    public void setUsingMetricUnits(boolean usingMetricUnits) {
+        this.usingMetricUnits = usingMetricUnits;
     }
 
-    public boolean isMetric() {
-        return metric;
+    public boolean isUsingMetricUnits() {
+        return usingMetricUnits;
     }
 
     public void setLanguage(Languages language) {

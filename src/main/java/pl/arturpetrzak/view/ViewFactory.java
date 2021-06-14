@@ -90,12 +90,12 @@ public class ViewFactory {
         dailyForecastManager.setLanguage(language);
     }
 
-    public void setMetric(Boolean metric) {
-        dailyForecastManager.setMetric(metric);
+    public void setUsingMetricUnits(Boolean isUsingMetricUnits) {
+        dailyForecastManager.setUsingMetricUnits(isUsingMetricUnits);
     }
 
-    public boolean isMetric() {
-        return dailyForecastManager.isMetric();
+    public boolean isUsingMetricUnits() {
+        return dailyForecastManager.isUsingMetricUnits();
     }
 
     public boolean isAboutWindowInitialized() {

@@ -27,7 +27,7 @@ public class SettingsWindowController extends BaseController implements Initiali
     private ChoiceBox<String> languageChoiceBox;
 
     @FXML
-    private CheckBox metricCheckBox;
+    private CheckBox usingMetricUnitsCheckBox;
 
     @FXML
     private TextField ipStackApiTextField;
@@ -52,7 +52,7 @@ public class SettingsWindowController extends BaseController implements Initiali
 
         if(validateUserInput()) {
             viewFactory.setLanguage(language);
-            viewFactory.setMetric(metricCheckBox.isSelected());
+            viewFactory.setUsingMetricUnits(usingMetricUnitsCheckBox.isSelected());
 
             Config.setIpstackApiKey(ipStackApiTextField.getText());
             Config.setAccuweatherApiKey(accuWeatherApiTextField.getText());
@@ -100,7 +100,7 @@ public class SettingsWindowController extends BaseController implements Initiali
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setUpLanguageChoiceBox();
-        metricCheckBox.setSelected(viewFactory.isMetric());
+        usingMetricUnitsCheckBox.setSelected(viewFactory.isUsingMetricUnits());
         ipStackApiTextField.setText(Config.getIpstackApiKey());
         accuWeatherApiTextField.setText(Config.getAccuWeatherApiKey());
     }

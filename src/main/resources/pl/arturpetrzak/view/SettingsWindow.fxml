@@ -14,7 +14,7 @@
       <Button layoutX="304.0" layoutY="190.0" mnemonicParsing="false" onAction="#cancelSettingsAction" text="Cancel" AnchorPane.bottomAnchor="14.0" />
       <Label layoutX="42.0" layoutY="34.0" text="Language:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
       <ChoiceBox fx:id="languageChoiceBox" layoutX="116.0" layoutY="11.0" prefHeight="24.0" prefWidth="101.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="11.0" />
-      <CheckBox fx:id="metricCheckBox" layoutX="15.0" layoutY="47.0" mnemonicParsing="false" text="Metric units" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="47.0" />
+      <CheckBox fx:id="usingMetricUnitsCheckBox" layoutX="15.0" layoutY="47.0" mnemonicParsing="false" text="Metric units" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="47.0" />
       <Label layoutX="15.0" layoutY="118.0" prefHeight="16.0" prefWidth="92.0" text="IpStack:" AnchorPane.leftAnchor="15.0" />
       <Label layoutX="15.0" layoutY="154.0" text="AccuWeather:" AnchorPane.leftAnchor="15.0" />
       <TextField fx:id="ipStackApiTextField" layoutX="116.0" layoutY="114.0" prefHeight="24.0" prefWidth="322.0" />
