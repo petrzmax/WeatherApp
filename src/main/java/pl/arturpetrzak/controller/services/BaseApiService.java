@@ -61,7 +61,12 @@ public abstract class BaseApiService extends Service<FetchDataResult> {
             return FetchDataResult.FAILED_BY_REQUEST_SYNTAX;
         } catch (IOException e) {
             e.printStackTrace();
-            return getFetchDataResultByResponseCode(response.code());
+
+            if(response == null) {
+                return FetchDataResult.FAILED_BY_UNEXPECTED_ERROR;
+            } else {
+                return getFetchDataResultByResponseCode(response.code());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return FetchDataResult.FAILED_BY_API_AUTHORIZATION;
