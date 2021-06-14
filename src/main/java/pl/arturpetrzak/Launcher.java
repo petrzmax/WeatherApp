@@ -11,6 +11,10 @@ public class Launcher extends Application {
     private DailyForecastManager dailyForecastManager;
     private final PersistenceAccess persistenceAccess = new PersistenceAccess();
 
+    public static void main(String[] args) {
+        launch();
+    }
+
     @Override
     public void start(Stage stage) {
         dailyForecastManager = new DailyForecastManager(persistenceAccess.loadFromPersistence());
@@ -30,11 +34,6 @@ public class Launcher extends Application {
         settings.setUsingMetricUnits(dailyForecastManager.isUsingMetricUnits());
 
         persistenceAccess.saveToPersistence(settings);
-    }
-
-
-    public static void main(String[] args) {
-        launch();
     }
 
 }
