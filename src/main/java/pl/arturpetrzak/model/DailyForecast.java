@@ -2,20 +2,22 @@ package pl.arturpetrzak.model;
 
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 public class DailyForecast {
 
-    private final int unixTime;
+    private final long unixTime;
     private final String unit;
     private final float minimumTemperature;
     private final float maximumTemperature;
     private final JSONObject day;
     private final JSONObject night;
 
-    public DailyForecast(JSONObject dailyForecast) {
-        unixTime = dailyForecast.getInt("EpochDate");
+    public DailyForecast(JSONObject dailyForecast) { //consider using Gson or Jackson
+        unixTime = dailyForecast.getLong("EpochDate");
         unit = dailyForecast.getJSONObject("Temperature").getJSONObject("Minimum").getString("Unit");
         minimumTemperature = dailyForecast.getJSONObject("Temperature").getJSONObject("Minimum").getFloat("Value");
         maximumTemperature = dailyForecast.getJSONObject("Temperature").getJSONObject("Maximum").getFloat("Value");
@@ -24,9 +26,8 @@ public class DailyForecast {
     }
 
     public String getDate() {
-        Date date = new Date(unixTime * 1000L);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM");
-        return simpleDateFormat.format(date);
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(unixTime), ZoneId.systemDefault());
+        return localDateTime.format(DateTimeFormatter.ofPattern("dd-MM"));
     }
 
     public String getUnit() {
