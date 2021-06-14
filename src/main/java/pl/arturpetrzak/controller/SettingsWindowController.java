@@ -22,7 +22,6 @@ import java.util.stream.Stream;
 
 public class SettingsWindowController extends BaseController implements Initializable {
 
-
     @FXML
     private ChoiceBox<String> languageChoiceBox;
 
@@ -50,7 +49,7 @@ public class SettingsWindowController extends BaseController implements Initiali
         String choiceBoxValue = languageChoiceBox.getValue();
         Languages language = Languages.valueOf(choiceBoxValue.toUpperCase());
 
-        if(validateUserInput()) {
+        if (validateUserInput()) {
             viewFactory.setLanguage(language);
             viewFactory.setUsingMetricUnits(usingMetricUnitsCheckBox.isSelected());
 
@@ -76,7 +75,7 @@ public class SettingsWindowController extends BaseController implements Initiali
             return false;
         }
 
-        if(ipStackApi.length() > 50) {
+        if (ipStackApi.length() > 50) {
             pushAlert("IpStack: " + Messages.API_KEY_TOO_LONG);
             return false;
         }
@@ -88,7 +87,7 @@ public class SettingsWindowController extends BaseController implements Initiali
             return false;
         }
 
-        if(accuWeatherApi.length() > 50) {
+        if (accuWeatherApi.length() > 50) {
             pushAlert("AccuWeather: " + Messages.API_KEY_TOO_LONG);
             return false;
         }
