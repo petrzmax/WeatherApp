@@ -34,12 +34,7 @@ public class DailyForecastManager implements Observable {
         fetchCurrentLocalizationService = new FetchCurrentLocalizationService(okHttpClient);
         fetchCityDataService = new FetchCityDataService(okHttpClient);
         fetchWeatherService = new FetchWeatherService(okHttpClient);
-
         locationForecasts = new EnumMap<>(Location.class);
-        for (Location location : Location.values()) {
-            LocationForecast locationForecast = new LocationForecast();
-            locationForecasts.put(location, locationForecast);
-        }
     }
 
     public DailyForecastManager(Settings settings) {
@@ -59,9 +54,7 @@ public class DailyForecastManager implements Observable {
         fetchCurrentLocalizationService.setOnSucceeded(event -> {
             try {
                 fetchingResultHandler(fetchCurrentLocalizationService.getValue(), Messages.FETCHING_LOCALIZATION);
-                locationForecasts.get(location).setCountry(fetchCurrentLocalizationService.getCountry());
-                locationForecasts.get(location).setCity(fetchCurrentLocalizationService.getCity());
-                getCityId(location);
+                getCityId(location, fetchCurrentLocalizationService.getCountry(), fetchCurrentLocalizationService.getCity());
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -69,28 +62,28 @@ public class DailyForecastManager implements Observable {
         });
     }
 
-    public void getCityId(Location location) {
+    public void getCityId(Location location, String country, String city) {
         pushMessage(Messages.FETCHING_CITY_ID);
 
-        fetchCityDataService.setCountry(locationForecasts.get(location).getCountry());
-        fetchCityDataService.setCity(locationForecasts.get(location).getCity());
+        fetchCityDataService.setCountry(country);
+        fetchCityDataService.setCity(city);
 
         fetchCityDataService.restart();
         fetchCityDataService.setOnSucceeded(event -> {
             try {
                 fetchingResultHandler(fetchCityDataService.getValue(), Messages.FETCHING_CITY_ID);
-                locationForecasts.get(location).setCityId(fetchCityDataService.getCityId());
-                getCityWeatherData(location);
+
+                getCityWeatherData(location, country, city, fetchCityDataService.getCityId());
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
     }
 
-    public void getCityWeatherData(Location location) {
+    public void getCityWeatherData(Location location, String country, String city, String cityId) {
         pushMessage(Messages.FETCHING_WEATHER_DATA);
 
-        fetchWeatherService.setCityId(locationForecasts.get(location).getCityId());
+        fetchWeatherService.setCityId(cityId);
         fetchWeatherService.setUsingMetricUnits(usingMetricUnits);
         fetchWeatherService.setLanguage(language);
 
@@ -98,11 +91,8 @@ public class DailyForecastManager implements Observable {
         fetchWeatherService.setOnSucceeded(event -> {
             try {
                 fetchingResultHandler(fetchWeatherService.getValue(), Messages.FETCHING_WEATHER_DATA);
-                locationForecasts.get(location).loadData(fetchWeatherService.getWeatherData());
-                notifyObservers(
-                        location,
-                        locationForecasts.get(location).getCountry(),
-                        locationForecasts.get(location).getCity(),
+                locationForecasts.put(location, new LocationForecast(country, city, fetchWeatherService.getWeatherData()));
+                notifyObservers(location, country, city,
                         locationForecasts.get(location).getWeatherMessage()
                 );
             } catch (Exception e) {
@@ -146,14 +136,6 @@ public class DailyForecastManager implements Observable {
 
     public List<DailyForecast> getDailyForecasts(Location location) {
         return locationForecasts.get(location).getDailyForecasts();
-    }
-
-    public void setCountry(Location location, String country) {
-        locationForecasts.get(location).setCountry(country);
-    }
-
-    public void setCity(Location location, String city) {
-        locationForecasts.get(location).setCity(city);
     }
 
     public void setUsingMetricUnits(boolean usingMetricUnits) {

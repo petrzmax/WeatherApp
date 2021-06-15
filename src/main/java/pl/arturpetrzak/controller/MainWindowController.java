@@ -66,15 +66,13 @@ public class MainWindowController extends BaseController implements Observer, In
 
     @FXML
     void refreshCurrentLocalizationDataAction() {
-        dailyForecastManager.getCityWeatherData(Location.CURRENT);
+        dailyForecastManager.getCurrentLocalization(Location.CURRENT);
     }
 
     @FXML
     void refreshChosenLocalizationDataAction() {
         if (validateUserInput()) {
-            dailyForecastManager.setCountry(Location.CHOSEN, countryTextField.getText());
-            dailyForecastManager.setCity(Location.CHOSEN, cityTextField.getText());
-            dailyForecastManager.getCityId(Location.CHOSEN);
+            dailyForecastManager.getCityId(Location.CHOSEN, countryTextField.getText(), cityTextField.getText());
         }
     }
 
@@ -102,7 +100,6 @@ public class MainWindowController extends BaseController implements Observer, In
     public void initialize(URL location, ResourceBundle resources) {
         dailyForecastManager.addObserver(this);
         dailyForecastManager.getCurrentLocalization(Location.CURRENT);
-        dailyForecastManager.setUsingMetricUnits(true);
     }
 
     @Override
