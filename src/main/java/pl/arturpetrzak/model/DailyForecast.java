@@ -18,7 +18,8 @@ public class DailyForecast {
     private final int dayIconNumber;
     private final int nightIconNumber;
 
-    public DailyForecast(JSONObject dailyForecast) { //consider using Gson or Jackson
+    public DailyForecast(JSONObject dailyForecast) {
+
         epochDate = dailyForecast.getLong("EpochDate");
         unit = dailyForecast.getJSONObject("Temperature").getJSONObject("Minimum").getString("Unit");
         minimumTemperature = String.valueOf(dailyForecast.getJSONObject("Temperature").getJSONObject("Minimum").getFloat("Value"));
