@@ -60,11 +60,6 @@ public class MainWindowController extends BaseController implements Observer, In
     }
 
     @FXML
-    void refreshLocalizationAction() {
-        dailyForecastManager.getCurrentLocalization(Location.CURRENT);
-    }
-
-    @FXML
     void refreshCurrentLocalizationDataAction() {
         dailyForecastManager.getCurrentLocalization(Location.CURRENT);
     }
