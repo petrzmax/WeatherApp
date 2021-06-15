@@ -2,58 +2,64 @@ package pl.arturpetrzak.model;
 
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 public class DailyForecast {
 
-    private final int unixTime;
+    private final long epochDate;
     private final String unit;
-    private final float minimumTemperature;
-    private final float maximumTemperature;
-    private final JSONObject day;
-    private final JSONObject night;
+    private final String minimumTemperature;
+    private final String maximumTemperature;
+    private final String dayIconPhrase;
+    private final String nightIconPhrase;
+    private final int dayIconNumber;
+    private final int nightIconNumber;
 
     public DailyForecast(JSONObject dailyForecast) {
-        unixTime = dailyForecast.getInt("EpochDate");
+
+        epochDate = dailyForecast.getLong("EpochDate");
         unit = dailyForecast.getJSONObject("Temperature").getJSONObject("Minimum").getString("Unit");
-        minimumTemperature = dailyForecast.getJSONObject("Temperature").getJSONObject("Minimum").getFloat("Value");
-        maximumTemperature = dailyForecast.getJSONObject("Temperature").getJSONObject("Maximum").getFloat("Value");
-        day = dailyForecast.getJSONObject("Day");
-        night = dailyForecast.getJSONObject("Night");
+        minimumTemperature = String.valueOf(dailyForecast.getJSONObject("Temperature").getJSONObject("Minimum").getFloat("Value"));
+        maximumTemperature = String.valueOf(dailyForecast.getJSONObject("Temperature").getJSONObject("Maximum").getFloat("Value"));
+        dayIconPhrase = dailyForecast.getJSONObject("Day").getString("IconPhrase");
+        nightIconPhrase = dailyForecast.getJSONObject("Night").getString("IconPhrase");
+        dayIconNumber = dailyForecast.getJSONObject("Day").getInt("Icon");
+        nightIconNumber = dailyForecast.getJSONObject("Night").getInt("Icon");
     }
 
     public String getDate() {
-        Date date = new Date(unixTime * 1000L);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM");
-        return simpleDateFormat.format(date);
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(epochDate), ZoneId.systemDefault());
+        return localDateTime.format(DateTimeFormatter.ofPattern("dd-MM"));
     }
 
     public String getUnit() {
         return unit;
     }
 
-    public float getMinimumTemperature() {
+    public String getMinimumTemperature() {
         return minimumTemperature;
     }
 
-    public float getMaximumTemperature() {
+    public String getMaximumTemperature() {
         return maximumTemperature;
     }
 
-    public int getDayIconNumber() {
-        return day.getInt("Icon");
-    }
-
     public String getDayWeatherDescription() {
-        return day.getString("IconPhrase");
+        return dayIconPhrase;
     }
 
     public String getNightWeatherDescription() {
-        return night.getString("IconPhrase");
+        return nightIconPhrase;
+    }
+
+    public int getDayIconNumber() {
+        return dayIconNumber;
     }
 
     public int getNightIconNumber() {
-        return night.getInt("Icon");
+        return nightIconNumber;
     }
 }

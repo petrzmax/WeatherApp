@@ -1,10 +1,10 @@
 package pl.arturpetrzak.controller.services;
 
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.json.JSONObject;
 import pl.arturpetrzak.controller.FetchDataResult;
 
@@ -18,17 +18,17 @@ public abstract class BaseApiService extends Service<FetchDataResult> {
 
     protected String url;
     protected JSONObject jsonResponse;
-    protected OkHttpClient client;
+    protected OkHttpClient okHttpClient;
 
-    public BaseApiService() {
-        client = new OkHttpClient();
+    public BaseApiService(OkHttpClient okHttpClient) {
+        this.okHttpClient = okHttpClient;
     }
 
     @Override
     protected Task<FetchDataResult> createTask() {
-        return new Task() {
+        return new Task<>() { //raw use of Task
             @Override
-            protected Object call() throws Exception {
+            protected FetchDataResult call() {
                 return fetchData();
             }
         };
@@ -36,13 +36,15 @@ public abstract class BaseApiService extends Service<FetchDataResult> {
 
     protected FetchDataResult fetchData() {
         Response response = null;
+        buildUrl();
+
         try {
             URL url = new URL(this.url);
             Request request = new Request.Builder()
                     .url(url)
                     .build();
 
-            response = client.newCall(request).execute();
+            response = okHttpClient.newCall(request).execute();
 
             if (response.code() != 200) {
                 throw new IOException("HttpRequestCode: " + response.code());
@@ -59,7 +61,12 @@ public abstract class BaseApiService extends Service<FetchDataResult> {
             return FetchDataResult.FAILED_BY_REQUEST_SYNTAX;
         } catch (IOException e) {
             e.printStackTrace();
-            return getFetchDataResultByResponseCode(response.code());
+
+            if (response == null) {
+                return FetchDataResult.FAILED_BY_UNEXPECTED_ERROR;
+            } else {
+                return getFetchDataResultByResponseCode(response.code());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return FetchDataResult.FAILED_BY_API_AUTHORIZATION;
@@ -82,6 +89,8 @@ public abstract class BaseApiService extends Service<FetchDataResult> {
                 return FetchDataResult.FAILED_BY_UNEXPECTED_ERROR;
         }
     }
+
+    protected abstract void buildUrl();
 
     protected abstract JSONObject parseResponse(String response) throws Exception;
 }

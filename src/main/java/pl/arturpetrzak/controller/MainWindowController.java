@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 
 public class MainWindowController extends BaseController implements Observer, Initializable {
 
-    DailyForecastManager dailyForecastManager;
+    private final DailyForecastManager dailyForecastManager;
 
     @FXML
     private Label currentCountryLabel;
@@ -52,22 +52,22 @@ public class MainWindowController extends BaseController implements Observer, In
     @FXML
     private Label messageLabel;
 
-    @FXML
-    void refreshLocalizationAction() {
-        dailyForecastManager.getCurrentLocalization(Location.CURRENT);
+    private static final Pattern digits = Pattern.compile("[0-9]");
+
+    public MainWindowController(DailyForecastManager dailyForecastManager, ViewFactory viewFactory, String fxmlName) {
+        super(viewFactory, fxmlName);
+        this.dailyForecastManager = dailyForecastManager;
     }
 
     @FXML
     void refreshCurrentLocalizationDataAction() {
-        dailyForecastManager.getCityWeatherData(Location.CURRENT);
+        dailyForecastManager.getCurrentLocalization(Location.CURRENT);
     }
 
     @FXML
     void refreshChosenLocalizationDataAction() {
         if (validateUserInput()) {
-            dailyForecastManager.setCountry(Location.CHOSEN, countryTextField.getText());
-            dailyForecastManager.setCity(Location.CHOSEN, cityTextField.getText());
-            dailyForecastManager.getCityId(Location.CHOSEN);
+            dailyForecastManager.getCityId(Location.CHOSEN, countryTextField.getText(), cityTextField.getText());
         }
     }
 
@@ -91,16 +91,10 @@ public class MainWindowController extends BaseController implements Observer, In
         viewFactory.closeStage(stage);
     }
 
-    public MainWindowController(DailyForecastManager dailyForecastManager, ViewFactory viewFactory, String fxmlName) {
-        super(viewFactory, fxmlName);
-        this.dailyForecastManager = dailyForecastManager;
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         dailyForecastManager.addObserver(this);
         dailyForecastManager.getCurrentLocalization(Location.CURRENT);
-        dailyForecastManager.setMetric(true);
     }
 
     @Override
@@ -118,7 +112,7 @@ public class MainWindowController extends BaseController implements Observer, In
     }
 
     @Override
-    public void catchMessage(String message) {
+    public void displayMessage(String message) {
         messageLabel.setText(message);
     }
 
@@ -143,46 +137,43 @@ public class MainWindowController extends BaseController implements Observer, In
         String countryName = countryTextField.getText();
         String cityName = cityTextField.getText();
 
-        Pattern digit = Pattern.compile("[0-9]");
-        Pattern special = Pattern.compile("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
-
         Matcher hasDigit;
         Matcher hasSpecial;
 
-        hasDigit = digit.matcher(countryName);
+        hasDigit = digits.matcher(countryName);
         if (hasDigit.find()) {
-            catchMessage(Messages.COUNTRY_NAME_NO_NUMBERS);
+            displayMessage(Messages.COUNTRY_NAME_NO_NUMBERS);
             return false;
         }
-        hasSpecial = special.matcher(countryName);
+        hasSpecial = specialCharactersPattern.matcher(countryName);
         if (hasSpecial.find()) {
-            catchMessage(Messages.COUNTRY_NAME_NO_SPECIAL_CHARACTERS);
+            displayMessage(Messages.COUNTRY_NAME_NO_SPECIAL_CHARACTERS);
             return false;
         }
 
-        hasDigit = digit.matcher(cityName);
+        hasDigit = digits.matcher(cityName);
         if (hasDigit.find()) {
-            catchMessage(Messages.CITY_NAME_NO_NUMBERS);
+            displayMessage(Messages.CITY_NAME_NO_NUMBERS);
             return false;
         }
-        hasSpecial = special.matcher(cityName);
+        hasSpecial = specialCharactersPattern.matcher(cityName);
         if (hasSpecial.find()) {
-            catchMessage(Messages.CITY_NAME_NO_SPECIAL_CHARACTERS);
+            displayMessage(Messages.CITY_NAME_NO_SPECIAL_CHARACTERS);
             return false;
         }
 
         if (countryName.length() > Config.getTextFieldCapacity()) {
-            catchMessage(Messages.COUNTRY_NAME_TOO_LONG);
+            displayMessage(Messages.COUNTRY_NAME_TOO_LONG);
             return false;
         }
 
         if (cityName.length() > Config.getTextFieldCapacity()) {
-            catchMessage(Messages.CITY_NAME_TOO_LONG);
+            displayMessage(Messages.CITY_NAME_TOO_LONG);
             return false;
         }
 
-        if (cityName == "") {
-            catchMessage(Messages.NO_CITY_NAME);
+        if (cityName.equals("")) {
+            displayMessage(Messages.NO_CITY_NAME);
             return false;
         }
 

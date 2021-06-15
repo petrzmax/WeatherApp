@@ -6,35 +6,42 @@ import pl.arturpetrzak.controller.persistence.PersistenceAccess;
 import pl.arturpetrzak.controller.persistence.Settings;
 import pl.arturpetrzak.view.ViewFactory;
 
+import java.util.Optional;
+
 public class Launcher extends Application {
 
     private DailyForecastManager dailyForecastManager;
     private final PersistenceAccess persistenceAccess = new PersistenceAccess();
 
+    public static void main(String[] args) {
+        launch();
+    }
+
     @Override
     public void start(Stage stage) {
-        dailyForecastManager = new DailyForecastManager(persistenceAccess.loadFromPersistence());
+        Optional<Settings> settings = persistenceAccess.loadFromPersistence();
+
+        if (settings.isPresent()) {
+            dailyForecastManager = new DailyForecastManager(settings.get());
+        } else {
+            dailyForecastManager = new DailyForecastManager();
+        }
 
         ViewFactory viewFactory = new ViewFactory(dailyForecastManager, getHostServices());
         viewFactory.showMainWindow();
     }
 
     @Override
-    public void stop() throws Exception {
+    public void stop() {
         Settings settings = new Settings();
 
         settings.setIpstackApiKey(Config.getIpstackApiKey());
         settings.setAccuweatherApiKey(Config.getAccuWeatherApiKey());
 
         settings.setLanguage(dailyForecastManager.getLanguage());
-        settings.setMetric(dailyForecastManager.isMetric());
+        settings.setUsingMetricUnits(dailyForecastManager.isUsingMetricUnits());
 
         persistenceAccess.saveToPersistence(settings);
-    }
-
-
-    public static void main(String[] args) {
-        launch();
     }
 
 }

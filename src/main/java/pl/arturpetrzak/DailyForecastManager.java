@@ -1,5 +1,6 @@
 package pl.arturpetrzak;
 
+import okhttp3.OkHttpClient;
 import pl.arturpetrzak.controller.FetchDataResult;
 import pl.arturpetrzak.controller.Location;
 import pl.arturpetrzak.controller.persistence.Settings;
@@ -16,39 +17,44 @@ import java.util.Map;
 
 public class DailyForecastManager implements Observable {
 
-    private List<Observer> observers;
-    private Map<Location, LocationForecast> locationForecasts;
-    private boolean metric;
+    final private List<Observer> observers;
+    final private Map<Location, LocationForecast> locationForecasts;
+    private boolean usingMetricUnits;
     private Languages language = Languages.ENGLISH;
 
-    public DailyForecastManager(Settings settings) {
+    private final OkHttpClient okHttpClient;
+    private final FetchCurrentLocalizationService fetchCurrentLocalizationService;
+    private final FetchCityDataService fetchCityDataService;
+    private final FetchWeatherService fetchWeatherService;
+
+
+    public DailyForecastManager() {
         observers = new ArrayList<>();
+        okHttpClient = new OkHttpClient();
+        fetchCurrentLocalizationService = new FetchCurrentLocalizationService(okHttpClient);
+        fetchCityDataService = new FetchCityDataService(okHttpClient);
+        fetchWeatherService = new FetchWeatherService(okHttpClient);
         locationForecasts = new EnumMap<>(Location.class);
-        for (Location location : Location.values()) {
-            LocationForecast locationForecast = new LocationForecast();
-            locationForecasts.put(location, locationForecast);
-        }
+    }
 
-        if (settings != null) {
-            metric = settings.isMetric();
-            language = settings.getLanguage();
+    public DailyForecastManager(Settings settings) {
+        this();
 
-            Config.setIpstackApiKey(settings.getIpstackApiKey());
-            Config.setAccuweatherApiKey(settings.getAccuweatherApiKey());
-        }
+        usingMetricUnits = settings.isUsingMetricUnits();
+        language = settings.getLanguage();
+
+        Config.setIpstackApiKey(settings.getIpstackApiKey());
+        Config.setAccuweatherApiKey(settings.getAccuweatherApiKey());
     }
 
     public void getCurrentLocalization(Location location) {
         pushMessage(Messages.FETCHING_LOCALIZATION);
 
-        FetchCurrentLocalizationService fetchCurrentLocalizationService = new FetchCurrentLocalizationService();
-        fetchCurrentLocalizationService.start();
+        fetchCurrentLocalizationService.restart();
         fetchCurrentLocalizationService.setOnSucceeded(event -> {
             try {
                 fetchingResultHandler(fetchCurrentLocalizationService.getValue(), Messages.FETCHING_LOCALIZATION);
-                locationForecasts.get(location).setCountry(fetchCurrentLocalizationService.getCountry());
-                locationForecasts.get(location).setCity(fetchCurrentLocalizationService.getCity());
-                getCityId(location);
+                getCityId(location, fetchCurrentLocalizationService.getCountry(), fetchCurrentLocalizationService.getCity());
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -56,39 +62,37 @@ public class DailyForecastManager implements Observable {
         });
     }
 
-    public void getCityId(Location location) {
+    public void getCityId(Location location, String country, String city) {
         pushMessage(Messages.FETCHING_CITY_ID);
 
-        FetchCityDataService fetchCityDataService = new FetchCityDataService(
-                locationForecasts.get(location).getCountry(),
-                locationForecasts.get(location).getCity()
-        );
+        fetchCityDataService.setCountry(country);
+        fetchCityDataService.setCity(city);
 
-        fetchCityDataService.start();
+        fetchCityDataService.restart();
         fetchCityDataService.setOnSucceeded(event -> {
             try {
                 fetchingResultHandler(fetchCityDataService.getValue(), Messages.FETCHING_CITY_ID);
-                locationForecasts.get(location).setCityId(fetchCityDataService.getCityId());
-                getCityWeatherData(location);
+
+                getCityWeatherData(location, country, city, fetchCityDataService.getCityId());
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
     }
 
-    public void getCityWeatherData(Location location) {
+    public void getCityWeatherData(Location location, String country, String city, String cityId) {
         pushMessage(Messages.FETCHING_WEATHER_DATA);
 
-        FetchWeatherService fetchWeatherService = new FetchWeatherService(locationForecasts.get(location).getCityId(), metric, language);
-        fetchWeatherService.start();
+        fetchWeatherService.setCityId(cityId);
+        fetchWeatherService.setUsingMetricUnits(usingMetricUnits);
+        fetchWeatherService.setLanguage(language);
+
+        fetchWeatherService.restart();
         fetchWeatherService.setOnSucceeded(event -> {
             try {
                 fetchingResultHandler(fetchWeatherService.getValue(), Messages.FETCHING_WEATHER_DATA);
-                locationForecasts.get(location).loadData(fetchWeatherService.getWeatherData());
-                notifyObservers(
-                        location,
-                        locationForecasts.get(location).getCountry(),
-                        locationForecasts.get(location).getCity(),
+                locationForecasts.put(location, new LocationForecast(country, city, fetchWeatherService.getWeatherData()));
+                notifyObservers(location, country, city,
                         locationForecasts.get(location).getWeatherMessage()
                 );
             } catch (Exception e) {
@@ -134,20 +138,12 @@ public class DailyForecastManager implements Observable {
         return locationForecasts.get(location).getDailyForecasts();
     }
 
-    public void setCountry(Location location, String country) {
-        locationForecasts.get(location).setCountry(country);
+    public void setUsingMetricUnits(boolean usingMetricUnits) {
+        this.usingMetricUnits = usingMetricUnits;
     }
 
-    public void setCity(Location location, String city) {
-        locationForecasts.get(location).setCity(city);
-    }
-
-    public void setMetric(boolean metric) {
-        this.metric = metric;
-    }
-
-    public boolean isMetric() {
-        return metric;
+    public boolean isUsingMetricUnits() {
+        return usingMetricUnits;
     }
 
     public void setLanguage(Languages language) {
@@ -173,7 +169,7 @@ public class DailyForecastManager implements Observable {
     @Override
     public void pushMessage(String message) {
         for (Observer observer : observers) {
-            observer.catchMessage(message);
+            observer.displayMessage(message);
         }
     }
 

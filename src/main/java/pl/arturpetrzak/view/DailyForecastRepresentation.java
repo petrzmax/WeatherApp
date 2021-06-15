@@ -8,6 +8,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import pl.arturpetrzak.Config;
+import pl.arturpetrzak.Messages;
 import pl.arturpetrzak.model.DailyForecast;
 
 public class DailyForecastRepresentation {
@@ -44,10 +45,11 @@ public class DailyForecastRepresentation {
         vBox.getChildren().add(label);
 
         // Weather description
-        label = new Label("Temperatures:" +
-                "\nMax: " + dailyForecast.getMaximumTemperature() + " °" + dailyForecast.getUnit() +
-                "\nMin: " + dailyForecast.getMinimumTemperature() + " °" + dailyForecast.getUnit()
-        );
+        label = new Label(Messages.getTemperatureRepresentation(
+                dailyForecast.getMinimumTemperature(),
+                dailyForecast.getMaximumTemperature(),
+                dailyForecast.getUnit()
+        ));
 
         label.setTextAlignment(TextAlignment.CENTER);
         label.setPadding(new Insets(10, 0, 0, 0));

@@ -26,5 +26,18 @@ public class Messages {
     public static final String COUNTRY_NAME_NO_NUMBERS = "Country name can't contain any number";
     public static final String COUNTRY_NAME_NO_SPECIAL_CHARACTERS = "Country name can't contain any special characters";
     public static final String API_KEY_NO_SPECIAL_CHARACTERS = "API key can't contain any special characters";
-    public static final String API_KEY_TOO_LONG = "API key is too long. It should be shorter than 50 characters\"";
+    public static final String API_KEY_TOO_LONG = "API key is too long. It should be shorter than 50 characters";
+
+    // Others
+    public static final String DIALOG_TITLE = "Information Dialog";
+    private static final String TEMPERATURE_REPRESENTATION_TEMPLATE = "Temperatures:\nMax: %2$s °%3$s\nMin: %1$s °%3$s";
+
+    public static String getTemperatureRepresentation(String minimumTemperature, String maximumTemperature, String unit) {
+        return String.format(
+                TEMPERATURE_REPRESENTATION_TEMPLATE,
+                minimumTemperature,
+                maximumTemperature,
+                unit
+        );
+    }
 }

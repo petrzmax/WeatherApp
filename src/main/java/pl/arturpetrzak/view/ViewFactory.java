@@ -11,12 +11,9 @@ import pl.arturpetrzak.Languages;
 import pl.arturpetrzak.controller.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ViewFactory {
-    private List<Stage> activeStages;
-    private DailyForecastManager dailyForecastManager;
+    private final DailyForecastManager dailyForecastManager;
     private final HostServices hostServices;
     private boolean aboutWindowInitialized;
     private boolean settingsWindowInitialized;
@@ -24,7 +21,6 @@ public class ViewFactory {
     public ViewFactory(DailyForecastManager dailyForecastManager, HostServices hostServices) {
         this.dailyForecastManager = dailyForecastManager;
         this.hostServices = hostServices;
-        this.activeStages = new ArrayList<>();
     }
 
     public void showMainWindow() {
@@ -69,13 +65,11 @@ public class ViewFactory {
         stage.setMinHeight(parent.minHeight(-1));
         stage.show();
 
-        activeStages.add(stage);
         return stage;
     }
 
     public void closeStage(Stage stageToClose) {
         stageToClose.close();
-        activeStages.remove(stageToClose);
     }
 
     public HostServices getHostServices() {
@@ -90,12 +84,12 @@ public class ViewFactory {
         dailyForecastManager.setLanguage(language);
     }
 
-    public void setMetric(Boolean metric) {
-        dailyForecastManager.setMetric(metric);
+    public void setUsingMetricUnits(Boolean isUsingMetricUnits) {
+        dailyForecastManager.setUsingMetricUnits(isUsingMetricUnits);
     }
 
-    public boolean isMetric() {
-        return dailyForecastManager.isMetric();
+    public boolean isUsingMetricUnits() {
+        return dailyForecastManager.isUsingMetricUnits();
     }
 
     public boolean isAboutWindowInitialized() {

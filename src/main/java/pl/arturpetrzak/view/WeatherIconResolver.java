@@ -11,6 +11,7 @@ public class WeatherIconResolver {
 
     public ImageView getIconForWeather(int iconNumber) {
         String path = "icons/";
+        ImageView imageView = null;
         try {
             switch (iconNumber) {
                 case 1: // Sunny
@@ -100,23 +101,22 @@ public class WeatherIconResolver {
 
             InputStream inputStream = getClass().getResourceAsStream(path);
             if (inputStream == null) {
+                imageView = new ImageView();
                 throw new IOException("Path: " + path + " do not exist");
+            } else {
+                imageView = new ImageView(new Image(inputStream));
             }
 
-            ImageView imageView = new ImageView(new Image(inputStream));
-            imageView.setPreserveRatio(true);
-            imageView.setFitHeight(Config.getIconSize());
-            imageView.setSmooth(true);
-            imageView.setCache(true);
 
-            return imageView;
-
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IllegalArgumentException | IOException e) {
             e.printStackTrace();
         }
 
-        return null;
+        imageView.setPreserveRatio(true);
+        imageView.setFitHeight(Config.getIconSize());
+        imageView.setSmooth(true);
+        imageView.setCache(true);
+
+        return imageView;
     }
 }
