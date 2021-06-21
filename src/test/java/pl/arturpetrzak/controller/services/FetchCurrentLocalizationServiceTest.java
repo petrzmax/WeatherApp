@@ -60,6 +60,17 @@ class FetchCurrentLocalizationServiceTest {
     }
 
     @Test
+    void shouldBuildProperUrl() {
+
+        //when
+        fetchCurrentLocalizationService.buildUrl();
+        System.out.println(fetchCurrentLocalizationService.url);
+
+        //then
+        assertThat(fetchCurrentLocalizationService.url, is(equalTo("https://TestApiUrl?access_key=TestApiKey")));
+    }
+
+    @Test
     void shouldReturnCurrentLocalization() throws Exception {
 
         //given
