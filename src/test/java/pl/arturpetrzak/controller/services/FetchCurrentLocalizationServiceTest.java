@@ -46,7 +46,6 @@ class FetchCurrentLocalizationServiceTest {
     @InjectMocks
     private FetchCurrentLocalizationService fetchCurrentLocalizationService = new FetchCurrentLocalizationService(okHttpClient);
 
-    // given
     @GivenTextResource("json/ipStackSuccessResponse.json")
     protected String serverSuccessResponse;
 
