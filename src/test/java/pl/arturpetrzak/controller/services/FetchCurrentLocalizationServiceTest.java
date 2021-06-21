@@ -150,12 +150,34 @@ class FetchCurrentLocalizationServiceTest {
 
     @ParameterizedTest
     @ValueSource(ints = {401, 403, 503})
-    void shouldReturnFailedByApiForCodes(int responseCode) {
+    void shouldReturnFailedByApi(int responseCode) {
 
         //when
         FetchDataResult fetchDataResult = fetchCurrentLocalizationService.getFetchDataResultByResponseCode(responseCode);
 
         //then
         assertThat(fetchDataResult, is(equalTo(FetchDataResult.FAILED_BY_API_AUTHORIZATION)));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {404, 500})
+    void shouldReturnFailedByServers(int responseCode) {
+
+        //when
+        FetchDataResult fetchDataResult = fetchCurrentLocalizationService.getFetchDataResultByResponseCode(responseCode);
+
+        //then
+        assertThat(fetchDataResult, is(equalTo(FetchDataResult.FAILED_BY_SERVER)));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2, 3 , 222, 333, 444, 555})
+    void shouldReturnFailedByUnexpectedError(int responseCode) {
+
+        //when
+        FetchDataResult fetchDataResult = fetchCurrentLocalizationService.getFetchDataResultByResponseCode(responseCode);
+
+        //then
+        assertThat(fetchDataResult, is(equalTo(FetchDataResult.FAILED_BY_UNEXPECTED_ERROR)));
     }
 }
