@@ -4,7 +4,9 @@ import com.adelean.inject.resources.junit.jupiter.GivenTextResource;
 import com.adelean.inject.resources.junit.jupiter.TestWithResources;
 import okhttp3.*;
 import org.json.JSONObject;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -39,6 +41,8 @@ class FetchCityDataServiceTest {
     @Mock
     private Call call;
 
+    private MockedStatic<Config> config;
+
     @InjectMocks
     private FetchCityDataService fetchCityDataService = new FetchCityDataService(okHttpClient);
 
@@ -48,11 +52,16 @@ class FetchCityDataServiceTest {
     @GivenTextResource("json/accuWeatherCityDataParsedResponse.json")
     protected String parsedServerResponse;
 
-    @BeforeAll
-    static void setup() {
-        MockedStatic<Config> config = Mockito.mockStatic(Config.class);
+    @BeforeEach
+    void setup() {
+        config = Mockito.mockStatic(Config.class);
         config.when(Config::getAccuWeatherApiKey).thenReturn("TestApiKey");
         config.when(Config::getCitySearchApiUrl).thenReturn("https://TestApiUrl");
+    }
+
+    @AfterEach
+    void cleanUp() {
+        config.close();
     }
 
     @Test

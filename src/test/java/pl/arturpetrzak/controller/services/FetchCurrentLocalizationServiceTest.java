@@ -4,9 +4,7 @@ import com.adelean.inject.resources.junit.jupiter.GivenTextResource;
 import com.adelean.inject.resources.junit.jupiter.TestWithResources;
 import okhttp3.*;
 import org.json.JSONObject;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -23,6 +21,7 @@ import java.io.IOException;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
@@ -43,6 +42,8 @@ class FetchCurrentLocalizationServiceTest {
     @Mock
     private Call call;
 
+    private static MockedStatic<Config> config;
+
     @InjectMocks
     private FetchCurrentLocalizationService fetchCurrentLocalizationService = new FetchCurrentLocalizationService(okHttpClient);
 
@@ -52,11 +53,16 @@ class FetchCurrentLocalizationServiceTest {
     @GivenTextResource("json/ipStackSuccessFalseResponse.json")
     protected String serverSuccessFalseResponse;
 
-    @BeforeAll
-    static void setup() {
-        MockedStatic<Config> config = Mockito.mockStatic(Config.class);
+    @BeforeEach
+    void setup() {
+        config = Mockito.mockStatic(Config.class);
         config.when(Config::getIpstackApiKey).thenReturn("TestApiKey");
         config.when(Config::getCurrentCityByIpApiUrl).thenReturn("https://TestApiUrl");
+    }
+
+    @AfterEach
+    void cleanUp() {
+        config.close();
     }
 
     @Test
@@ -64,7 +70,6 @@ class FetchCurrentLocalizationServiceTest {
 
         //when
         fetchCurrentLocalizationService.buildUrl();
-        System.out.println(fetchCurrentLocalizationService.url);
 
         //then
         assertThat(fetchCurrentLocalizationService.url, is(equalTo("https://TestApiUrl?access_key=TestApiKey")));
