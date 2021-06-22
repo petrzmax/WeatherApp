@@ -8,17 +8,17 @@ import java.io.FileOutputStream;
 import java.util.Optional;
 
 public class PersistenceAccess {
-    private final String SETTINGS_LOCATION;
+    private String settingsLocation;
     private final ObjectMapper objectMapper;
 
     public PersistenceAccess() {
-        SETTINGS_LOCATION = System.getProperty("user.home") + File.separator + Config.getAppName() + "Settings.ser";
         objectMapper = new ObjectMapper();
+        setSettingsLocation(System.getProperty("user.home") + File.separator + Config.getAppName() + "Settings.ser");
     }
 
     public Optional<Settings> loadFromPersistence() {
         try {
-            File file = new File(SETTINGS_LOCATION);
+            File file = new File(settingsLocation);
 
             Settings settings = objectMapper.readValue(file, Settings.class);
 
@@ -32,7 +32,7 @@ public class PersistenceAccess {
 
     public void saveToPersistence(Settings settings) {
         try {
-            File file = new File(SETTINGS_LOCATION);
+            File file = new File(settingsLocation);
             FileOutputStream fileOutputStream = new FileOutputStream(file);
 
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, settings);
@@ -42,5 +42,9 @@ public class PersistenceAccess {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void setSettingsLocation(String settingsLocation) {
+        this.settingsLocation = settingsLocation;
     }
 }

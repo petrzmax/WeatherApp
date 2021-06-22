@@ -1,0 +1,33 @@
+{
+  "Date":"2021-06-21T07:00:00+02:00",
+  "EpochDate":1624251600,
+  "Temperature":{
+    "Minimum":{
+      "Value":19.8,
+      "Unit":"C",
+      "UnitType":17
+    },
+    "Maximum":{
+      "Value":31.9,
+      "Unit":"C",
+      "UnitType":17
+    }
+  },
+  "Day":{
+    "Icon":17,
+    "IconPhrase":"Partly sunny w/ t-storms",
+    "HasPrecipitation":true,
+    "PrecipitationType":"Rain",
+    "PrecipitationIntensity":"Light"
+  },
+  "Night":{
+    "Icon":35,
+    "IconPhrase":"Partly cloudy",
+    "HasPrecipitation":false
+  },
+  "Sources":[
+    "AccuWeather"
+  ],
+  "MobileLink":"http://m.accuweather.com/en/pl/srodmiescie/264658/daily-weather-forecast/264658?day=1&unit=c&lang=en-us",
+  "Link":"http://www.accuweather.com/en/pl/srodmiescie/264658/daily-weather-forecast/264658?day=1&unit=c&lang=en-us"
+}

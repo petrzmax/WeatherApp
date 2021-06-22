@@ -91,7 +91,7 @@ public class DailyForecastManager implements Observable {
         fetchWeatherService.setOnSucceeded(event -> {
             try {
                 fetchingResultHandler(fetchWeatherService.getValue(), Messages.FETCHING_WEATHER_DATA);
-                locationForecasts.put(location, new LocationForecast(country, city, fetchWeatherService.getWeatherData()));
+                locationForecasts.put(location, new LocationForecast(fetchWeatherService.getWeatherData()));
                 notifyObservers(location, country, city,
                         locationForecasts.get(location).getWeatherMessage()
                 );

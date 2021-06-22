@@ -9,7 +9,6 @@ public class FetchCurrentLocalizationService extends BaseApiService {
 
     public FetchCurrentLocalizationService(OkHttpClient okHttpClient) {
         super(okHttpClient);
-        url = Config.getCurrentCityByIpApiUrl() + "?" + API_KEY_PREFIX + Config.getIpstackApiKey();
     }
 
     public String getCountry() {
@@ -22,6 +21,7 @@ public class FetchCurrentLocalizationService extends BaseApiService {
 
     @Override
     protected void buildUrl() {
+        url = Config.getCurrentCityByIpApiUrl() + "?" + API_KEY_PREFIX + Config.getIpstackApiKey();
     }
 
     @Override
