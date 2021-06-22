@@ -39,5 +39,4 @@ class DailyForecastTest {
         assertThat(dailyForecast.getNightIconNumber(), is(equalTo(35)));
     }
 
-
 }
