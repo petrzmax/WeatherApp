@@ -6,6 +6,7 @@ import okhttp3.*;
 import org.json.JSONObject;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
@@ -21,10 +22,9 @@ import java.io.IOException;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.mock;
 
 @TestWithResources
 @ExtendWith(MockitoExtension.class)
@@ -32,15 +32,6 @@ class FetchCurrentLocalizationServiceTest {
 
     @Mock
     private OkHttpClient okHttpClient;
-
-    @Mock
-    private Response response;
-
-    @Mock
-    private ResponseBody responseBody;
-
-    @Mock
-    private Call call;
 
     private static MockedStatic<Config> config;
 
@@ -79,11 +70,7 @@ class FetchCurrentLocalizationServiceTest {
     void shouldReturnCurrentLocalization() throws Exception {
 
         //given
-        given(okHttpClient.newCall(any(Request.class))).willReturn(call);
-        given(call.execute()).willReturn(response);
-        given(response.code()).willReturn(200);
-        given(response.body()).willReturn(responseBody);
-        given(responseBody.string()).willReturn(serverSuccessResponse);
+        mockHttpCall(200, serverSuccessResponse);
 
         //when
         FetchDataResult fetchDataResult = fetchCurrentLocalizationService.fetchData();
@@ -109,10 +96,10 @@ class FetchCurrentLocalizationServiceTest {
     void shouldThrowExceptionWithProperMessageWhenResponseHasFalseSuccessFlag() {
 
         //when
+        Executable executable = () -> fetchCurrentLocalizationService.parseResponse(serverSuccessFalseResponse);
+
         //then
-        Exception exception = assertThrows(Exception.class, () -> {
-            fetchCurrentLocalizationService.parseResponse(serverSuccessFalseResponse);
-        });
+        Exception exception = assertThrows(Exception.class, executable);
 
         assertThat(exception.getMessage(), is(equalTo(
                 "HttpRequestCode: 101 - You have not supplied a valid API Access Key. [Technical Support: support@apilayer.com]"
@@ -143,15 +130,14 @@ class FetchCurrentLocalizationServiceTest {
     @Test
     void shouldReturnSuccessFetchDataResult() throws Exception {
         //given
-        given(okHttpClient.newCall(any(Request.class))).willReturn(call);
-        given(response.code()).willReturn(200);
-        given(call.execute()).willReturn(response);
-        given(response.body()).willReturn(responseBody);
-        given(responseBody.string()).willReturn(serverSuccessResponse);
+        mockHttpCall(200, serverSuccessResponse);
 
-        assertThat(fetchCurrentLocalizationService.fetchData(), is(equalTo(FetchDataResult.SUCCESS)));
+        //when
+        FetchDataResult fetchDataResult = fetchCurrentLocalizationService.fetchData();
+
+        //then
+        assertThat(fetchDataResult, is(equalTo(FetchDataResult.SUCCESS)));
     }
-
 
     @Test
     void shouldReturnFailedByRequestSyntaxForCode400() {
@@ -194,5 +180,18 @@ class FetchCurrentLocalizationServiceTest {
 
         //then
         assertThat(fetchDataResult, is(equalTo(FetchDataResult.FAILED_BY_UNEXPECTED_ERROR)));
+    }
+
+    private void mockHttpCall(int status, String serverResponse) throws IOException {
+
+        Call call = mock(Call.class);
+        Response response = mock(Response.class);
+        ResponseBody responseBody = mock(ResponseBody.class);
+
+        given(okHttpClient.newCall(any())).willReturn(call);
+        given(call.execute()).willReturn(response);
+        given(response.code()).willReturn(status);
+        given(response.body()).willReturn(responseBody);
+        given(responseBody.string()).willReturn(serverResponse);
     }
 }
