@@ -1,7 +1,6 @@
 package pl.arturpetrzak.controller.persistence;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import pl.arturpetrzak.Config;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -11,9 +10,9 @@ public class PersistenceAccess {
     private String settingsLocation;
     private final ObjectMapper objectMapper;
 
-    public PersistenceAccess() {
+    public PersistenceAccess(String path) {
         objectMapper = new ObjectMapper();
-        setSettingsLocation(System.getProperty("user.home") + File.separator + Config.getAppName() + "Settings.ser");
+        settingsLocation = path;
     }
 
     public Optional<Settings> loadFromPersistence() {
@@ -42,9 +41,5 @@ public class PersistenceAccess {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public void setSettingsLocation(String settingsLocation) {
-        this.settingsLocation = settingsLocation;
     }
 }

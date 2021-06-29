@@ -1,7 +1,6 @@
 package pl.arturpetrzak.controller.persistence;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pl.arturpetrzak.Languages;
 
@@ -14,22 +13,17 @@ import static org.hamcrest.Matchers.*;
 
 class PersistenceAccessTest {
 
-    private PersistenceAccess persistenceAccess;
-
-    @BeforeEach
-    void setup() {
-        persistenceAccess = new PersistenceAccess();
-    }
-
     @Test
     void shouldReturnEmptyOptionalWhenSettingsFileDoesNotExist() {
 
         //given
-        persistenceAccess.setSettingsLocation("path");
+        PersistenceAccess persistenceAccess = new PersistenceAccess("path");
 
         //when
+        Optional<Settings> actual = persistenceAccess.loadFromPersistence();
+
         //then
-        assertThat(persistenceAccess.loadFromPersistence(), is(equalTo(Optional.empty())));
+        assertThat(actual, is(equalTo(Optional.empty())));
     }
 
     @Test
@@ -37,11 +31,13 @@ class PersistenceAccessTest {
 
         //given
         String path = PersistenceAccessTest.class.getClassLoader().getResource("json/persistenceEmpty.json").getPath();
-        persistenceAccess.setSettingsLocation(path);
+        PersistenceAccess persistenceAccess = new PersistenceAccess(path);
 
         //when
+        Optional<Settings> actual = persistenceAccess.loadFromPersistence();
+
         //then
-        assertThat(persistenceAccess.loadFromPersistence(), is(equalTo(Optional.empty())));
+        assertThat(actual, is(equalTo(Optional.empty())));
     }
 
     @Test
@@ -49,7 +45,7 @@ class PersistenceAccessTest {
 
         //given
         String path = PersistenceAccessTest.class.getClassLoader().getResource("json/persistenceValid.json").getPath();
-        persistenceAccess.setSettingsLocation(path);
+        PersistenceAccess persistenceAccess = new PersistenceAccess(path);
 
         //when
         Optional<Settings> settings = persistenceAccess.loadFromPersistence();
@@ -67,7 +63,7 @@ class PersistenceAccessTest {
 
         //given
         String path = System.getProperty("user.home") + File.separator + "settingsTest.json";
-        persistenceAccess.setSettingsLocation(path);
+        PersistenceAccess persistenceAccess = new PersistenceAccess(path);
         ObjectMapper objectMapper = new ObjectMapper();
 
         Settings settings = new Settings();
