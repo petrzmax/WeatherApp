@@ -17,8 +17,8 @@ import java.util.Map;
 
 public class DailyForecastManager implements Observable {
 
-    final private List<Observer> observers;
-    final private Map<Location, LocationForecast> locationForecasts;
+    private final List<Observer> observers;
+    private final Map<Location, LocationForecast> locationForecasts;
     private boolean usingMetricUnits;
     private Languages language = Languages.ENGLISH;
 

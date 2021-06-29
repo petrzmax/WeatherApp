@@ -1,12 +1,13 @@
 package pl.arturpetrzak.controller.persistence;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 import pl.arturpetrzak.Languages;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -14,22 +15,20 @@ import static org.hamcrest.Matchers.*;
 
 class PersistenceAccessTest {
 
-    private PersistenceAccess persistenceAccess;
-
-    @BeforeEach
-    void setup() {
-        persistenceAccess = new PersistenceAccess();
-    }
+    @TempDir
+    Path tempPath;
 
     @Test
     void shouldReturnEmptyOptionalWhenSettingsFileDoesNotExist() {
 
         //given
-        persistenceAccess.setSettingsLocation("path");
+        PersistenceAccess persistenceAccess = new PersistenceAccess("path");
 
         //when
+        Optional<Settings> actual = persistenceAccess.loadFromPersistence();
+
         //then
-        assertThat(persistenceAccess.loadFromPersistence(), is(equalTo(Optional.empty())));
+        assertThat(actual, is(equalTo(Optional.empty())));
     }
 
     @Test
@@ -37,11 +36,13 @@ class PersistenceAccessTest {
 
         //given
         String path = PersistenceAccessTest.class.getClassLoader().getResource("json/persistenceEmpty.json").getPath();
-        persistenceAccess.setSettingsLocation(path);
+        PersistenceAccess persistenceAccess = new PersistenceAccess(path);
 
         //when
+        Optional<Settings> actual = persistenceAccess.loadFromPersistence();
+
         //then
-        assertThat(persistenceAccess.loadFromPersistence(), is(equalTo(Optional.empty())));
+        assertThat(actual, is(equalTo(Optional.empty())));
     }
 
     @Test
@@ -49,7 +50,7 @@ class PersistenceAccessTest {
 
         //given
         String path = PersistenceAccessTest.class.getClassLoader().getResource("json/persistenceValid.json").getPath();
-        persistenceAccess.setSettingsLocation(path);
+        PersistenceAccess persistenceAccess = new PersistenceAccess(path);
 
         //when
         Optional<Settings> settings = persistenceAccess.loadFromPersistence();
@@ -66,8 +67,9 @@ class PersistenceAccessTest {
     void shouldSaveSettingsObjectToFile() throws IOException {
 
         //given
-        String path = System.getProperty("user.home") + File.separator + "settingsTest.json";
-        persistenceAccess.setSettingsLocation(path);
+        String path = tempPath.toString() + "settingsTest.json";
+
+        PersistenceAccess persistenceAccess = new PersistenceAccess(path);
         ObjectMapper objectMapper = new ObjectMapper();
 
         Settings settings = new Settings();
@@ -88,11 +90,5 @@ class PersistenceAccessTest {
         assertThat(savedSettings.getAccuweatherApiKey(), is(equalTo("setAccuweatherApiKey")));
         assertThat(savedSettings.getLanguage(), is(equalTo(Languages.GERMAN)));
         assertThat(savedSettings.isUsingMetricUnits(), is(false));
-
-        settingsFile.delete();
     }
-
-
-
-
  }

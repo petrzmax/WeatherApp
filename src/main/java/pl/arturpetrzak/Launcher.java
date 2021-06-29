@@ -6,12 +6,15 @@ import pl.arturpetrzak.controller.persistence.PersistenceAccess;
 import pl.arturpetrzak.controller.persistence.Settings;
 import pl.arturpetrzak.view.ViewFactory;
 
+import java.io.File;
 import java.util.Optional;
 
 public class Launcher extends Application {
 
     private DailyForecastManager dailyForecastManager;
-    private final PersistenceAccess persistenceAccess = new PersistenceAccess();
+    private final PersistenceAccess persistenceAccess = new PersistenceAccess(
+            System.getProperty("user.home") + File.separator + Config.getAppName() + "Settings.ser"
+    );
 
     public static void main(String[] args) {
         launch();

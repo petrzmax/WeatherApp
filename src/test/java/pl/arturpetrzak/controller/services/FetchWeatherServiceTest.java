@@ -4,6 +4,7 @@ import com.adelean.inject.resources.junit.jupiter.GivenTextResource;
 import com.adelean.inject.resources.junit.jupiter.TestWithResources;
 import okhttp3.*;
 import org.json.JSONObject;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,32 +29,25 @@ import static org.mockito.BDDMockito.given;
 @TestWithResources
 @ExtendWith(MockitoExtension.class)
 class FetchWeatherServiceTest {
+
     @Mock
     private OkHttpClient okHttpClient;
 
-    @Mock
-    private Response response;
-
-    @Mock
-    private ResponseBody responseBody;
-
-    @Mock
-    private Call call;
+    private static MockedStatic<Config> config;
 
     @InjectMocks
     private FetchWeatherService fetchWeatherService = new FetchWeatherService(okHttpClient);
 
-    @GivenTextResource("json/accuWeatherCityDataResponse.json")
-    protected String serverResponse;
-
-    @GivenTextResource("json/accuWeatherCityDataParsedResponse.json")
-    protected String parsedServerResponse;
-
     @BeforeAll
     static void setup() {
-        MockedStatic<Config> config = Mockito.mockStatic(Config.class);
+        config = Mockito.mockStatic(Config.class);
         config.when(Config::getAccuWeatherApiKey).thenReturn("TestApiKey");
         config.when(Config::getDailyWeatherForecastApiUrl).thenReturn("https://TestApiUrl");
+    }
+
+    @AfterEach
+    void cleanUp() {
+        config.close();
     }
 
     @Test
