@@ -2,16 +2,21 @@ package pl.arturpetrzak.controller.persistence;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 import pl.arturpetrzak.Languages;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 class PersistenceAccessTest {
+
+    @TempDir
+    Path tempPath;
 
     @Test
     void shouldReturnEmptyOptionalWhenSettingsFileDoesNotExist() {
@@ -62,7 +67,8 @@ class PersistenceAccessTest {
     void shouldSaveSettingsObjectToFile() throws IOException {
 
         //given
-        String path = System.getProperty("user.home") + File.separator + "settingsTest.json";
+        String path = tempPath.toString() + "settingsTest.json";
+
         PersistenceAccess persistenceAccess = new PersistenceAccess(path);
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -84,11 +90,5 @@ class PersistenceAccessTest {
         assertThat(savedSettings.getAccuweatherApiKey(), is(equalTo("setAccuweatherApiKey")));
         assertThat(savedSettings.getLanguage(), is(equalTo(Languages.GERMAN)));
         assertThat(savedSettings.isUsingMetricUnits(), is(false));
-
-        settingsFile.delete();
     }
-
-
-
-
  }
