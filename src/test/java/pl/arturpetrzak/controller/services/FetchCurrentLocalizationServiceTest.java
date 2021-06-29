@@ -109,6 +109,8 @@ class FetchCurrentLocalizationServiceTest {
     @Test
     void shouldThrowExceptionWithProperMessageWhenResponseCodeIsDifferentThan200() {
         //given
+        Call call = mock(Call.class);
+        Response response = mock(Response.class);
         given(okHttpClient.newCall(any(Request.class))).willReturn(call);
         given(response.code()).willReturn(199);
 
