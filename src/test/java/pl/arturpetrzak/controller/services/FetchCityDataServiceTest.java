@@ -3,12 +3,14 @@ package pl.arturpetrzak.controller.services;
 import com.adelean.inject.resources.junit.jupiter.GivenTextResource;
 import com.adelean.inject.resources.junit.jupiter.TestWithResources;
 import okhttp3.*;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
@@ -22,8 +24,10 @@ import java.io.IOException;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.mock;
 
 @TestWithResources
 @ExtendWith(MockitoExtension.class)
@@ -31,15 +35,6 @@ class FetchCityDataServiceTest {
 
     @Mock
     private OkHttpClient okHttpClient;
-
-    @Mock
-    private Response response;
-
-    @Mock
-    private ResponseBody responseBody;
-
-    @Mock
-    private Call call;
 
     private MockedStatic<Config> config;
 
@@ -51,6 +46,9 @@ class FetchCityDataServiceTest {
 
     @GivenTextResource("json/accuWeatherCityDataParsedResponse.json")
     protected String parsedServerResponse;
+
+    @GivenTextResource("json/accuWeatherCityDataUnParsableResponse.json")
+    protected String unParsableServerResponse;
 
     @BeforeEach
     void setup() {
@@ -88,7 +86,6 @@ class FetchCityDataServiceTest {
         JSONObject jsonObject = fetchCityDataService.parseResponse(serverResponse);
 
         //then
-        assertThat(jsonObject.isEmpty(), is(false));
         assertThat(jsonObject.toString(), equalTo(parsedJsonObject.toString()));
 
     }
@@ -97,16 +94,64 @@ class FetchCityDataServiceTest {
     void shouldReturnProperCityId() throws IOException {
 
         //given
-        given(okHttpClient.newCall(any(Request.class))).willReturn(call);
-        given(call.execute()).willReturn(response);
-        given(response.code()).willReturn(200);
-        given(response.body()).willReturn(responseBody);
-        given(responseBody.string()).willReturn(serverResponse);
+        mockHttpCall(200, this.serverResponse);
 
         //when
         FetchDataResult fetchDataResult = fetchCityDataService.fetchData();
 
+        //then
         assertThat(fetchDataResult, is(equalTo(FetchDataResult.SUCCESS)));
         assertThat(fetchCityDataService.getCityId(), is(equalTo("264658")));
+    }
+
+    @Test
+    void shouldReturnNullWhenResponseIsEmpty(){
+
+        //given
+        String emptyResponse = "[]";
+
+        //when
+        JSONObject jsonObject = fetchCityDataService.parseResponse(emptyResponse);
+
+        //then
+        assertThat(jsonObject, is(equalTo(null)));
+    }
+
+    @Test
+    void shouldReturnEmptyResponseResultWhenResponseIsEmpty() throws IOException {
+
+        //given
+        mockHttpCall(200, "[]");
+
+        //when
+        FetchDataResult fetchDataResult = fetchCityDataService.fetchData();
+
+        //then
+        assertThat(fetchDataResult, is(equalTo(FetchDataResult.RESPONSE_EMPTY)));
+    }
+
+
+    @Test
+    void shouldThrowExceptionWhenResponseIsUnParsable() {
+
+        //given
+        //when
+        Executable executable = () -> fetchCityDataService.parseResponse(unParsableServerResponse);
+
+        //then
+        assertThrows(JSONException.class, executable);
+    }
+
+    private void mockHttpCall(int status, String serverResponse) throws IOException {
+
+        Call call = mock(Call.class);
+        Response response = mock(Response.class);
+        ResponseBody responseBody = mock(ResponseBody.class);
+
+        given(okHttpClient.newCall(any())).willReturn(call);
+        given(call.execute()).willReturn(response);
+        given(response.code()).willReturn(status);
+        given(response.body()).willReturn(responseBody);
+        given(responseBody.string()).willReturn(serverResponse);
     }
 }
