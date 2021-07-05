@@ -1,5 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>pl.arturpetrzak</groupId>
     <artifactId>WeatherApp</artifactId>
@@ -20,19 +20,19 @@
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics </artifactId>
+            <artifactId>javafx-graphics</artifactId>
             <version>${javafx.version}</version>
             <classifier>linux</classifier>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics </artifactId>
+            <artifactId>javafx-graphics</artifactId>
             <version>${javafx.version}</version>
             <classifier>win</classifier>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics </artifactId>
+            <artifactId>javafx-graphics</artifactId>
             <version>${javafx.version}</version>
             <classifier>mac</classifier>
         </dependency>
@@ -112,7 +112,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M5</version>
                 <configuration>
-<!--                    <argLine>&#45;&#45;add-opens pl.arturpetrzak=ALL-UNNAMED</argLine> Uncomment for mvn test to work-->
+                    <!--                    <argLine>&#45;&#45;add-opens pl.arturpetrzak=ALL-UNNAMED</argLine> Uncomment for mvn test to work-->
                     <forkCount>0</forkCount>
                 </configuration>
             </plugin>
@@ -147,7 +147,8 @@
                         </filter>
                     </filters>
                     <transformers>
-                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                        <transformer
+                                implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                             <mainClass>pl.arturpetrzak.StarterApp</mainClass>
                         </transformer>
                     </transformers>

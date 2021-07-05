@@ -2,11 +2,13 @@ package pl.arturpetrzak.controller.services;
 
 import com.adelean.inject.resources.junit.jupiter.GivenTextResource;
 import com.adelean.inject.resources.junit.jupiter.TestWithResources;
-import okhttp3.*;
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,11 +24,11 @@ import pl.arturpetrzak.controller.FetchDataResult;
 import java.io.IOException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
 
 @TestWithResources
@@ -105,7 +107,7 @@ class FetchCityDataServiceTest {
     }
 
     @Test
-    void shouldReturnNullWhenResponseIsEmpty(){
+    void shouldReturnNullWhenResponseIsEmpty() {
 
         //given
         String emptyResponse = "[]";

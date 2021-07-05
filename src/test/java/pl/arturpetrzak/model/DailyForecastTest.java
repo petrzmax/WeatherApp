@@ -1,13 +1,10 @@
 package pl.arturpetrzak.model;
 
-import com.adelean.inject.resources.junit.jupiter.GivenJsonResource;
 import com.adelean.inject.resources.junit.jupiter.GivenTextResource;
 import com.adelean.inject.resources.junit.jupiter.TestWithResources;
 import org.json.JSONObject;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.hamcrest.MatcherAssert.assertThat;
