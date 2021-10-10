@@ -4,15 +4,15 @@ package pl.arturpetrzak;
 
 public class Config {
     //These API keys will be used as default. If You will set Your own in settings, these will be overridden.
-    private static String ACCUWEATHER_API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
-    private static String IPSTACK_API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+    private static String ACCUWEATHER_API_KEY = "Put_Your_API_Key_Here";
+    private static String IPSTACK_API_KEY = "Put_Your_API_Key_Here";
 
     private final static String CITY_SEARCH_API_URL = "https://dataservice.accuweather.com/locations/v1/cities/search";
     private final static String CURRENT_CITY_BY_IP_API_URL = "http://api.ipstack.com/check";
     private final static String DAILY_WEATHER_FORECAST_API_URL = "https://dataservice.accuweather.com/forecasts/v1/daily/5day/";
 
     private final static String APP_NAME = "WeatherApp";
-    private final static String VERSION = "v1.1";
+    private final static String VERSION = "v1.1.1";
 
     // View settings
     private final static int TEXT_FIELD_CAPACITY = 50;
