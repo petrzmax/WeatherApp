@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import pl.arturpetrzak.Config;
 import pl.arturpetrzak.DailyForecastManager;
 import pl.arturpetrzak.Languages;
 import pl.arturpetrzak.controller.*;
@@ -25,12 +26,12 @@ public class ViewFactory {
 
     public void showMainWindow() {
         BaseController controller = new MainWindowController(dailyForecastManager, this, "MainWindow.fxml");
-        initializeStage(controller);
+        initializeStage(controller, Config.getAppName() + " " + Config.getVersion());
     }
 
     public void showSettingsWindow() {
         BaseController controller = new SettingsWindowController(this, "SettingsWindow.fxml");
-        Stage stage = initializeStage(controller);
+        Stage stage = initializeStage(controller, "Settings");
 
         stage.setOnHiding(event -> settingsWindowInitialized = false);
         settingsWindowInitialized = true;
@@ -38,13 +39,13 @@ public class ViewFactory {
 
     public void showAboutWindow() {
         BaseController controller = new AboutWindowController(this, "AboutWindow.fxml");
-        Stage stage = initializeStage(controller);
+        Stage stage = initializeStage(controller, "About");
 
         stage.setOnHiding(event -> aboutWindowInitialized = false);
         aboutWindowInitialized = true;
     }
 
-    private Stage initializeStage(BaseController baseController) {
+    private Stage initializeStage(BaseController baseController, String stageTitle) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(baseController.getFxmlName()));
         fxmlLoader.setController(baseController);
         Parent parent;
@@ -63,6 +64,7 @@ public class ViewFactory {
         stage.initStyle(StageStyle.UNIFIED);
         stage.setMinWidth(parent.minWidth(-1));
         stage.setMinHeight(parent.minHeight(-1));
+        stage.setTitle(stageTitle);
         stage.show();
 
         return stage;
